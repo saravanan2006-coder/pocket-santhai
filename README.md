@@ -1,7 +1,7 @@
 <p align="center">
   <a href="#">
     <samp>
-      <img alt="சந்தை" width="256" height="auto" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='80'%3E%3Ctext x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='serif' font-size='48' fill='%23A84331' font-weight='bold'%3Eசந்தை%3C/text%3E%3C/svg%3E">
+      <img alt="Pocketசந்தை" width="256" height="auto" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='80'%3E%3Ctext x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='serif' font-size='48' fill='%23A84331' font-weight='bold'%3Eசந்தை%3C/text%3E%3C/svg%3E">
     </samp>
   </a>
 </p>
@@ -15,7 +15,7 @@
   <img src="https://img.shields.io/badge/License-MIT-red?style=for-the-badge" alt="License">
 </p>
 
-<h1 align="center">சந்தை — பேரங்காடி.com</h1>
+<h1 align="center">Pocketசந்தை.com</h1>
 
 <p align="center">
   <strong>Tamil Nadu's Premier B2B Wholesale Marketplace</strong><br>
@@ -37,7 +37,7 @@
 
 ## 🧭 About
 
-**சந்தை (Santhai)** — literally *"marketplace"* in Tamil — is a full-stack B2B web application built with Django that bridges the gap between **wholesale sellers** and **retailers** across all **38 districts of Tamil Nadu**.
+**Pocketசந்தை (pocketSanthai)** — literally *"marketplace"* in Tamil — is a full-stack B2B web application built with Django that bridges the gap between **wholesale sellers** and **retailers** across all **38 districts of Tamil Nadu**.
 
 Wholesalers upload their stock, manage their business profiles, and become discoverable. Retailers search products, compare prices across agencies, bookmark favorites, and contact suppliers directly.
 
@@ -219,12 +219,12 @@ CustomUser ───────────────────────
 ### Landing Page
 ```
 ┌─────────────────────────────────────────────────────────┐
-│  பேரங்காடி.com                    [Login] [Register]      │
+│  pocketசந்தை.com                    [Login] [Register]  |
 ├─────────────────────────────────────────────────────────┤
 │                                                         │
-│   [Illustration]      சந்தை        [Illustration]      │
-│                    தமிழ்நாட்டின் மொத்த                  │
-│                     விற்பனை மையம்                     │
+│   [Illustration]   pocketசந்தை        [Illustration]     │
+│                    தமிழ்நாட்டின் மொத்த                      │
+│                     விற்பனை மையம்                        │
 │                                                         │
 │          ┌─────────────────────────────────┐            │
 │          │ 🔍 Search Products / தேடல்... │ [தேடல்] │            │
