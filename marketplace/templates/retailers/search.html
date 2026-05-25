@@ -15,11 +15,11 @@
         <form method="get" style="display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:1rem;align-items:end;">
             <div>
                 <label style="font-weight:500;font-size:0.85rem;color:var(--brown);margin-bottom:0.35rem;display:block;">Search Item</label>
-                <input type="text" name="q" class="form-control" placeholder="e.g., Rice, Sugar, Oil..." value="{{ query }}" style="border:2px solid #eee;border-radius:10px;padding:0.7rem 1rem;width:100%;">
+                <input type="text" name="q" placeholder="e.g., Rice, Sugar, Oil..." value="{{ query }}">
             </div>
             <div>
                 <label class="tamil" style="font-weight:500;font-size:0.85rem;color:var(--brown);margin-bottom:0.35rem;display:block;">மாவட்டம்</label>
-                <select name="district" style="border:2px solid #eee;border-radius:10px;padding:0.7rem 1rem;width:100%;font-family:inherit;background:white;">
+                <select name="district">
                     <option value="">All Districts</option>
                     {% for d in districts %}
                     <option value="{{ d }}" {% if district == d %}selected{% endif %}>{{ d }}</option>
@@ -28,7 +28,7 @@
             </div>
             <div>
                 <label style="font-weight:500;font-size:0.85rem;color:var(--brown);margin-bottom:0.35rem;display:block;">Category</label>
-                <select name="category" style="border:2px solid #eee;border-radius:10px;padding:0.7rem 1rem;width:100%;font-family:inherit;background:white;">
+                <select name="category">
                     <option value="">All Categories</option>
                     {% for c in categories %}
                     <option value="{{ c }}" {% if category == c %}selected{% endif %}>{{ c }}</option>
@@ -41,22 +41,29 @@
         </form>
     </div>
 
-    <!-- Results Info -->
-    {% if query or district or category %}
-    <p style="color:#888;margin-bottom:1.5rem;font-size:0.9rem;">
-        {% if query %}Showing results for "<strong>{{ query }}</strong>"{% endif %}
-        {% if district %} in <strong>{{ district }}</strong>{% endif %}
-        {% if category %} (Category: <strong>{{ category }}</strong>){% endif %}
-        — <strong>{{ items|length }}</strong> result(s)
-    </p>
+    {% if items %}
+    <!-- Compare Bar -->
+    {% if user.is_authenticated %}
+    <div style="background:white;border-radius:12px;padding:0.75rem 1.25rem;margin-bottom:1.5rem;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--shadow);">
+        <div>
+            <i class="fas fa-check-square" style="color:var(--mustard);margin-right:0.5rem;"></i>
+            <span style="font-size:0.9rem;color:var(--brown);">Select items to compare:</span>
+            <span id="compareCount" style="font-weight:600;color:var(--terracotta);">0</span>
+            <span style="font-size:0.85rem;color:#999;">selected</span>
+        </div>
+        <form action="{% url 'compare' %}" method="get" id="compareForm">
+            <button type="submit" id="compareBtn" class="btn-submit" style="padding:0.5rem 1.25rem;font-size:0.9rem;" disabled>
+                <i class="fas fa-columns"></i> Compare Selected
+            </button>
+        </form>
+    </div>
     {% endif %}
 
     <!-- Results -->
-    {% if items %}
     <div style="display:flex;flex-direction:column;gap:1rem;">
         {% for item in items %}
         <div style="background:white;border-radius:16px;padding:1.5rem;box-shadow:var(--shadow);border-left:4px solid var(--mustard);transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">
-            <div style="display:grid;grid-template-columns:1.5fr 1fr 2fr;gap:1.5rem;align-items:center;">
+            <div style="display:grid;grid-template-columns:1.5fr 1fr 2fr auto;gap:1.5rem;align-items:center;">
                 <div>
                     <h4 style="margin-bottom:0.25rem;color:var(--charcoal);">{{ item.name }}</h4>
                     <span style="background:#eee;color:var(--brown);padding:2px 10px;border-radius:50px;font-size:0.8rem;font-weight:500;">{{ item.category }}</span>
@@ -87,10 +94,29 @@
                     </p>
                     {% endif %}
                 </div>
+                <div style="text-align:center;display:flex;flex-direction:column;gap:0.5rem;">
+                    {% if user.is_authenticated %}
+                    <!-- Compare Checkbox -->
+                    <label style="display:flex;align-items:center;justify-content:center;gap:0.35rem;cursor:pointer;font-size:0.85rem;color:var(--brown);" title="Select to compare">
+                        <input type="checkbox" class="compare-check" value="{{ item.pk }}" onchange="updateCompare()" style="accent-color:var(--terracotta);transform:scale(1.2);">
+                        Compare
+                    </label>
+                    <!-- Bookmark Button -->
+                    <a href="{% url 'toggle_bookmark' item.pk %}" class="bookmark-btn {% if item.pk in bookmarked_ids %}bookmarked{% endif %}" style="display:flex;align-items:center;justify-content:center;gap:0.35rem;padding:0.5rem 0.75rem;border-radius:8px;text-decoration:none;font-size:0.85rem;transition:all 0.2s;">
+                        <i class="fas fa-bookmark" style="{% if item.pk in bookmarked_ids %}color:var(--mustard);{% else %}color:#ccc;{% endif %}"></i>
+                        {% if item.pk in bookmarked_ids %}Saved{% else %}Save{% endif %}
+                    </a>
+                    {% endif %}
+                </div>
             </div>
         </div>
         {% endfor %}
     </div>
+
+    <p style="text-align:center;color:#999;font-size:0.9rem;margin-top:1.5rem;">
+        Showing <strong>{{ items|length }}</strong> result(s)
+    </p>
+
     {% elif query or district or category %}
     <div style="text-align:center;padding:3rem 0;">
         <i class="fas fa-search-minus" style="font-size:3rem;color:#ddd;display:block;margin-bottom:1rem;"></i>
@@ -105,5 +131,31 @@
     </div>
     {% endif %}
 </div>
+
+{% if user.is_authenticated %}
+<script>
+function updateCompare() {
+    var checks = document.querySelectorAll('.compare-check:checked');
+    var count = checks.length;
+    document.getElementById('compareCount').textContent = count;
+    var btn = document.getElementById('compareBtn');
+    btn.disabled = count < 2;
+    if (count >= 2) {
+        btn.style.opacity = '1';
+    } else {
+        btn.style.opacity = '0.5';
+    }
+    var form = document.getElementById('compareForm');
+    form.querySelectorAll('input[name="items"]').forEach(function(i){i.remove()});
+    checks.forEach(function(c){
+        var inp = document.createElement('input');
+        inp.type = 'hidden';
+        inp.name = 'items';
+        inp.value = c.value;
+        form.appendChild(inp);
+    });
+}
+</script>
+{% endif %}
 
 {% endblock %}

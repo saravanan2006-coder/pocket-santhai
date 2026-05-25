@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block title %}Compare - சந்தை{% endblock %}
+{% block content %}
+<div class="page-header">
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div>
+            <h2 style="margin-bottom:0.25rem;"><i class="fas fa-columns" style="color:var(--mustard);"></i> Compare Items</h2>
+            <p class="tamil" style="color:var(--brown);font-size:0.9rem;margin:0;">உருப்படிகளை ஒப்பிடுக</p>
+        </div>
+        <a href="{% url 'search' %}" class="btn-cancel"><i class="fas fa-arrow-left"></i> Back to Search</a>
+    </div>
+</div>
+
+<div class="page-content">
+    <div style="background:white;border-radius:16px;overflow:hidden;box-shadow:var(--shadow);">
+        <div style="overflow-x:auto;">
+            <table style="width:100%;border-collapse:collapse;min-width:600px;">
+                <thead>
+                    <tr>
+                        <th style="text-align:left;padding:1rem 1.25rem;background:var(--bg-cream);font-weight:600;color:var(--brown);font-size:0.85rem;text-transform:uppercase;letter-spacing:0.5px;border-bottom:2px solid #eee;width:200px;"></th>
+                        {% for item in items %}
+                        <th style="text-align:center;padding:1rem 1.25rem;background:var(--bg-cream);border-bottom:2px solid #eee;min-width:180px;">
+                            <h4 style="margin-bottom:0.25rem;color:var(--charcoal);">{{ item.name }}</h4>
+                            <span style="background:#eee;color:var(--brown);padding:2px 10px;border-radius:50px;font-size:0.8rem;">{{ item.category }}</span>
+                        </th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding:1rem 1.25rem;font-weight:600;color:var(--brown);border-bottom:1px solid #f5f5f5;"><i class="fas fa-rupee-sign" style="margin-right:0.5rem;"></i> Price</td>
+                        {% for item in items %}
+                        <td style="padding:1rem 1.25rem;text-align:center;border-bottom:1px solid #f5f5f5;font-weight:700;color:var(--terracotta);font-size:1.1rem;">₹{{ item.price }}/{{ item.unit }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td style="padding:1rem 1.25rem;font-weight:600;color:var(--brown);border-bottom:1px solid #f5f5f5;"><i class="fas fa-boxes" style="margin-right:0.5rem;"></i> Stock Qty</td>
+                        {% for item in items %}
+                        <td style="padding:1rem 1.25rem;text-align:center;border-bottom:1px solid #f5f5f5;font-size:1.1rem;">{{ item.quantity }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td style="padding:1rem 1.25rem;font-weight:600;color:var(--brown);border-bottom:1px solid #f5f5f5;"><i class="fas fa-store" style="margin-right:0.5rem;"></i> Seller</td>
+                        {% for item in items %}
+                        <td style="padding:1rem 1.25rem;text-align:center;border-bottom:1px solid #f5f5f5;font-weight:600;">{{ item.seller.seller_profile.business_name }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td style="padding:1rem 1.25rem;font-weight:600;color:var(--brown);border-bottom:1px solid #f5f5f5;"><i class="fas fa-map-marker-alt" style="margin-right:0.5rem;"></i> Address</td>
+                        {% for item in items %}
+                        <td style="padding:1rem 1.25rem;text-align:center;border-bottom:1px solid #f5f5f5;color:var(--brown);font-size:0.9rem;">{{ item.seller.seller_profile.address }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td style="padding:1rem 1.25rem;font-weight:600;color:var(--brown);border-bottom:1px solid #f5f5f5;"><i class="fas fa-map" style="margin-right:0.5rem;"></i> District</td>
+                        {% for item in items %}
+                        <td style="padding:1rem 1.25rem;text-align:center;border-bottom:1px solid #f5f5f5;">{{ item.seller.seller_profile.district }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td style="padding:1rem 1.25rem;font-weight:600;color:var(--brown);border-bottom:1px solid #f5f5f5;"><i class="fas fa-phone" style="margin-right:0.5rem;"></i> Phone</td>
+                        {% for item in items %}
+                        <td style="padding:1rem 1.25rem;text-align:center;border-bottom:1px solid #f5f5f5;font-weight:600;font-size:0.95rem;">{{ item.seller.seller_profile.phone }}</td>
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td style="padding:1rem 1.25rem;font-weight:600;color:var(--brown);border-bottom:1px solid #f5f5f5;"><i class="fas fa-envelope" style="margin-right:0.5rem;"></i> Email</td>
+                        {% for item in items %}
+                        <td style="padding:1rem 1.25rem;text-align:center;border-bottom:1px solid #f5f5f5;font-size:0.9rem;">{{ item.seller.seller_profile.email|default:"—" }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% if items.0.description or items|length > 1 and items.1.description %}
+                    <tr>
+                        <td style="padding:1rem 1.25rem;font-weight:600;color:var(--brown);border-bottom:1px solid #f5f5f5;"><i class="fas fa-info-circle" style="margin-right:0.5rem;"></i> Description</td>
+                        {% for item in items %}
+                        <td style="padding:1rem 1.25rem;text-align:center;border-bottom:1px solid #f5f5f5;color:#666;font-size:0.9rem;">{{ item.description|default:"—" }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

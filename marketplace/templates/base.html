@@ -221,6 +221,22 @@
             background: #fff5f5 !important;
         }
 
+        /* Bookmark Button */
+        .bookmark-btn {
+            background: var(--bg-cream);
+            color: var(--brown);
+        }
+        .bookmark-btn:hover {
+            background: #fff8e1;
+        }
+        .bookmark-btn.bookmarked {
+            background: #fff8e1;
+            border: 1px solid var(--mustard);
+        }
+        .bookmark-btn.bookmarked i {
+            color: var(--mustard) !important;
+        }
+
         .nav-auth-links {
             display: flex;
             align-items: center;
@@ -717,6 +733,8 @@
                         {% if user.role == 'seller' %}
                             <a href="{% url 'seller_dashboard' %}" class="dropdown-item"><i class="fas fa-boxes"></i> My Stock</a>
                             <a href="{% url 'seller_profile' %}" class="dropdown-item"><i class="fas fa-user-edit"></i> Edit Profile</a>
+                        {% else %}
+                            <a href="{% url 'bookmarks' %}" class="dropdown-item"><i class="fas fa-bookmark"></i> My Bookmarks</a>
                         {% endif %}
                         <form action="{% url 'logout' %}" method="post">
                             {% csrf_token %}
@@ -732,6 +750,14 @@
             {% endif %}
         </div>
     </nav>
+
+    <!-- EMAIL VERIFICATION WARNING -->
+    {% if user.is_authenticated and not user.email_verified and user.email %}
+    <div style="background:#fff3cd;color:#856404;padding:0.75rem 2rem;text-align:center;font-size:0.9rem;">
+        <i class="fas fa-exclamation-triangle"></i> Your email is not verified. Please check your inbox or
+        <a href="{% url 'resend_verification' %}" style="color:#856404;font-weight:600;">resend verification email</a>.
+    </div>
+    {% endif %}
 
     <!-- MESSAGES -->
     {% if messages %}
