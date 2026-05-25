@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block title %}Search - சந்தை{% endblock %}
+{% block content %}
+
+<!-- Search Header -->
+<div style="background:linear-gradient(135deg,var(--mustard),var(--mustard-dark));padding:2rem;text-align:center;">
+    <h2 class="tamil" style="color:white;font-size:2rem;font-weight:800;margin-bottom:0.5rem;">தேடல்</h2>
+    <p style="color:rgba(255,255,255,0.85);font-size:0.95rem;">Find Products Across Tamil Nadu Wholesalers</p>
+</div>
+
+<div style="max-width:1100px;margin:0 auto;padding:2rem;">
+
+    <!-- Filter Section -->
+    <div style="background:white;border-radius:16px;padding:1.5rem;box-shadow:var(--shadow);margin-bottom:2rem;">
+        <form method="get" style="display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:1rem;align-items:end;">
+            <div>
+                <label style="font-weight:500;font-size:0.85rem;color:var(--brown);margin-bottom:0.35rem;display:block;">Search Item</label>
+                <input type="text" name="q" class="form-control" placeholder="e.g., Rice, Sugar, Oil..." value="{{ query }}" style="border:2px solid #eee;border-radius:10px;padding:0.7rem 1rem;width:100%;">
+            </div>
+            <div>
+                <label class="tamil" style="font-weight:500;font-size:0.85rem;color:var(--brown);margin-bottom:0.35rem;display:block;">மாவட்டம்</label>
+                <select name="district" style="border:2px solid #eee;border-radius:10px;padding:0.7rem 1rem;width:100%;font-family:inherit;background:white;">
+                    <option value="">All Districts</option>
+                    {% for d in districts %}
+                    <option value="{{ d }}" {% if district == d %}selected{% endif %}>{{ d }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label style="font-weight:500;font-size:0.85rem;color:var(--brown);margin-bottom:0.35rem;display:block;">Category</label>
+                <select name="category" style="border:2px solid #eee;border-radius:10px;padding:0.7rem 1rem;width:100%;font-family:inherit;background:white;">
+                    <option value="">All Categories</option>
+                    {% for c in categories %}
+                    <option value="{{ c }}" {% if category == c %}selected{% endif %}>{{ c }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" style="background:var(--terracotta);color:white;border:none;padding:0.7rem 1.5rem;border-radius:10px;font-weight:600;font-family:inherit;cursor:pointer;white-space:nowrap;">
+                <i class="fas fa-search"></i> தேடல்
+            </button>
+        </form>
+    </div>
+
+    <!-- Results Info -->
+    {% if query or district or category %}
+    <p style="color:#888;margin-bottom:1.5rem;font-size:0.9rem;">
+        {% if query %}Showing results for "<strong>{{ query }}</strong>"{% endif %}
+        {% if district %} in <strong>{{ district }}</strong>{% endif %}
+        {% if category %} (Category: <strong>{{ category }}</strong>){% endif %}
+        — <strong>{{ items|length }}</strong> result(s)
+    </p>
+    {% endif %}
+
+    <!-- Results -->
+    {% if items %}
+    <div style="display:flex;flex-direction:column;gap:1rem;">
+        {% for item in items %}
+        <div style="background:white;border-radius:16px;padding:1.5rem;box-shadow:var(--shadow);border-left:4px solid var(--mustard);transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">
+            <div style="display:grid;grid-template-columns:1.5fr 1fr 2fr;gap:1.5rem;align-items:center;">
+                <div>
+                    <h4 style="margin-bottom:0.25rem;color:var(--charcoal);">{{ item.name }}</h4>
+                    <span style="background:#eee;color:var(--brown);padding:2px 10px;border-radius:50px;font-size:0.8rem;font-weight:500;">{{ item.category }}</span>
+                    {% if item.description %}
+                    <p style="color:#999;font-size:0.8rem;margin-top:0.5rem;">{{ item.description|truncatechars:80 }}</p>
+                    {% endif %}
+                </div>
+                <div style="text-align:center;">
+                    <div style="font-size:1.5rem;font-weight:700;color:var(--terracotta);">₹{{ item.price }}<span style="font-size:0.85rem;color:#999;font-weight:400;">/{{ item.unit }}</span></div>
+                    <small style="color:#999;">Stock: {{ item.quantity }}</small>
+                </div>
+                <div style="background:var(--bg-cream);padding:1rem;border-radius:12px;">
+                    <div style="font-weight:600;color:var(--charcoal);margin-bottom:0.35rem;">
+                        <i class="fas fa-store" style="color:var(--mustard);"></i> {{ item.seller.seller_profile.business_name }}
+                    </div>
+                    <p style="font-size:0.85rem;color:var(--brown);margin-bottom:0.25rem;">
+                        <i class="fas fa-map-marker-alt" style="color:var(--terracotta);"></i> {{ item.seller.seller_profile.address }}
+                    </p>
+                    <p style="font-size:0.85rem;margin-bottom:0.25rem;">
+                        <strong>District:</strong> {{ item.seller.seller_profile.district }}
+                    </p>
+                    <p style="font-size:0.9rem;margin-bottom:0.15rem;">
+                        <i class="fas fa-phone" style="color:var(--mustard);"></i> <strong>{{ item.seller.seller_profile.phone }}</strong>
+                    </p>
+                    {% if item.seller.seller_profile.email %}
+                    <p style="font-size:0.85rem;color:#666;">
+                        <i class="fas fa-envelope" style="color:#888;"></i> {{ item.seller.seller_profile.email }}
+                    </p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% elif query or district or category %}
+    <div style="text-align:center;padding:3rem 0;">
+        <i class="fas fa-search-minus" style="font-size:3rem;color:#ddd;display:block;margin-bottom:1rem;"></i>
+        <h4 style="color:#999;">No results found</h4>
+        <p style="color:#bbb;">Try adjusting your search or filter criteria.</p>
+    </div>
+    {% else %}
+    <div style="text-align:center;padding:3rem 0;">
+        <i class="fas fa-search" style="font-size:3rem;color:#ddd;display:block;margin-bottom:1rem;"></i>
+        <h4 style="color:#999;">Search for wholesale products</h4>
+        <p style="color:#bbb;">Use the filters above to find suppliers across Tamil Nadu.</p>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}

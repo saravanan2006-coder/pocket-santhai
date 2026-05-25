@@ -1,0 +1,440 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- HERO SECTION -->
+<section class="hero">
+
+    <!-- LEFT ILLUSTRATION: Tamil Merchants -->
+    <svg class="hero-illustration left" viewBox="0 0 280 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Background decorative elements -->
+        <circle cx="140" cy="200" r="160" fill="rgba(255,255,255,0.08)"/>
+        <circle cx="100" cy="120" r="6" fill="rgba(255,255,255,0.15)"/>
+        <circle cx="200" cy="80" r="4" fill="rgba(255,255,255,0.12)"/>
+        <circle cx="160" cy="350" r="5" fill="rgba(255,255,255,0.1)"/>
+
+        <!-- Merchant Character 1 - Sitting with textile -->
+        <!-- Body -->
+        <rect x="50" y="220" width="55" height="80" rx="8" fill="#FFF3E0" stroke="#6D432A" stroke-width="2"/>
+        <!-- Head -->
+        <circle cx="77" cy="200" r="28" fill="#F5D5B8" stroke="#6D432A" stroke-width="2"/>
+        <!-- Hair -->
+        <path d="M52 195 Q55 175 77 172 Q99 175 102 195" fill="#4A2C17" stroke="#6D432A" stroke-width="1.5"/>
+        <!-- Eyes -->
+        <ellipse cx="68" cy="202" rx="3" ry="3.5" fill="#4A2C17"/>
+        <ellipse cx="86" cy="202" rx="3" ry="3.5" fill="#4A2C17"/>
+        <circle cx="69" cy="201" r="1" fill="white"/>
+        <circle cx="87" cy="201" r="1" fill="white"/>
+        <!-- Smile -->
+        <path d="M68 212 Q77 220 86 212" stroke="#6D432A" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <!-- Veshti (dhoti) -->
+        <rect x="48" y="290" width="58" height="60" rx="6" fill="#FFFDE7" stroke="#6D432A" stroke-width="2"/>
+        <line x1="55" y1="320" x2="98" y2="320" stroke="#D59A2B" stroke-width="1.5"/>
+        <line x1="55" y1="330" x2="98" y2="330" stroke="#D59A2B" stroke-width="1.5"/>
+        <!-- Arms holding textile -->
+        <path d="M50 245 Q30 260 35 290" stroke="#F5D5B8" stroke-width="8" stroke-linecap="round"/>
+        <path d="M105 245 Q125 260 120 290" stroke="#F5D5B8" stroke-width="8" stroke-linecap="round"/>
+        <!-- Textile/Saree being held -->
+        <rect x="25" y="270" width="105" height="55" rx="6" fill="#A84331" stroke="#6D432A" stroke-width="2"/>
+        <rect x="30" y="275" width="95" height="10" rx="3" fill="#D59A2B"/>
+        <rect x="30" y="290" width="95" height="10" rx="3" fill="#C45B4A"/>
+        <rect x="30" y="305" width="95" height="10" rx="3" fill="#D59A2B"/>
+        <!-- Decorative pattern on textile -->
+        <circle cx="55" cy="300" r="3" fill="#FFF3E0"/>
+        <circle cx="77" cy="300" r="3" fill="#FFF3E0"/>
+        <circle cx="100" cy="300" r="3" fill="#FFF3E0"/>
+
+        <!-- Merchant Character 2 - Standing with goods -->
+        <!-- Body -->
+        <rect x="170" y="160" width="50" height="75" rx="8" fill="#E8F5E9" stroke="#6D432A" stroke-width="2"/>
+        <!-- Head -->
+        <circle cx="195" cy="140" r="25" fill="#F5D5B8" stroke="#6D432A" stroke-width="2"/>
+        <!-- Hair -->
+        <path d="M173 135 Q176 118 195 115 Q214 118 217 135" fill="#4A2C17" stroke="#6D432A" stroke-width="1.5"/>
+        <!-- Turban -->
+        <ellipse cx="195" cy="122" rx="22" ry="10" fill="#D59A2B" stroke="#6D432A" stroke-width="1.5"/>
+        <!-- Eyes -->
+        <ellipse cx="187" cy="142" rx="2.5" ry="3" fill="#4A2C17"/>
+        <ellipse cx="203" cy="142" rx="2.5" ry="3" fill="#4A2C17"/>
+        <circle cx="188" cy="141" r="0.8" fill="white"/>
+        <circle cx="204" cy="141" r="0.8" fill="white"/>
+        <!-- Smile -->
+        <path d="M187 150 Q195 157 203 150" stroke="#6D432A" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <!-- Veshti -->
+        <rect x="168" y="225" width="55" height="55" rx="6" fill="#FFFDE7" stroke="#6D432A" stroke-width="2"/>
+        <!-- Arms -->
+        <path d="M170 180 Q155 195 150 215" stroke="#F5D5B8" stroke-width="7" stroke-linecap="round"/>
+        <path d="M220 180 Q235 195 240 215" stroke="#F5D5B8" stroke-width="7" stroke-linecap="round"/>
+        <!-- Sack of goods -->
+        <ellipse cx="145" cy="235" rx="18" ry="25" fill="#D4A76A" stroke="#6D432A" stroke-width="2"/>
+        <path d="M130 220 Q145 210 160 220" fill="#C3925A" stroke="#6D432A" stroke-width="1.5"/>
+        <!-- Another sack -->
+        <ellipse cx="245" cy="240" rx="16" ry="22" fill="#C9A96E" stroke="#6D432A" stroke-width="2"/>
+
+        <!-- Sacks on ground -->
+        <ellipse cx="80" cy="370" rx="25" ry="20" fill="#D4A76A" stroke="#6D432A" stroke-width="2"/>
+        <ellipse cx="130" cy="365" rx="22" ry="18" fill="#C9A96E" stroke="#6D432A" stroke-width="2"/>
+        <ellipse cx="190" cy="360" rx="20" ry="16" fill="#D4A76A" stroke="#6D432A" stroke-width="2"/>
+        <!-- Spice bags -->
+        <circle cx="230" cy="365" r="12" fill="#A84331" stroke="#6D432A" stroke-width="1.5"/>
+        <circle cx="250" cy="370" r="10" fill="#D59A2B" stroke="#6D432A" stroke-width="1.5"/>
+
+        <!-- Market stall poles -->
+        <line x1="30" y1="350" x2="30" y2="180" stroke="#6D432A" stroke-width="3"/>
+        <line x1="250" y1="350" x2="250" y2="180" stroke="#6D432A" stroke-width="3"/>
+        <!-- Canopy -->
+        <path d="M25 180 Q140 160 255 180" fill="rgba(168,67,49,0.3)" stroke="#A84331" stroke-width="2"/>
+
+        <!-- Small decorative items -->
+        <rect x="155" y="375" width="30" height="20" rx="3" fill="#A84331" stroke="#6D432A" stroke-width="1.5"/>
+        <rect x="190" y="378" width="25" height="17" rx="3" fill="#6D432A" stroke="#4A2C17" stroke-width="1.5"/>
+    </svg>
+
+    <!-- RIGHT ILLUSTRATION: Delivery Trucks & Traders -->
+    <svg class="hero-illustration right" viewBox="0 0 280 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Background decorative elements -->
+        <circle cx="140" cy="200" r="150" fill="rgba(255,255,255,0.06)"/>
+        <circle cx="80" cy="100" r="5" fill="rgba(255,255,255,0.12)"/>
+        <circle cx="220" cy="350" r="4" fill="rgba(255,255,255,0.1)"/>
+
+        <!-- Delivery Truck -->
+        <!-- Truck body -->
+        <rect x="20" y="230" width="100" height="70" rx="6" fill="#FFFDE7" stroke="#6D432A" stroke-width="2.5"/>
+        <!-- Truck cabin -->
+        <rect x="120" y="255" width="60" height="45" rx="6" fill="#A84331" stroke="#6D432A" stroke-width="2.5"/>
+        <!-- Truck window -->
+        <rect x="130" y="262" width="35" height="20" rx="4" fill="rgba(255,255,255,0.4)" stroke="#6D432A" stroke-width="1.5"/>
+        <!-- Truck wheels -->
+        <circle cx="50" cy="305" r="14" fill="#4A2C17" stroke="#6D432A" stroke-width="2"/>
+        <circle cx="50" cy="305" r="6" fill="#D59A2B" stroke="#6D432A" stroke-width="1"/>
+        <circle cx="155" cy="305" r="14" fill="#4A2C17" stroke="#6D432A" stroke-width="2"/>
+        <circle cx="155" cy="305" r="6" fill="#D59A2B" stroke="#6D432A" stroke-width="1"/>
+        <!-- Truck text -->
+        <text x="45" y="275" font-family="Mukta Malar, sans-serif" font-size="12" fill="#6D432A" font-weight="700">WHOLESALE</text>
+        <!-- Delivery boxes on truck -->
+        <rect x="30" y="238" width="20" height="15" rx="2" fill="#D59A2B" stroke="#6D432A" stroke-width="1"/>
+        <rect x="55" y="238" width="20" height="15" rx="2" fill="#A84331" stroke="#6D432A" stroke-width="1"/>
+        <rect x="80" y="238" width="20" height="15" rx="2" fill="#6D432A" stroke="#FFFDE7" stroke-width="1"/>
+        <rect x="35" y="256" width="25" height="12" rx="2" fill="#A84331" stroke="#6D432A" stroke-width="1"/>
+        <rect x="65" y="256" width="25" height="12" rx="2" fill="#D59A2B" stroke="#6D432A" stroke-width="1"/>
+
+        <!-- Trader standing by sacks -->
+        <!-- Body -->
+        <rect x="200" y="180" width="45" height="70" rx="8" fill="#E3F2FD" stroke="#6D432A" stroke-width="2"/>
+        <!-- Head -->
+        <circle cx="222" cy="160" r="24" fill="#F5D5B8" stroke="#6D432A" stroke-width="2"/>
+        <!-- Hair -->
+        <path d="M201 155 Q204 140 222 137 Q240 140 243 155" fill="#4A2C17" stroke="#6D432A" stroke-width="1.5"/>
+        <!-- Eyes -->
+        <ellipse cx="214" cy="162" rx="2.5" ry="3" fill="#4A2C17"/>
+        <ellipse cx="230" cy="162" rx="2.5" ry="3" fill="#4A2C17"/>
+        <circle cx="215" cy="161" r="0.8" fill="white"/>
+        <circle cx="231" cy="161" r="0.8" fill="white"/>
+        <!-- Smile -->
+        <path d="M214 170 Q222 177 230 170" stroke="#6D432A" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <!-- Veshti -->
+        <rect x="198" y="240" width="50" height="50" rx="6" fill="#FFFDE7" stroke="#6D432A" stroke-width="2"/>
+        <!-- Arms -->
+        <path d="M200 200 Q185 210 180 230" stroke="#F5D5B8" stroke-width="7" stroke-linecap="round"/>
+        <path d="M245 200 Q260 210 265 230" stroke="#F5D5B8" stroke-width="7" stroke-linecap="round"/>
+        <!-- Clipboard in hand -->
+        <rect x="168" y="220" width="16" height="22" rx="2" fill="#FFFDE7" stroke="#6D432A" stroke-width="1.5"/>
+        <line x1="172" y1="228" x2="180" y2="228" stroke="#6D432A" stroke-width="1"/>
+        <line x1="172" y1="232" x2="178" y2="232" stroke="#6D432A" stroke-width="1"/>
+        <line x1="172" y1="236" x2="176" y2="236" stroke="#6D432A" stroke-width="1"/>
+
+        <!-- Sacks of grain/spices -->
+        <ellipse cx="210" cy="330" rx="28" ry="25" fill="#D4A76A" stroke="#6D432A" stroke-width="2"/>
+        <path d="M188 315 Q210 300 232 315" fill="#C3925A" stroke="#6D432A" stroke-width="1.5"/>
+        <ellipse cx="255" cy="340" rx="22" ry="20" fill="#C9A96E" stroke="#6D432A" stroke-width="2"/>
+
+        <!-- Small delivery boxes on ground -->
+        <rect x="180" y="360" width="25" height="18" rx="3" fill="#A84331" stroke="#6D432A" stroke-width="1.5"/>
+        <rect x="210" y="363" width="22" height="15" rx="3" fill="#D59A2B" stroke="#6D432A" stroke-width="1.5"/>
+        <rect x="237" y="365" width="18" height="13" rx="2" fill="#6D432A" stroke="#FFFDE7" stroke-width="1"/>
+
+        <!-- Decorative elements -->
+        <path d="M100 370 Q140 360 180 370" stroke="rgba(255,255,255,0.15)" stroke-width="2" fill="none"/>
+        <circle cx="60" cy="380" r="3" fill="rgba(255,255,255,0.12)"/>
+        <circle cx="240" cy="390" r="4" fill="rgba(255,255,255,0.1)"/>
+
+        <!-- Road line -->
+        <line x1="15" y1="320" x2="265" y2="320" stroke="rgba(255,255,255,0.2)" stroke-width="3" stroke-dasharray="12 8"/>
+    </svg>
+
+    <!-- CENTER CONTENT -->
+    <div class="hero-content">
+        <h1 class="hero-title tamil">Pocket சந்தை</h1>
+        <p class="hero-subtitle tamil">தமிழ்நாட்டின் மொத்த விற்பனை மையம்</p>
+
+        <form action="{% url 'search' %}" method="get" class="hero-search">
+            <span class="search-icon"><i class="fas fa-search"></i></span>
+            <input type="text" name="q" placeholder="Search Products / தேடல்...">
+            <button type="submit">தேடல்</button>
+        </form>
+    </div>
+</section>
+
+<!-- DUAL CARD SYSTEM -->
+<section class="dual-cards">
+
+    <!-- WHOLESALERS CARD -->
+    <div class="role-card">
+        <svg class="illustration" viewBox="0 0 280 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Desk -->
+            <rect x="40" y="130" width="200" height="12" rx="3" fill="#D4A76A" stroke="#6D432A" stroke-width="2"/>
+            <!-- Desk legs -->
+            <rect x="55" y="142" width="8" height="35" rx="2" fill="#6D432A"/>
+            <rect x="217" y="142" width="8" height="35" rx="2" fill="#6D432A"/>
+
+            <!-- Person sitting at desk -->
+            <!-- Chair -->
+            <rect x="100" y="90" width="50" height="50" rx="6" fill="#A84331" stroke="#6D432A" stroke-width="2"/>
+            <rect x="105" y="85" width="40" height="10" rx="4" fill="#C45B4A" stroke="#6D432A" stroke-width="1.5"/>
+            <!-- Chair legs -->
+            <rect x="108" y="140" width="6" height="15" rx="2" fill="#6D432A"/>
+            <rect x="136" y="140" width="6" height="15" rx="2" fill="#6D432A"/>
+
+            <!-- Body -->
+            <rect x="108" y="95" width="34" height="40" rx="6" fill="#E3F2FD" stroke="#6D432A" stroke-width="2"/>
+            <!-- Head -->
+            <circle cx="125" cy="75" r="22" fill="#F5D5B8" stroke="#6D432A" stroke-width="2"/>
+            <!-- Hair -->
+            <path d="M106 72 Q109 56 125 53 Q141 56 144 72" fill="#4A2C17" stroke="#6D432A" stroke-width="1.5"/>
+            <!-- Glasses -->
+            <circle cx="117" cy="77" r="5" fill="none" stroke="#6D432A" stroke-width="1.5"/>
+            <circle cx="133" cy="77" r="5" fill="none" stroke="#6D432A" stroke-width="1.5"/>
+            <line x1="122" y1="77" x2="128" y2="77" stroke="#6D432A" stroke-width="1.5"/>
+            <!-- Eyes -->
+            <circle cx="117" cy="77" r="2" fill="#4A2C17"/>
+            <circle cx="133" cy="77" r="2" fill="#4A2C17"/>
+            <!-- Smile -->
+            <path d="M118 85 Q125 90 132 85" stroke="#6D432A" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <!-- Arms on desk -->
+            <path d="M108 115 Q95 120 88 128" stroke="#F5D5B8" stroke-width="7" stroke-linecap="round"/>
+            <path d="M142 115 Q155 120 162 128" stroke="#F5D5B8" stroke-width="7" stroke-linecap="round"/>
+
+            <!-- Laptop on desk -->
+            <rect x="70" y="108" width="45" height="28" rx="3" fill="#4A2C17" stroke="#6D432A" stroke-width="2"/>
+            <rect x="73" y="111" width="39" height="22" rx="2" fill="#E8F5E9"/>
+            <!-- Laptop screen content -->
+            <rect x="77" y="115" width="15" height="3" rx="1" fill="#A84331"/>
+            <rect x="77" y="121" width="20" height="2" rx="1" fill="#D59A2B"/>
+            <rect x="77" y="126" width="12" height="2" rx="1" fill="#6D432A"/>
+
+            <!-- Tablet in hand -->
+            <rect x="155" y="112" width="22" height="30" rx="4" fill="#FFFDE7" stroke="#6D432A" stroke-width="2"/>
+            <rect x="158" y="116" width="16" height="20" rx="2" fill="#E3F2FD"/>
+            <circle cx="166" cy="139" r="2" fill="#6D432A"/>
+
+            <!-- Delivery boxes stacked behind -->
+            <rect x="215" y="100" width="30" height="22" rx="3" fill="#D59A2B" stroke="#6D432A" stroke-width="1.5"/>
+            <rect x="218" y="105" width="10" height="2" rx="1" fill="#6D432A"/>
+            <rect x="215" y="78" width="30" height="22" rx="3" fill="#A84331" stroke="#6D432A" stroke-width="1.5"/>
+            <rect x="218" y="83" width="10" height="2" rx="1" fill="#FFFDE7"/>
+            <rect x="210" y="56" width="30" height="22" rx="3" fill="#6D432A" stroke="#4A2C17" stroke-width="1.5"/>
+            <rect x="213" y="61" width="10" height="2" rx="1" fill="#D59A2B"/>
+
+            <!-- Small decorative chart/graph on wall -->
+            <rect x="30" y="30" width="45" height="35" rx="4" fill="white" stroke="#6D432A" stroke-width="1.5"/>
+            <rect x="35" y="50" width="6" height="12" rx="1" fill="#A84331"/>
+            <rect x="43" y="42" width="6" height="20" rx="1" fill="#D59A2B"/>
+            <rect x="51" y="35" width="6" height="27" rx="1" fill="#6D432A"/>
+            <rect x="59" y="48" width="6" height="14" rx="1" fill="#C45B4A"/>
+        </svg>
+
+        <h2>Wholesalers</h2>
+        <p class="tamil-title tamil">கொள்முதல்காரர்கள்</p>
+        {% if user.is_authenticated and user.role == 'seller' %}
+            <a href="{% url 'seller_dashboard' %}" class="btn-card btn-brown tamil">மேலாண்மை சரக்கு</a>
+        {% elif user.is_authenticated and user.role != 'seller' %}
+            <a href="{% url 'register' %}" class="btn-card btn-brown tamil">வணிகராக பதிவு செய்க</a>
+        {% else %}
+            <a href="{% url 'register' %}" class="btn-card btn-brown tamil">மேலாண்மை சரக்கு</a>
+        {% endif %}
+    </div>
+
+    <!-- RETAILERS CARD -->
+    <div class="role-card">
+        <svg class="illustration" viewBox="0 0 280 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Storefront awning -->
+            <path d="M30 50 Q140 35 250 50" fill="#A84331" stroke="#6D432A" stroke-width="2.5"/>
+            <path d="M30 50 L30 55 Q140 40 250 55 L250 50" fill="#C45B4A"/>
+            <!-- Awning stripes -->
+            <line x1="55" y1="45" x2="55" y2="55" stroke="#6D432A" stroke-width="1.5"/>
+            <line x1="80" y1="42" x2="80" y2="52" stroke="#6D432A" stroke-width="1.5"/>
+            <line x1="105" y1="40" x2="105" y2="50" stroke="#6D432A" stroke-width="1.5"/>
+            <line x1="130" y1="39" x2="130" y2="49" stroke="#6D432A" stroke-width="1.5"/>
+            <line x1="155" y1="39" x2="155" y2="49" stroke="#6D432A" stroke-width="1.5"/>
+            <line x1="180" y1="40" x2="180" y2="50" stroke="#6D432A" stroke-width="1.5"/>
+            <line x1="205" y1="42" x2="205" y2="52" stroke="#6D432A" stroke-width="1.5"/>
+            <line x1="230" y1="45" x2="230" y2="55" stroke="#6D432A" stroke-width="1.5"/>
+
+            <!-- Store walls -->
+            <rect x="30" y="55" width="220" height="100" rx="4" fill="#FFFDE7" stroke="#6D432A" stroke-width="2"/>
+
+            <!-- Shelf 1 - Grocery items -->
+            <rect x="45" y="65" width="60" height="6" rx="1" fill="#D4A76A" stroke="#6D432A" stroke-width="1"/>
+            <!-- Jars and bottles on shelf -->
+            <rect x="48" y="55" width="10" height="12" rx="3" fill="#E8F5E9" stroke="#6D432A" stroke-width="1"/>
+            <rect x="62" y="52" width="8" height="15" rx="2" fill="#FFF3E0" stroke="#6D432A" stroke-width="1"/>
+            <circle cx="80" cy="60" r="6" fill="#A84331" stroke="#6D432A" stroke-width="1"/>
+            <rect x="90" y="53" width="12" height="14" rx="2" fill="#E3F2FD" stroke="#6D432A" stroke-width="1"/>
+
+            <!-- Shelf 2 - Snacks -->
+            <rect x="45" y="85" width="60" height="6" rx="1" fill="#D4A76A" stroke="#6D432A" stroke-width="1"/>
+            <rect x="48" y="74" width="15" height="12" rx="2" fill="#D59A2B" stroke="#6D432A" stroke-width="1"/>
+            <rect x="67" y="72" width="12" height="14" rx="2" fill="#C45B4A" stroke="#6D432A" stroke-width="1"/>
+            <rect x="83" y="76" width="18" height="10" rx="3" fill="#6D432A" stroke="#FFFDE7" stroke-width="1"/>
+
+            <!-- Shelf 3 - Produce sacks -->
+            <rect x="45" y="105" width="60" height="6" rx="1" fill="#D4A76A" stroke="#6D432A" stroke-width="1"/>
+            <ellipse cx="58" cy="98" rx="10" ry="8" fill="#D4A76A" stroke="#6D432A" stroke-width="1"/>
+            <ellipse cx="78" cy="96" rx="12" ry="10" fill="#C9A96E" stroke="#6D432A" stroke-width="1"/>
+            <ellipse cx="96" cy="100" rx="9" ry="7" fill="#D4A76A" stroke="#6D432A" stroke-width="1"/>
+
+            <!-- Counter -->
+            <rect x="120" y="120" width="120" height="10" rx="2" fill="#D4A76A" stroke="#6D432A" stroke-width="2"/>
+
+            <!-- Shopkeeper -->
+            <!-- Body -->
+            <rect x="170" y="80" width="40" height="45" rx="6" fill="#E8F5E9" stroke="#6D432A" stroke-width="2"/>
+            <!-- Head -->
+            <circle cx="190" cy="62" r="20" fill="#F5D5B8" stroke="#6D432A" stroke-width="2"/>
+            <!-- Hair -->
+            <path d="M173 58 Q176 44 190 42 Q204 44 207 58" fill="#4A2C17" stroke="#6D432A" stroke-width="1.5"/>
+            <!-- Eyes -->
+            <ellipse cx="183" cy="64" rx="2" ry="2.5" fill="#4A2C17"/>
+            <ellipse cx="197" cy="64" rx="2" ry="2.5" fill="#4A2C17"/>
+            <!-- Smile -->
+            <path d="M183 71 Q190 76 197 71" stroke="#6D432A" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <!-- Veshti -->
+            <rect x="168" y="115" width="45" height="40" rx="5" fill="#FFFDE7" stroke="#6D432A" stroke-width="2"/>
+            <!-- Arms -->
+            <path d="M170 100 Q160 110 155 120" stroke="#F5D5B8" stroke-width="6" stroke-linecap="round"/>
+            <path d="M210 100 Q220 110 225 118" stroke="#F5D5B8" stroke-width="6" stroke-linecap="round"/>
+            <!-- Holding delivery box -->
+            <rect x="218" y="108" width="20" height="16" rx="3" fill="#D59A2B" stroke="#6D432A" stroke-width="1.5"/>
+            <rect x="222" y="112" width="8" height="2" rx="1" fill="#6D432A"/>
+
+            <!-- Items on counter -->
+            <rect x="135" y="110" width="15" height="10" rx="2" fill="#A84331" stroke="#6D432A" stroke-width="1"/>
+            <circle cx="158" cy="115" r="5" fill="#D4A76A" stroke="#6D432A" stroke-width="1"/>
+
+            <!-- Store sign -->
+            <rect x="100" y="15" width="80" height="22" rx="4" fill="white" stroke="#6D432A" stroke-width="1.5"/>
+            <text x="110" y="30" font-family="Mukta Malar, sans-serif" font-size="9" fill="#A84331" font-weight="700">பேரங்காடி</text>
+        </svg>
+
+        <h2>Retailers</h2>
+        <p class="tamil-title tamil">சில்லறை விற்பனையாளர்கள்</p>
+        {% if user.is_authenticated %}
+            <a href="{% url 'search' %}" class="btn-card btn-terracotta tamil">இப்போது தேடவும்</a>
+        {% else %}
+            <a href="{% url 'register' %}" class="btn-card btn-terracotta tamil">இப்போது தேடவும்</a>
+        {% endif %}
+    </div>
+</section>
+
+<!-- THREE-TILE FEATURES ROW -->
+<section class="features">
+
+    <!-- SMART SEARCH -->
+    <div class="feature-tile ochre">
+        <svg class="feature-icon" viewBox="0 0 140 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Map fragment -->
+            <rect x="15" y="25" width="90" height="55" rx="6" fill="rgba(255,255,255,0.3)" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"/>
+            <!-- Map roads -->
+            <path d="M30 55 L60 40 L80 50 L100 35" stroke="rgba(255,255,255,0.5)" stroke-width="2" fill="none"/>
+            <path d="M50 25 L55 55 L45 75" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" fill="none"/>
+            <!-- Location pins -->
+            <circle cx="55" cy="55" r="5" fill="#4CAF50" stroke="white" stroke-width="2"/>
+            <circle cx="55" cy="55" r="2" fill="white"/>
+            <circle cx="80" cy="45" r="4" fill="#2196F3" stroke="white" stroke-width="1.5"/>
+            <circle cx="80" cy="45" r="1.5" fill="white"/>
+            <circle cx="70" cy="65" r="3.5" fill="#4CAF50" stroke="white" stroke-width="1.5"/>
+            <circle cx="70" cy="65" r="1.5" fill="white"/>
+            <!-- Magnifying glass -->
+            <circle cx="105" cy="30" r="14" fill="none" stroke="white" stroke-width="3"/>
+            <line x1="115" y1="40" x2="130" y2="55" stroke="white" stroke-width="4" stroke-linecap="round"/>
+            <!-- Glass reflection -->
+            <path d="M98 24 Q105 20 112 26" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" fill="none"/>
+        </svg>
+
+        <h3 class="tamil">ஸ்மார்ட் தேடல்</h3>
+        <p>Smart Search - Find any product across multiple wholesalers instantly<br>
+        <span class="tamil">அனைத்து நிறுவனங்களிடமும் தேட</span></p>
+    </div>
+
+    <!-- DISTRICT FILTER -->
+    <div class="feature-tile brown">
+        <svg class="feature-icon" viewBox="0 0 140 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Tamil Nadu map silhouette (simplified) -->
+            <path d="M50 15 L55 10 L70 8 L80 12 L88 10 L95 15 L100 25 L105 20 L110 30 L108 40 L112 50 L108 58 L105 65 L100 70 L95 78 L88 82 L80 80 L75 75 L70 78 L65 72 L58 65 L52 58 L48 50 L45 42 L42 35 L44 28 L47 22 Z"
+                  fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+            <!-- Glowing location pins -->
+            <circle cx="70" cy="25" r="4" fill="#FFD700">
+                <animate attributeName="r" values="4;5;4" dur="2s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="70" cy="25" r="1.5" fill="white"/>
+            <circle cx="90" cy="50" r="3.5" fill="#FFD700">
+                <animate attributeName="r" values="3.5;4.5;3.5" dur="2s" repeatCount="indefinite" begin="0.5s"/>
+            </circle>
+            <circle cx="90" cy="50" r="1.2" fill="white"/>
+            <circle cx="58" cy="45" r="3" fill="#FFD700">
+                <animate attributeName="r" values="3;4;3" dur="2s" repeatCount="indefinite" begin="1s"/>
+            </circle>
+            <circle cx="58" cy="45" r="1" fill="white"/>
+            <circle cx="80" cy="70" r="3" fill="#FFD700">
+                <animate attributeName="r" values="3;4;3" dur="2s" repeatCount="indefinite" begin="1.5s"/>
+            </circle>
+            <circle cx="80" cy="70" r="1" fill="white"/>
+            <!-- Glow effect rings -->
+            <circle cx="70" cy="25" r="7" fill="none" stroke="rgba(255,215,0,0.3)" stroke-width="1">
+                <animate attributeName="r" values="7;10;7" dur="2s" repeatCount="indefinite"/>
+                <animate attributeName="opacity" values="0.6;0;0.6" dur="2s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="90" cy="50" r="6" fill="none" stroke="rgba(255,215,0,0.3)" stroke-width="1">
+                <animate attributeName="r" values="6;9;6" dur="2s" repeatCount="indefinite" begin="0.5s"/>
+                <animate attributeName="opacity" values="0.6;0;0.6" dur="2s" repeatCount="indefinite" begin="0.5s"/>
+            </circle>
+        </svg>
+
+        <h3 class="tamil">மாவட்ட வடிகட்டி</h3>
+        <p>District Filter - Filter wholesalers by all 38 districts of Tamil Nadu<br>
+        <span class="tamil">38 மாவட்டங்களின்படி வடிகட்டி</span></p>
+    </div>
+
+    <!-- DIRECT CONTACT -->
+    <div class="feature-tile terracotta">
+        <svg class="feature-icon" viewBox="0 0 140 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Phone handset -->
+            <path d="M55 55 L45 65 Q42 68 45 71 L52 78 Q55 81 58 78 L65 71 Q67 69 67 66 L72 60 L60 48 Z"
+                  fill="rgba(255,255,255,0.3)" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- Signal waves -->
+            <path d="M72 38 Q78 32 72 26" stroke="rgba(255,255,255,0.4)" stroke-width="2" fill="none"/>
+            <path d="M78 42 Q86 34 78 26" stroke="rgba(255,255,255,0.3)" stroke-width="2" fill="none"/>
+            <path d="M84 46 Q94 36 84 26" stroke="rgba(255,255,255,0.2)" stroke-width="2" fill="none"/>
+            <!-- WhatsApp badge -->
+            <circle cx="100" cy="60" r="14" fill="#25D366"/>
+            <path d="M94 55 Q94 52 97 50 Q100 48 103 50 Q106 52 106 55 Q106 58 103 60 L100 63 L97 60 Q94 58 94 55 Z" fill="white"/>
+            <circle cx="97" cy="55" r="1" fill="#25D366"/>
+            <circle cx="103" cy="55" r="1" fill="#25D366"/>
+            <!-- Chat bubble -->
+            <rect x="20" y="45" width="25" height="18" rx="6" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/>
+            <path d="M28 63 L25 68 L32 63" fill="rgba(255,255,255,0.2)" stroke="rgba(255,255,255,0.5)" stroke-width="1"/>
+            <line x1="25" y1="51" x2="38" y2="51" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="25" y1="56" x2="35" y2="56" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+
+        <h3 class="tamil">நேரடி தொடர்பு</h3>
+        <p>Direct Contact - Get direct phone numbers and addresses of suppliers<br>
+        <span class="tamil">முகவரிகள் மற்றும் எண்களைப் பெற</span></p>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <p class="tamil">&copy; 2026 Pocketசந்தை.com. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.</p>
+</footer>
+
+{% endblock %}

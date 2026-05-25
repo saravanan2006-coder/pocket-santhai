@@ -1,0 +1,45 @@
+databases:
+  - name: wholesale-db
+    databaseName: wholesale_db
+    user: wholesale_user
+    plan: free
+
+services:
+  - type: web
+    name: tn-wholesale-marketplace
+    env: python
+    region: singapore
+    plan: free
+    buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate
+    startCommand: gunicorn marketplace.wsgi:application --bind 0.0.0.0:$PORT
+    envVars:
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      - key: DJANGO_DEBUG
+        value: "False"
+      - key: DJANGO_ALLOWED_HOSTS
+        sync: false
+      - key: CSRF_TRUSTED_ORIGINS
+        sync: false
+      - key: DATABASE_ENGINE
+        value: django.db.backends.postgresql
+      - key: DATABASE_NAME
+        fromDatabase:
+          name: wholesale-db
+          property: database
+      - key: DATABASE_USER
+        fromDatabase:
+          name: wholesale-db
+          property: user
+      - key: DATABASE_PASSWORD
+        fromDatabase:
+          name: wholesale-db
+          property: password
+      - key: DATABASE_HOST
+        fromDatabase:
+          name: wholesale-db
+          property: host
+      - key: DATABASE_PORT
+        fromDatabase:
+          name: wholesale-db
+          property: port

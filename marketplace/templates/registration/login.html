@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Login - சந்தை{% endblock %}
+{% block content %}
+<div style="display:flex;align-items:center;justify-content:center;min-height:70vh;padding:2rem;background:var(--bg-cream);">
+    <div class="auth-card">
+        <div style="text-align:center;margin-bottom:1.5rem;">
+            <span style="font-family:'Mukta Malar',sans-serif;font-size:1.5rem;font-weight:800;color:var(--terracotta);">பேரங்காடி</span><span style="font-size:0.95rem;font-weight:600;color:var(--brown);">.com</span>
+            <h3 style="margin-top:0.5rem;color:var(--charcoal);font-weight:700;">Login</h3>
+            <p class="tamil" style="color:var(--brown);font-size:0.9rem;margin-top:0.25rem;">உள்நுழைய</p>
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" name="username" placeholder="Enter your username" required>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="password" placeholder="Enter your password" required>
+            </div>
+            {% if form.errors %}
+            <div class="alert-danger" style="padding:0.75rem;border-radius:10px;font-size:0.85rem;margin-bottom:1rem;">Invalid username or password.</div>
+            {% endif %}
+            <button type="submit" class="btn-primary-full">Login</button>
+        </form>
+        <p style="text-align:center;margin-top:1.25rem;font-size:0.9rem;">Don't have an account? <a href="{% url 'register' %}" class="link-primary">Register</a></p>
+    </div>
+</div>
+{% endblock %}
