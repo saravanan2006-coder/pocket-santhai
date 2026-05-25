@@ -261,29 +261,6 @@ CustomUser ───────────────────────
 
 ---
 
-## 🌍 Deployment
-
-### Environment Variables
-```
-DJANGO_SECRET_KEY=<your-secret-key>
-DJANGO_DEBUG=False
-DJANGO_ALLOWED_HOSTS=your-app.onrender.com
-CSRF_TRUSTED_ORIGINS=https://your-app.onrender.com
-
-DATABASE_ENGINE=django.db.backends.postgresql
-DATABASE_NAME=wholesale_db
-DATABASE_USER=wholesale_user
-DATABASE_PASSWORD=<your-password>
-DATABASE_HOST=<your-host>
-DATABASE_PORT=5432
-```
-
-### Render.com (One-Click)
-1. Push to GitHub
-2. Go to [render.com](https://render.com) → **New Blueprint**
-3. Connect your repo — `render.yaml` auto-configures everything
-
-> 📖 Full guide: [`DEPLOY.md`](DEPLOY.md)
 
 ---
 
