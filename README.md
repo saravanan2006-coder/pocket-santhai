@@ -50,6 +50,8 @@ Wholesalers upload their stock, manage their business profiles, and become disco
 |---------|-------------|
 | **Role-Based Accounts** | Register as Wholesale Seller or Retailer |
 | **Email Verification** | UUID-based token system; blocks unverified logins |
+| **Rate Limiting** | Active brute-force protection on all auth endpoints (5 req/min) |
+| **Async Delivery** | Celery-backed asynchronous verification emails for faster UI |
 | **Resend Verification** | One-click email resend from warning banner |
 | **Admin Panel** | Full Django admin with custom user management |
 
@@ -57,6 +59,7 @@ Wholesalers upload their stock, manage their business profiles, and become disco
 | Feature | Description |
 |---------|-------------|
 | **Stock Management** | Add, edit, delete stock items with full details |
+| **Bulk Excel Upload** | Upload hundreds of items instantly using native `.xlsx` files |
 | **Business Profile** | Set business name, address, district, phone, email |
 | **Dashboard** | Clean table view of all stock with quick actions |
 
@@ -92,6 +95,7 @@ Wholesalers upload their stock, manage their business profiles, and become disco
 | **Brand** | பேரங்காடி.com with "சந்தை" hero |
 | **Color Palette** | Mustard (#D59A2B), Terracotta (#A84331), Earth Brown (#6D432A) |
 | **SVG Illustrations** | Custom cartoon merchants, delivery trucks, storefronts |
+| **Interactive Map** | Beautiful inline vector map of Tamil Nadu with pulsing district hubs |
 | **Responsive** | Mobile-friendly with graceful degradation |
 
 ---
@@ -140,8 +144,8 @@ python manage.py runserver
 │  Plus Jakarta Sans + Mukta Malar Fonts       │
 ├─────────────────────────────────────────────┤
 │                 Backend                      │
-│  Django 5.0 • Python 3.11                    │
-│  Custom User Model • Email Verification      │
+│  Django 5.2 • Python 3.11                    │
+│  Celery + Redis • openpyxl • django-ratelimit│
 ├─────────────────────────────────────────────┤
 │               Database                       │
 │  SQLite (dev) → PostgreSQL (prod)            │
@@ -194,6 +198,7 @@ wholesale_marketplace/
 ```
 CustomUser ────────────────────────── Base user (seller/retailer)
     │
+    ├── email ─────────────────────── unique=True
     ├── email_verified ────────────── Boolean flag
     │
     ├── SellerProfile ─────────────── Business details (1:1)
@@ -209,7 +214,7 @@ CustomUser ───────────────────────
     ├── Bookmark ──────────────────── Saved items (1:N user)
     │   └── item (FK to StockItem)
     │
-    └── EmailVerificationToken ────── UUID tokens (1:N user)
+    └── EmailVerificationToken ────── UUID tokens (1:N user, 24h expiry)
 ```
 
 ---
