@@ -37,6 +37,7 @@
 
         <div class="navbar-right" id="navbarRight">
             {% if user.is_authenticated %}
+                <a href="{% url 'home' %}" class="btn-login" style="background:transparent; color:var(--brown); box-shadow:none;"><i class="fas fa-home"></i> Home</a>
                 {% if user.role == 'seller' %}
                     <a href="{% url 'seller_dashboard' %}" class="btn-login">My Stock</a>
                 {% endif %}
