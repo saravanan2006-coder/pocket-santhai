@@ -2,7 +2,7 @@
 {% block title %}Bookmarks - சந்தை{% endblock %}
 {% block content %}
 <div class="page-header">
-    <div style="display:flex;justify-content:space-between;align-items:center;">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
         <div>
             <h2 style="margin-bottom:0.25rem;"><i class="fas fa-bookmark" style="color:var(--mustard);"></i> My Bookmarks</h2>
             <p class="tamil" style="color:var(--brown);font-size:0.9rem;margin:0;">எனது புக்மார்க்குகள்</p>
@@ -14,8 +14,7 @@
 <div class="page-content">
     {% if bookmarks %}
     {% if user.is_authenticated %}
-    <!-- Compare Bar -->
-    <div style="background:white;border-radius:12px;padding:0.75rem 1.25rem;margin-bottom:1.5rem;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--shadow);">
+    <div class="compare-bar">
         <div>
             <i class="fas fa-check-square" style="color:var(--mustard);margin-right:0.5rem;"></i>
             <span style="font-size:0.9rem;color:var(--brown);">Select items to compare:</span>
@@ -30,16 +29,16 @@
     </div>
     {% endif %}
 
-    <div style="display:flex;flex-direction:column;gap:1rem;">
+    <div class="stagger" style="display:flex;flex-direction:column;gap:1rem;">
         {% for bookmark in bookmarks %}
-        <div style="background:white;border-radius:16px;padding:1.5rem;box-shadow:var(--shadow);border-left:4px solid var(--mustard);">
-            <div style="display:grid;grid-template-columns:1.5fr 1fr 2fr auto;gap:1.5rem;align-items:center;">
+        <div class="result-card">
+            <div class="result-grid">
                 <div>
                     <h4 style="margin-bottom:0.25rem;color:var(--charcoal);">{{ bookmark.item.name }}</h4>
                     <span style="background:#eee;color:var(--brown);padding:2px 10px;border-radius:50px;font-size:0.8rem;font-weight:500;">{{ bookmark.item.category }}</span>
                 </div>
                 <div style="text-align:center;">
-                    <div style="font-size:1.5rem;font-weight:700;color:var(--terracotta);">₹{{ bookmark.item.price }}<span style="font-size:0.85rem;color:#999;font-weight:400;">/{{ bookmark.item.unit }}</span></div>
+                    <div style="font-size:clamp(1.2rem,2.5vw,1.5rem);font-weight:700;color:var(--terracotta);">₹{{ bookmark.item.price }}<span style="font-size:0.85rem;color:#999;font-weight:400;">/{{ bookmark.item.unit }}</span></div>
                     <small style="color:#999;">Stock: {{ bookmark.item.quantity }}</small>
                 </div>
                 <div style="background:var(--bg-cream);padding:1rem;border-radius:12px;">
@@ -62,7 +61,7 @@
                         <input type="checkbox" class="compare-check" value="{{ bookmark.item.pk }}" onchange="updateCompare()" style="accent-color:var(--terracotta);transform:scale(1.2);">
                         Compare
                     </label>
-                    <a href="{% url 'toggle_bookmark' bookmark.item.pk %}" style="display:flex;align-items:center;justify-content:center;gap:0.35rem;padding:0.5rem 0.75rem;border-radius:8px;text-decoration:none;font-size:0.85rem;background:#fff5f5;color:var(--terracotta);">
+                    <a href="{% url 'toggle_bookmark' bookmark.item.pk %}?next={% url 'bookmarks' %}" style="display:flex;align-items:center;justify-content:center;gap:0.35rem;padding:0.5rem 0.75rem;border-radius:8px;text-decoration:none;font-size:0.85rem;background:#fff5f5;color:var(--terracotta);transition:all 0.2s;">
                         <i class="fas fa-trash"></i> Remove
                     </a>
                     {% endif %}
@@ -72,8 +71,8 @@
         {% endfor %}
     </div>
     {% else %}
-    <div class="page-card" style="text-align:center;padding:3rem 2rem;">
-        <i class="fas fa-bookmark" style="font-size:3rem;color:#e0dcd6;display:block;margin-bottom:1rem;"></i>
+    <div class="page-card empty-state">
+        <i class="fas fa-bookmark"></i>
         <h4 style="color:#999;font-weight:600;">No bookmarks yet</h4>
         <p style="color:#bbb;margin-bottom:1rem;">Search for products and click the bookmark icon to save them.</p>
         <a href="{% url 'search' %}" class="btn-submit"><i class="fas fa-search"></i> Search Products</a>

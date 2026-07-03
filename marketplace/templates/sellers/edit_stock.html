@@ -2,12 +2,12 @@
 {% block title %}Edit Stock - சந்தை{% endblock %}
 {% block content %}
 <div class="page-content" style="max-width:700px;">
-    <div class="page-card">
+    <div class="page-card fade-in">
         <h3 style="margin-bottom:0.25rem;"><i class="fas fa-edit" style="color:var(--mustard);"></i> Edit: {{ item.name }}</h3>
         <p class="tamil" style="color:var(--brown);font-size:0.9rem;margin-bottom:1.5rem;">சரக்கு திருத்த</p>
         <form method="post">
             {% csrf_token %}
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+            <div class="grid-2">
                 <div class="form-group">
                     <label>Item Name</label>
                     {{ form.name }}
@@ -17,7 +17,7 @@
                     {{ form.category }}
                 </div>
             </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;">
+            <div class="grid-3">
                 <div class="form-group">
                     <label>Price (₹)</label>
                     {{ form.price }}
@@ -35,7 +35,7 @@
                 <label>Description</label>
                 {{ form.description }}
             </div>
-            <div style="display:flex;gap:0.75rem;margin-top:1.5rem;">
+            <div style="display:flex;gap:0.75rem;margin-top:1.5rem;flex-wrap:wrap;">
                 <button type="submit" class="btn-submit"><i class="fas fa-save"></i> Update Item</button>
                 <a href="{% url 'seller_dashboard' %}" class="btn-cancel">Cancel</a>
             </div>

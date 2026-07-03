@@ -2,39 +2,42 @@
 {% block title %}Seller Dashboard - சந்தை{% endblock %}
 {% block content %}
 <div class="page-header">
-    <div style="display:flex;justify-content:space-between;align-items:center;">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
         <div>
             <h2 style="margin-bottom:0.25rem;"><i class="fas fa-boxes" style="color:var(--mustard);"></i> My Stock</h2>
             <p class="tamil" style="color:var(--brown);font-size:0.9rem;margin:0;">சரக்கு மேலாண்மை</p>
         </div>
-        <a href="{% url 'add_stock' %}" class="btn-submit"><i class="fas fa-plus"></i> Add Item</a>
+        <div style="display: flex; gap: 0.5rem;">
+            <a href="{% url 'bulk_upload_stock' %}" class="btn-card btn-brown" style="text-decoration: none; padding: 0.5rem 1rem; border-radius: 6px; font-weight: 600;"><i class="fas fa-file-excel"></i> Bulk Upload</a>
+            <a href="{% url 'add_stock' %}" class="btn-submit"><i class="fas fa-plus"></i> Add Item</a>
+        </div>
     </div>
 </div>
 
 <div class="page-content">
     {% if items %}
     <div class="page-card" style="padding:0;overflow:hidden;">
-        <div style="overflow-x:auto;">
-            <table style="width:100%;border-collapse:collapse;">
+        <div class="table-wrapper">
+            <table>
                 <thead>
-                    <tr style="background:var(--bg-cream);border-bottom:2px solid #eee;">
-                        <th style="text-align:left;padding:1rem 1.25rem;font-weight:600;color:var(--brown);font-size:0.85rem;text-transform:uppercase;letter-spacing:0.5px;">Item</th>
-                        <th style="text-align:left;padding:1rem 1.25rem;font-weight:600;color:var(--brown);font-size:0.85rem;text-transform:uppercase;letter-spacing:0.5px;">Category</th>
-                        <th style="text-align:left;padding:1rem 1.25rem;font-weight:600;color:var(--brown);font-size:0.85rem;text-transform:uppercase;letter-spacing:0.5px;">Price</th>
-                        <th style="text-align:left;padding:1rem 1.25rem;font-weight:600;color:var(--brown);font-size:0.85rem;text-transform:uppercase;letter-spacing:0.5px;">Qty</th>
-                        <th style="text-align:left;padding:1rem 1.25rem;font-weight:600;color:var(--brown);font-size:0.85rem;text-transform:uppercase;letter-spacing:0.5px;">Updated</th>
-                        <th style="text-align:left;padding:1rem 1.25rem;font-weight:600;color:var(--brown);font-size:0.85rem;text-transform:uppercase;letter-spacing:0.5px;">Actions</th>
+                    <tr>
+                        <th>Item</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Qty</th>
+                        <th>Updated</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for item in items %}
-                    <tr style="border-bottom:1px solid #f5f5f5;transition:background 0.15s;" onmouseover="this.style.background='#faf8f5'" onmouseout="this.style.background='transparent'">
-                        <td style="padding:1rem 1.25rem;"><strong>{{ item.name }}</strong></td>
-                        <td style="padding:1rem 1.25rem;"><span style="background:#f0ede8;color:var(--brown);padding:3px 10px;border-radius:50px;font-size:0.8rem;">{{ item.category }}</span></td>
-                        <td style="padding:1rem 1.25rem;font-weight:600;color:var(--terracotta);">₹{{ item.price }}<span style="font-weight:400;color:#999;font-size:0.85rem;">/{{ item.unit }}</span></td>
-                        <td style="padding:1rem 1.25rem;">{{ item.quantity }}</td>
-                        <td style="padding:1rem 1.25rem;color:#999;font-size:0.85rem;">{{ item.updated_at|date:"M d, Y" }}</td>
-                        <td style="padding:1rem 1.25rem;">
+                    <tr>
+                        <td><strong>{{ item.name }}</strong></td>
+                        <td><span style="background:#f0ede8;color:var(--brown);padding:3px 10px;border-radius:50px;font-size:0.8rem;">{{ item.category }}</span></td>
+                        <td style="font-weight:600;color:var(--terracotta);">₹{{ item.price }}<span style="font-weight:400;color:#999;font-size:0.85rem;">/{{ item.unit }}</span></td>
+                        <td>{{ item.quantity }}</td>
+                        <td style="color:#999;font-size:0.85rem;">{{ item.updated_at|date:"M d, Y" }}</td>
+                        <td>
                             <div style="display:flex;gap:0.5rem;">
                                 <a href="{% url 'edit_stock' item.pk %}" class="btn-edit"><i class="fas fa-edit"></i></a>
                                 <a href="{% url 'delete_stock' item.pk %}" class="btn-delete" onclick="return confirm('Delete this item?')"><i class="fas fa-trash"></i></a>
@@ -46,36 +49,32 @@
             </table>
         </div>
     </div>
+
+    {% if page_obj and page_obj.paginator.num_pages > 1 %}
+    <ul class="pagination">
+        {% if page_obj.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page=1">&laquo;</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&lsaquo;</a></li>
+        {% endif %}
+        {% for num in page_obj.paginator.page_range %}
+        <li class="page-item {% if num == page_obj.number %}active{% endif %}">
+            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+        </li>
+        {% endfor %}
+        {% if page_obj.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">&rsaquo;</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a></li>
+        {% endif %}
+    </ul>
+    {% endif %}
+
     {% else %}
-    <div class="page-card" style="text-align:center;padding:3rem 2rem;">
-        <i class="fas fa-box-open" style="font-size:3rem;color:#e0dcd6;display:block;margin-bottom:1rem;"></i>
+    <div class="page-card empty-state">
+        <i class="fas fa-box-open"></i>
         <h4 style="color:#999;font-weight:600;">No stock items yet</h4>
         <p style="color:#bbb;margin-bottom:1rem;">Start by adding your first product.</p>
         <a href="{% url 'add_stock' %}" class="btn-submit">Add Your First Item</a>
     </div>
     {% endif %}
 </div>
-
-<style>
-.btn-edit {
-    background:#E3F2FD;
-    color:#1976D2;
-    padding:0.4rem 0.75rem;
-    border-radius:8px;
-    text-decoration:none;
-    font-size:0.85rem;
-    transition:background 0.2s;
-}
-.btn-edit:hover { background:#BBDEFB; }
-.btn-delete {
-    background:#FFEBEE;
-    color:#C62828;
-    padding:0.4rem 0.75rem;
-    border-radius:8px;
-    text-decoration:none;
-    font-size:0.85rem;
-    transition:background 0.2s;
-}
-.btn-delete:hover { background:#FFCDD2; }
-</style>
 {% endblock %}

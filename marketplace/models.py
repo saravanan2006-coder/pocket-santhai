@@ -20,6 +20,7 @@ class CustomUser(AbstractUser):
     ]
     role = models.CharField(max_length=10, choices=ROLE_CHOICES)
     phone = models.CharField(max_length=15, blank=True)
+    email = models.EmailField(unique=True)
     email_verified = models.BooleanField(default=False)
 
     def __str__(self):
@@ -29,6 +30,12 @@ class EmailVerificationToken(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='verification_tokens')
     token = models.UUIDField(default=uuid.uuid4, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def is_expired(self):
+        from django.utils import timezone
+        import datetime
+        return timezone.now() > self.created_at + datetime.timedelta(hours=24)
 
     def __str__(self):
         return f"Token for {self.user.username}"

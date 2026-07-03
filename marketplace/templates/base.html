@@ -3,712 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Pocket  சந்தை{% endblock %}</title>
+    <title>{% block title %}Pocket சந்தை{% endblock %}</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Mukta+Malar:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <style>
-        :root {
-            --bg-cream: #FAF8F5;
-            --mustard: #D59A2B;
-            --mustard-dark: #C3861F;
-            --terracotta: #A84331;
-            --brown: #6D432A;
-            --white: #FFFFFF;
-            --charcoal: #1A1A1A;
-            --shadow: 0 4px 20px rgba(109, 67, 42, 0.08);
-            --shadow-hover: 0 8px 32px rgba(109, 67, 42, 0.15);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Plus Jakarta Sans', 'Mukta Malar', sans-serif;
-            background-color: var(--bg-cream);
-            color: var(--charcoal);
-            line-height: 1.6;
-        }
-
-        .tamil {
-            font-family: 'Mukta Malar', sans-serif;
-        }
-
-        /* NAVBAR */
-        .navbar {
-            background: var(--white);
-            padding: 0.75rem 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 2px 12px rgba(109, 67, 42, 0.06);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .navbar-brand {
-            display: flex;
-            align-items: baseline;
-            text-decoration: none;
-            gap: 0.25rem;
-        }
-
-        .navbar-brand .tamil-name {
-            font-family: 'Mukta Malar', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--terracotta);
-        }
-
-        .navbar-brand .domain {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: var(--brown);
-        }
-
-        .navbar-right {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
-
-        .nav-cart {
-            position: relative;
-            color: var(--brown);
-            font-size: 1.25rem;
-            cursor: pointer;
-            padding: 0.5rem;
-            border-radius: 50%;
-            transition: background 0.2s;
-        }
-
-        .nav-cart:hover {
-            background: var(--bg-cream);
-        }
-
-        .nav-cart .badge-count {
-            position: absolute;
-            top: 0;
-            right: 0;
-            background: var(--terracotta);
-            color: white;
-            font-size: 0.6rem;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .nav-profile {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: var(--bg-cream);
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: background 0.2s;
-            border: none;
-            font-family: inherit;
-            font-size: 0.875rem;
-            color: var(--brown);
-            font-weight: 500;
-        }
-
-        .nav-profile:hover {
-            background: #f0ede8;
-        }
-
-        .nav-profile .avatar {
-            width: 28px;
-            height: 28px;
-            background: var(--mustard);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 0.75rem;
-        }
-
-        .nav-username {
-            font-weight: 500;
-        }
-
-        .nav-chevron {
-            font-size: 0.65rem;
-            margin-left: 0.25rem;
-            transition: transform 0.2s;
-        }
-
-        /* Dropdown */
-        .nav-dropdown {
-            position: relative;
-        }
-
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            right: 0;
-            top: calc(100% + 8px);
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
-            min-width: 200px;
-            padding: 0.5rem 0;
-            z-index: 200;
-        }
-
-        .dropdown-menu.show {
-            display: block;
-        }
-
-        .dropdown-role {
-            display: block;
-            padding: 0.5rem 1rem;
-            color: #999;
-            font-size: 0.8rem;
-        }
-
-        .badge-role {
-            background: var(--mustard);
-            color: white;
-            padding: 2px 8px;
-            border-radius: 50px;
-            font-size: 0.7rem;
-        }
-
-        .dropdown-menu hr {
-            border: none;
-            border-top: 1px solid #eee;
-            margin: 0.25rem 0;
-        }
-
-        .dropdown-item {
-            display: block;
-            padding: 0.6rem 1rem;
-            color: var(--brown);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: background 0.15s;
-            width: 100%;
-            text-align: left;
-            border: none;
-            background: none;
-            font-family: inherit;
-            cursor: pointer;
-        }
-
-        .dropdown-item:hover {
-            background: var(--bg-cream);
-        }
-
-        .dropdown-item i {
-            margin-right: 0.5rem;
-            width: 16px;
-        }
-
-        .dropdown-logout {
-            color: var(--terracotta) !important;
-        }
-
-        .dropdown-logout:hover {
-            background: #fff5f5 !important;
-        }
-
-        /* Bookmark Button */
-        .bookmark-btn {
-            background: var(--bg-cream);
-            color: var(--brown);
-        }
-        .bookmark-btn:hover {
-            background: #fff8e1;
-        }
-        .bookmark-btn.bookmarked {
-            background: #fff8e1;
-            border: 1px solid var(--mustard);
-        }
-        .bookmark-btn.bookmarked i {
-            color: var(--mustard) !important;
-        }
-
-        .nav-auth-links {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .btn-login {
-            color: var(--brown);
-            text-decoration: none;
-            font-weight: 500;
-            padding: 0.5rem 1.25rem;
-            border-radius: 50px;
-            transition: all 0.2s;
-        }
-
-        .btn-login:hover {
-            background: var(--bg-cream);
-        }
-
-        .btn-register {
-            background: var(--terracotta);
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            padding: 0.5rem 1.5rem;
-            border-radius: 50px;
-            transition: all 0.2s;
-        }
-
-        .btn-register:hover {
-            background: var(--brown);
-            color: white;
-        }
-
-        /* HERO SECTION */
-        .hero {
-            position: relative;
-            background: linear-gradient(135deg, var(--mustard) 0%, var(--mustard-dark) 100%);
-            padding: 3rem 2rem 4rem;
-            overflow: hidden;
-            min-height: 420px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .hero-illustration {
-            position: absolute;
-            top: 0;
-            height: 100%;
-            width: 280px;
-            opacity: 0.9;
-        }
-
-        .hero-illustration.left {
-            left: 0;
-        }
-
-        .hero-illustration.right {
-            right: 0;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-            max-width: 650px;
-        }
-
-        .hero-title {
-            font-family: 'Mukta Malar', sans-serif;
-            font-size: 4.5rem;
-            font-weight: 800;
-            color: var(--white);
-            line-height: 1.1;
-            margin-bottom: 0.5rem;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.15);
-        }
-
-        .hero-subtitle {
-            font-family: 'Mukta Malar', sans-serif;
-            font-size: 1.15rem;
-            color: rgba(255,255,255,0.9);
-            margin-bottom: 2rem;
-            font-weight: 500;
-        }
-
-        .hero-search {
-            display: flex;
-            width: 100%;
-            max-width: 550px;
-            margin: 0 auto;
-            background: var(--white);
-            border-radius: 60px;
-            overflow: hidden;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
-        }
-
-        .hero-search .search-icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0 1.25rem;
-            color: #999;
-            font-size: 1.1rem;
-        }
-
-        .hero-search input {
-            flex: 1;
-            border: none;
-            outline: none;
-            padding: 1rem 0;
-            font-size: 1rem;
-            font-family: inherit;
-            color: var(--charcoal);
-        }
-
-        .hero-search input::placeholder {
-            color: #aaa;
-        }
-
-        .hero-search button {
-            background: var(--terracotta);
-            color: white;
-            border: none;
-            padding: 0.75rem 2rem;
-            margin: 6px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-family: inherit;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .hero-search button:hover {
-            background: var(--brown);
-        }
-
-        /* DUAL CARDS */
-        .dual-cards {
-            max-width: 1100px;
-            margin: -3rem auto 0;
-            padding: 0 2rem;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            position: relative;
-            z-index: 20;
-        }
-
-        .role-card {
-            background: var(--white);
-            border-radius: 16px;
-            padding: 2rem;
-            box-shadow: var(--shadow);
-            transition: transform 0.3s, box-shadow 0.3s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-
-        .role-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .role-card .illustration {
-            width: 100%;
-            max-width: 260px;
-            margin-bottom: 1.5rem;
-        }
-
-        .role-card h2 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--charcoal);
-            margin-bottom: 0.25rem;
-        }
-
-        .role-card .tamil-title {
-            font-family: 'Mukta Malar', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--brown);
-            margin-bottom: 1.5rem;
-        }
-
-        .role-card .btn-card {
-            width: 100%;
-            max-width: 240px;
-            padding: 0.875rem 1.5rem;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 1rem;
-            font-family: inherit;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-decoration: none;
-            display: inline-block;
-            border: none;
-        }
-
-        .btn-brown {
-            background: var(--brown);
-            color: white;
-        }
-
-        .btn-brown:hover {
-            background: #5a3520;
-            color: white;
-        }
-
-        .btn-terracotta {
-            background: var(--terracotta);
-            color: white;
-        }
-
-        .btn-terracotta:hover {
-            background: #8a3528;
-            color: white;
-        }
-
-        /* FEATURES ROW */
-        .features {
-            max-width: 1100px;
-            margin: 3rem auto;
-            padding: 0 2rem;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-        }
-
-        .feature-tile {
-            border-radius: 16px;
-            padding: 2rem 1.5rem;
-            text-align: center;
-            color: white;
-            transition: transform 0.3s;
-        }
-
-        .feature-tile:hover {
-            transform: translateY(-4px);
-        }
-
-        .feature-tile.ochre {
-            background: linear-gradient(135deg, #E8B84B, #D59A2B);
-        }
-
-        .feature-tile.brown {
-            background: linear-gradient(135deg, #8B5E3C, #6D432A);
-        }
-
-        .feature-tile.terracotta {
-            background: linear-gradient(135deg, #C45B4A, #A84331);
-        }
-
-        .feature-tile .feature-icon {
-            width: 120px;
-            height: 90px;
-            margin: 0 auto 1.25rem;
-        }
-
-        .feature-tile h3 {
-            font-family: 'Mukta Malar', sans-serif;
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .feature-tile p {
-            font-size: 0.85rem;
-            opacity: 0.9;
-            line-height: 1.5;
-        }
-
-        /* FOOTER */
-        .footer {
-            background: var(--charcoal);
-            color: rgba(255,255,255,0.7);
-            text-align: center;
-            padding: 1.75rem 2rem;
-            font-size: 0.9rem;
-            margin-top: 2rem;
-        }
-
-        .footer .tamil {
-            color: rgba(255,255,255,0.85);
-        }
-
-        /* Form Inputs */
-        input[type="text"],
-        input[type="email"],
-        input[type="password"],
-        input[type="number"],
-        select,
-        textarea {
-            width: 100%;
-            border: 2px solid #eee;
-            border-radius: 10px;
-            padding: 0.7rem 1rem;
-            font-family: inherit;
-            font-size: 0.95rem;
-            transition: border-color 0.2s;
-            outline: none;
-        }
-
-        input:focus, select:focus, textarea:focus {
-            border-color: var(--mustard);
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-
-        /* Radio & Checkbox Styling */
-        input[type="radio"] {
-            accent-color: var(--terracotta);
-            transform: scale(1.2);
-            margin-right: 0.5rem;
-        }
-
-        .helptext {
-            display: none !important;
-        }
-
-        /* Page Content Templates */
-        .page-card {
-            background: var(--white);
-            border-radius: 16px;
-            padding: 2rem;
-            box-shadow: var(--shadow);
-        }
-
-        .page-card h3 {
-            color: var(--charcoal);
-            font-weight: 700;
-        }
-
-        .page-header {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 2rem 2rem 0;
-        }
-
-        .page-content {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        .btn-submit {
-            background: var(--terracotta);
-            color: white;
-            border: none;
-            padding: 0.75rem 2rem;
-            border-radius: 12px;
-            font-weight: 600;
-            font-family: inherit;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .btn-submit:hover {
-            background: var(--brown);
-        }
-
-        .btn-cancel {
-            background: #eee;
-            color: var(--brown);
-            padding: 0.75rem 2rem;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 600;
-            font-family: inherit;
-            font-size: 0.95rem;
-            transition: background 0.2s;
-        }
-
-        .btn-cancel:hover {
-            background: #ddd;
-            color: var(--brown);
-        }
-
-        /* MESSAGES */
-        .messages {
-            max-width: 1100px;
-            margin: 1rem auto;
-            padding: 0 2rem;
-        }
-
-        .alert {
-            padding: 0.75rem 1.25rem;
-            border-radius: 10px;
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-        }
-
-        .alert-success {
-            background: #d4edda;
-            color: #155724;
-        }
-
-        .alert-danger {
-            background: #f8d7da;
-            color: #721c24;
-        }
-
-        /* RESPONSIVE */
-        @media (max-width: 900px) {
-            .hero-illustration {
-                width: 140px;
-            }
-            .hero-title {
-                font-size: 3rem;
-            }
-            .dual-cards {
-                grid-template-columns: 1fr;
-                margin-top: -2rem;
-            }
-            .features {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .navbar {
-                padding: 0.75rem 1rem;
-            }
-            .hero {
-                padding: 2rem 1rem 3rem;
-            }
-            .hero-illustration {
-                display: none;
-            }
-            .hero-title {
-                font-size: 2.5rem;
-            }
-            .hero-search {
-                flex-direction: column;
-                border-radius: 16px;
-            }
-            .hero-search .search-icon {
-                display: none;
-            }
-            .hero-search input {
-                padding: 1rem;
-                text-align: center;
-            }
-            .hero-search button {
-                margin: 0 6px 6px;
-            }
-            .dual-cards {
-                padding: 0 1rem;
-            }
-            .features {
-                padding: 0 1rem;
-            }
-            .navbar-right {
-                gap: 0.75rem;
-            }
-            .nav-profile span:not(.avatar) {
-                display: none;
-            }
-        }
-    </style>
+    {% load static %}
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    {% block extra_head %}{% endblock %}
 </head>
 <body>
+
+    <!-- TOAST CONTAINER -->
+    <div class="toast-container" id="toastContainer">
+        {% if messages %}
+            {% for message in messages %}
+            <div class="toast toast-{{ message.tags }}" onclick="this.classList.add('removing');setTimeout(()=>this.remove(),300)">
+                <i class="fas fa-{% if message.tags == 'success' %}check-circle{% elif message.tags == 'error' or message.tags == 'danger' %}exclamation-circle{% elif message.tags == 'warning' %}exclamation-triangle{% else %}info-circle{% endif %}"></i>
+                <span>{{ message|safe }}</span>
+                <button class="toast-close" onclick="event.stopPropagation();this.parentElement.classList.add('removing');setTimeout(()=>this.parentElement.remove(),300)">&times;</button>
+            </div>
+            {% endfor %}
+        {% endif %}
+    </div>
 
     <!-- NAVBAR -->
     <nav class="navbar">
@@ -716,10 +31,18 @@
             <span class="tamil-name">Pocketசந்தை</span><span class="domain">.com</span>
         </a>
 
-        <div class="navbar-right">
+        <button class="navbar-toggle" id="navToggle" onclick="toggleNav()" aria-label="Toggle menu">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <div class="navbar-right" id="navbarRight">
             {% if user.is_authenticated %}
                 {% if user.role == 'seller' %}
                     <a href="{% url 'seller_dashboard' %}" class="btn-login">My Stock</a>
+                {% endif %}
+                {% if user.role == 'retailer' %}
+                    <a href="{% url 'search' %}" class="btn-login"><i class="fas fa-search"></i> Search</a>
+                    <a href="{% url 'bookmarks' %}" class="btn-login"><i class="fas fa-bookmark"></i> Bookmarks</a>
                 {% endif %}
                 <div class="nav-dropdown">
                     <button class="nav-profile" id="profileBtn" onclick="toggleDropdown()">
@@ -753,24 +76,16 @@
 
     <!-- EMAIL VERIFICATION WARNING -->
     {% if user.is_authenticated and not user.email_verified and user.email %}
-    <div style="background:#fff3cd;color:#856404;padding:0.75rem 2rem;text-align:center;font-size:0.9rem;">
+    <div class="verify-banner">
         <i class="fas fa-exclamation-triangle"></i> Your email is not verified. Please check your inbox or
         <a href="{% url 'resend_verification' %}" style="color:#856404;font-weight:600;">resend verification email</a>.
-    </div>
-    {% endif %}
-
-    <!-- MESSAGES -->
-    {% if messages %}
-    <div class="messages">
-        {% for message in messages %}
-        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-        {% endfor %}
     </div>
     {% endif %}
 
     {% block content %}{% endblock %}
 
     <script>
+        // ---- Dropdown Toggle ----
         function toggleDropdown() {
             document.getElementById('profileDropdown').classList.toggle('show');
         }
@@ -781,6 +96,53 @@
                 dropdown.classList.remove('show');
             }
         });
+
+        // ---- Mobile Nav Toggle ----
+        function toggleNav() {
+            var right = document.getElementById('navbarRight');
+            right.classList.toggle('show');
+        }
+
+        // ---- Auto-dismiss Toasts ----
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.toast').forEach(function(toast) {
+                setTimeout(function() {
+                    toast.classList.add('removing');
+                    setTimeout(function() { toast.remove(); }, 300);
+                }, 4000);
+            });
+        });
+
+        // ---- Scroll-triggered fade-in (IntersectionObserver) ----
+        document.addEventListener('DOMContentLoaded', function() {
+            if ('IntersectionObserver' in window) {
+                var fadeEls = document.querySelectorAll('.fade-in-scroll');
+                if (fadeEls.length) {
+                    var observer = new IntersectionObserver(function(entries) {
+                        entries.forEach(function(entry) {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add('fade-in');
+                                observer.unobserve(entry.target);
+                            }
+                        });
+                    }, { threshold: 0.1 });
+                    fadeEls.forEach(function(el) { observer.observe(el); });
+                }
+            }
+        });
+
+        // ---- Skeleton loader helper ----
+        function showSkeleton(container, count) {
+            if (!container) return;
+            container.innerHTML = '';
+            for (var i = 0; i < count; i++) {
+                var card = document.createElement('div');
+                card.className = 'skeleton-card';
+                card.innerHTML = '<div class="skeleton skeleton-line"></div><div class="skeleton skeleton-line"></div><div class="skeleton skeleton-line-short"></div>';
+                card.style.marginBottom = '1rem';
+                container.appendChild(card);
+            }
+        }
     </script>
 
     {% block scripts %}{% endblock %}

@@ -2,7 +2,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.core.paginator import Paginator
 from .models import StockItem, TN_DISTRICTS, Bookmark
+
+PAGE_SIZE = 20
 
 def search(request):
     query = request.GET.get('q', '').strip()
@@ -13,17 +16,14 @@ def search(request):
 
     if query or district or category:
         items = StockItem.objects.select_related('seller', 'seller__seller_profile').all()
-
         if query:
             items = items.filter(
                 Q(name__icontains=query) |
                 Q(category__icontains=query) |
                 Q(description__icontains=query)
             )
-
         if district:
             items = items.filter(seller__seller_profile__district=district)
-
         if category:
             items = items.filter(category__icontains=category)
 
@@ -35,8 +35,13 @@ def search(request):
 
     categories = StockItem.objects.values_list('category', flat=True).distinct()
 
+    paginator = Paginator(items, PAGE_SIZE) if items else None
+    page_number = request.GET.get('page', 1)
+    page_obj = paginator.get_page(page_number) if paginator else None
+
     context = {
-        'items': items,
+        'items': page_obj.object_list if page_obj else items,
+        'page_obj': page_obj,
         'query': query,
         'district': district,
         'category': category,
@@ -55,7 +60,8 @@ def toggle_bookmark(request, item_id):
         messages.info(request, f'Removed "{item.name}" from bookmarks.')
     else:
         messages.success(request, f'Bookmarked "{item.name}"!')
-    return redirect('search')
+    next_url = request.GET.get('next') or request.META.get('HTTP_REFERER') or 'search'
+    return redirect(next_url)
 
 @login_required
 def bookmarks_view(request):

@@ -2,7 +2,7 @@
 {% block title %}Compare - சந்தை{% endblock %}
 {% block content %}
 <div class="page-header">
-    <div style="display:flex;justify-content:space-between;align-items:center;">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
         <div>
             <h2 style="margin-bottom:0.25rem;"><i class="fas fa-columns" style="color:var(--mustard);"></i> Compare Items</h2>
             <p class="tamil" style="color:var(--brown);font-size:0.9rem;margin:0;">உருப்படிகளை ஒப்பிடுக</p>
@@ -12,12 +12,12 @@
 </div>
 
 <div class="page-content">
-    <div style="background:white;border-radius:16px;overflow:hidden;box-shadow:var(--shadow);">
-        <div style="overflow-x:auto;">
-            <table style="width:100%;border-collapse:collapse;min-width:600px;">
+    <div class="page-card fade-in" style="padding:0;overflow:hidden;">
+        <div class="table-wrapper">
+            <table>
                 <thead>
                     <tr>
-                        <th style="text-align:left;padding:1rem 1.25rem;background:var(--bg-cream);font-weight:600;color:var(--brown);font-size:0.85rem;text-transform:uppercase;letter-spacing:0.5px;border-bottom:2px solid #eee;width:200px;"></th>
+                        <th style="text-align:left;padding:1rem 1.25rem;background:var(--bg-cream);font-weight:600;color:var(--brown);font-size:0.85rem;text-transform:uppercase;letter-spacing:0.5px;border-bottom:2px solid #eee;width:200px;position:sticky;left:0;background:var(--bg-cream);z-index:2;"></th>
                         {% for item in items %}
                         <th style="text-align:center;padding:1rem 1.25rem;background:var(--bg-cream);border-bottom:2px solid #eee;min-width:180px;">
                             <h4 style="margin-bottom:0.25rem;color:var(--charcoal);">{{ item.name }}</h4>

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Bulk Upload Stock - சந்தை{% endblock %}
+{% block content %}
+<div class="page-header" style="max-width: 600px; margin: 0 auto;">
+    <h2><i class="fas fa-file-excel" style="color:var(--mustard);"></i> Bulk Upload Stock</h2>
+    <p class="tamil" style="color:var(--brown);font-size:0.9rem;">மொத்தமாக சரக்குகளை சேர்க்க</p>
+</div>
+
+<div class="page-content" style="max-width: 600px; margin: 0 auto;">
+    <div class="page-card">
+        <div style="background: #FFFDE7; border: 1px solid #D59A2B; padding: 1rem; border-radius: 6px; margin-bottom: 2rem;">
+            <h4 style="color: #6D432A; margin-bottom: 0.5rem;"><i class="fas fa-info-circle"></i> Instructions</h4>
+            <p style="font-size: 0.9rem; color: #4A2C17; margin-bottom: 0.5rem;">Please upload an Excel (<code>.xlsx</code>) file with the following exact columns in order (Row 1 is ignored as header):</p>
+            <ol style="font-size: 0.85rem; color: #4A2C17; margin-left: 1.5rem; margin-bottom: 0;">
+                <li><strong>Name</strong> (e.g., Rice)</li>
+                <li><strong>Category</strong> (e.g., Groceries)</li>
+                <li><strong>Price</strong> (e.g., 50.00)</li>
+                <li><strong>Unit</strong> (e.g., kg)</li>
+                <li><strong>Quantity</strong> (e.g., 100)</li>
+                <li><strong>Description</strong> (Optional)</li>
+            </ol>
+        </div>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            {% for field in form %}
+            <div class="form-group" style="margin-bottom: 1.5rem;">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text %}
+                <small style="color:#666; display:block; margin-top:0.25rem;">{{ field.help_text }}</small>
+                {% endif %}
+                {% if field.errors %}
+                <div class="form-error" style="color: #A84331; font-size: 0.85rem; margin-top: 0.25rem;">
+                    {{ field.errors.0 }}
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top: 2rem;">
+                <a href="{% url 'seller_dashboard' %}" style="color:var(--brown); text-decoration:none;">Cancel</a>
+                <button type="submit" class="btn-submit">Upload & Process</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

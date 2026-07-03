@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Register - சந்தை{% endblock %}
 {% block content %}
-<div style="display:flex;align-items:center;justify-content:center;min-height:70vh;padding:2rem;background:var(--bg-cream);">
+<div class="auth-wrapper">
     <div class="auth-card">
         <div style="text-align:center;margin-bottom:1.5rem;">
             <span style="font-family:'Mukta Malar',sans-serif;font-size:1.5rem;font-weight:800;color:var(--terracotta);">பேரங்காடி</span><span style="font-size:0.95rem;font-weight:600;color:var(--brown);">.com</span>
@@ -24,7 +24,9 @@
             {% endfor %}
             <button type="submit" class="btn-primary-full">Register</button>
         </form>
-        <p style="text-align:center;margin-top:1.25rem;font-size:0.9rem;">Already have an account? <a href="{% url 'login' %}" class="link-primary">Login</a></p>
+        <p style="text-align:center;margin-top:1.25rem;font-size:0.9rem;color:var(--brown);">
+            Already have an account? <a href="{% url 'login' %}" class="link-primary">Login</a>
+        </p>
     </div>
 </div>
 {% endblock %}
