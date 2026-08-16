@@ -16,5 +16,7 @@ def send_verification_email_async(user_id, token_id, domain, scheme):
             recipient_list=[user.email],
             fail_silently=False,
         )
-    except Exception:
-        pass
+    except Exception as e:
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.error(f"Failed to send email: {e}")
