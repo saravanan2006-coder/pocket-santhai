@@ -8,7 +8,7 @@ services:
   - type: web
     name: pocket-santhai
     env: python
-    region: singapore
+    region: oregon
     plan: free
     buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput
     startCommand: bash start.sh
@@ -51,6 +51,6 @@ services:
 
   - type: redis
     name: pocket-santhai-redis
-    region: singapore
+    region: oregon
     plan: free
     ipAllowList: [] # only allow internal connections
