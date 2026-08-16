@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'anymail',
     'marketplace',
 ]
 
@@ -101,10 +102,16 @@ if DEBUG:
     )
     EMAIL_FILE_PATH = BASE_DIR / 'sent_emails'
 else:
-    EMAIL_BACKEND = os.environ.get(
-        'EMAIL_BACKEND',
-        'django.core.mail.backends.smtp.EmailBackend'
-    )
+    if os.environ.get('EMAIL_BACKEND_API', 'False').lower() in ('true', '1', 'yes'):
+        EMAIL_BACKEND = "anymail.backends.sendinblue.EmailBackend"
+        ANYMAIL = {
+            "SENDINBLUE_API_KEY": os.environ.get("ANYMAIL_SENDINBLUE_API_KEY", ""),
+        }
+    else:
+        EMAIL_BACKEND = os.environ.get(
+            'EMAIL_BACKEND',
+            'django.core.mail.backends.smtp.EmailBackend'
+        )
 EMAIL_HOST = os.environ.get('EMAIL_HOST', '')
 EMAIL_PORT = int(os.environ.get('EMAIL_PORT', '587'))
 EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'True').lower() in ('true', '1', 'yes')
