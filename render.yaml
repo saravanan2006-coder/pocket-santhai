@@ -43,3 +43,52 @@ services:
         fromDatabase:
           name: wholesale-db
           property: port
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: pocket-santhai-redis
+          property: connectionString
+
+  - type: worker
+    name: pocket-santhai-worker
+    env: python
+    region: singapore
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: celery -A marketplace worker -l INFO
+    envVars:
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      - key: DATABASE_ENGINE
+        value: django.db.backends.postgresql
+      - key: DATABASE_NAME
+        fromDatabase:
+          name: wholesale-db
+          property: database
+      - key: DATABASE_USER
+        fromDatabase:
+          name: wholesale-db
+          property: user
+      - key: DATABASE_PASSWORD
+        fromDatabase:
+          name: wholesale-db
+          property: password
+      - key: DATABASE_HOST
+        fromDatabase:
+          name: wholesale-db
+          property: host
+      - key: DATABASE_PORT
+        fromDatabase:
+          name: wholesale-db
+          property: port
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: pocket-santhai-redis
+          property: connectionString
+
+  - type: redis
+    name: pocket-santhai-redis
+    region: singapore
+    plan: free
+    ipAllowList: [] # only allow internal connections

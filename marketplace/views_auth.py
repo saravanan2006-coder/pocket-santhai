@@ -72,8 +72,7 @@ def user_register(request):
                 messages.success(request, f'Account created! <a href="{url}" style="color:#155724;font-weight:600;">Click here to verify your email</a> (dev mode)')
             else:
                 messages.success(request, 'Account created! Please check your email to verify your account.')
-            login(request, user)
-            return redirect('home')
+            return redirect('login')
     else:
         form = UserRegistrationForm()
     return render(request, 'registration/register.html', {'form': form})

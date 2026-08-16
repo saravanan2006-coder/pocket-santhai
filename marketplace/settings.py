@@ -148,6 +148,8 @@ if os.environ.get('REDIS_URL'):
         'BACKEND': 'django.core.cache.backends.redis.RedisCache',
         'LOCATION': os.environ.get('REDIS_URL'),
     }
+    CELERY_BROKER_URL = os.environ.get('REDIS_URL')
+    CELERY_RESULT_BACKEND = os.environ.get('REDIS_URL')
 
 # ---- Rate Limiting (via cache) ----
 RATELIMIT_ENABLE = os.environ.get('RATELIMIT_ENABLE', 'True').lower() in ('true', '1', 'yes')

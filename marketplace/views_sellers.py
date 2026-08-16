@@ -8,7 +8,7 @@ from .forms import StockItemForm, SellerProfileForm
 PAGE_SIZE = 20
 
 def is_seller(user):
-    return user.role == 'seller'
+    return user.role == 'seller' and user.email_verified
 
 @login_required
 @user_passes_test(is_seller, login_url='home')

@@ -1,11 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import Q
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
 from django.core.paginator import Paginator
 from .models import StockItem, TN_DISTRICTS, Bookmark
 
 PAGE_SIZE = 20
+
+def is_verified_user(user):
+    return user.is_authenticated and user.email_verified
 
 def search(request):
     query = request.GET.get('q', '').strip()
@@ -52,6 +55,7 @@ def search(request):
     return render(request, 'retailers/search.html', context)
 
 @login_required
+@user_passes_test(is_verified_user, login_url='home')
 def toggle_bookmark(request, item_id):
     item = get_object_or_404(StockItem, pk=item_id)
     bookmark, created = Bookmark.objects.get_or_create(user=request.user, item=item)
@@ -64,11 +68,13 @@ def toggle_bookmark(request, item_id):
     return redirect(next_url)
 
 @login_required
+@user_passes_test(is_verified_user, login_url='home')
 def bookmarks_view(request):
     bookmarks = Bookmark.objects.filter(user=request.user).select_related('item', 'item__seller', 'item__seller__seller_profile')
     return render(request, 'retailers/bookmarks.html', {'bookmarks': bookmarks})
 
 @login_required
+@user_passes_test(is_verified_user, login_url='home')
 def compare_view(request):
     item_ids = request.GET.getlist('items')
     if not item_ids:
