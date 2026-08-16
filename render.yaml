@@ -3,6 +3,7 @@ databases:
     databaseName: wholesale_db
     user: wholesale_user
     plan: free
+    region: oregon
 
 services:
   - type: web
