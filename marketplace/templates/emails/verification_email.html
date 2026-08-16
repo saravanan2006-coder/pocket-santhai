@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Verify your email</title>
+</head>
+<body style="margin: 0; padding: 0; background-color: #f4f4f4; font-family: Arial, sans-serif;">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #f4f4f4;">
+        <tr>
+            <td align="center" style="padding: 40px 10px;">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                    <!-- Header -->
+                    <tr>
+                        <td align="center" style="background-color: #6D432A; padding: 40px 20px;">
+                            <h1 style="color: #ffffff; margin: 0; font-size: 32px; letter-spacing: 1px;">Pocketசந்தை<span style="color: #D59A2B;">.com</span></h1>
+                            <p style="color: #F5D5B8; margin: 10px 0 0 0; font-size: 14px; text-transform: uppercase; letter-spacing: 2px;">Tamil Nadu's Wholesale Hub</p>
+                        </td>
+                    </tr>
+                    
+                    <!-- Body -->
+                    <tr>
+                        <td style="padding: 40px 30px;">
+                            <h2 style="color: #333333; margin-top: 0; font-size: 24px;">Welcome, {{ user.username }}!</h2>
+                            <p style="color: #555555; font-size: 16px; line-height: 1.6; margin-bottom: 30px;">
+                                Thank you for registering at <strong>PocketSanthai</strong>. To unlock your account and begin connecting with wholesalers and retailers across Tamil Nadu, please verify your email address.
+                            </p>
+                            
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                <tr>
+                                    <td align="center">
+                                        <a href="{{ verification_url }}" style="display: inline-block; background-color: #A84331; color: #ffffff; text-decoration: none; padding: 15px 35px; border-radius: 6px; font-weight: bold; font-size: 16px; box-shadow: 0 4px 6px rgba(168,67,49,0.3);">Verify Email Address</a>
+                                    </td>
+                                </tr>
+                            </table>
+                            
+                            <p style="color: #777777; font-size: 14px; line-height: 1.5; margin-top: 35px; border-top: 1px solid #eeeeee; padding-top: 20px;">
+                                If the button above doesn't work, copy and paste this link into your browser:<br>
+                                <a href="{{ verification_url }}" style="color: #D59A2B; word-break: break-all; text-decoration: none; font-weight: bold;">{{ verification_url }}</a>
+                            </p>
+                        </td>
+                    </tr>
+                    
+                    <!-- Footer -->
+                    <tr>
+                        <td align="center" style="background-color: #f9f9f9; padding: 25px 20px; border-top: 1px solid #eeeeee;">
+                            <p style="color: #999999; font-size: 12px; margin: 0; line-height: 1.5;">
+                                If you did not create an account, no further action is required.<br>
+                                This verification link will automatically expire in 24 hours.
+                            </p>
+                            <p style="color: #bbbbbb; font-size: 12px; margin: 15px 0 0 0;">
+                                &copy; 2026 PocketSanthai.com. All rights reserved.
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
