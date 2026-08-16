@@ -147,13 +147,18 @@ CACHES = {
     }
 }
 
-if os.environ.get('REDIS_URL'):
+redis_url = os.environ.get('REDIS_URL')
+if redis_url:
+    if redis_url.startswith('valkey://'):
+        redis_url = redis_url.replace('valkey://', 'redis://')
+    if redis_url.startswith('valkeys://'):
+        redis_url = redis_url.replace('valkeys://', 'rediss://')
     CACHES['default'] = {
         'BACKEND': 'django.core.cache.backends.redis.RedisCache',
-        'LOCATION': os.environ.get('REDIS_URL'),
+        'LOCATION': redis_url,
     }
-    CELERY_BROKER_URL = os.environ.get('REDIS_URL')
-    CELERY_RESULT_BACKEND = os.environ.get('REDIS_URL')
+    CELERY_BROKER_URL = redis_url
+    CELERY_RESULT_BACKEND = redis_url
 
 # ---- Rate Limiting (via cache) ----
 RATELIMIT_ENABLE = os.environ.get('RATELIMIT_ENABLE', 'True').lower() in ('true', '1', 'yes')
