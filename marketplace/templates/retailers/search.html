@@ -73,20 +73,24 @@
                 </div>
                 <div style="background:var(--bg-cream);padding:1rem;border-radius:12px;">
                     <div style="font-weight:600;color:var(--charcoal);margin-bottom:0.35rem;">
-                        <i class="fas fa-store" style="color:var(--mustard);"></i> {{ item.seller.seller_profile.business_name }}
+                        <i class="fas fa-store" style="color:var(--mustard);"></i> {{ item.seller.seller_profile.business_name|default:item.seller.username }}
                     </div>
+                    {% if item.seller.seller_profile.address %}
                     <p style="font-size:0.85rem;color:var(--brown);margin-bottom:0.25rem;">
                         <i class="fas fa-map-marker-alt" style="color:var(--terracotta);"></i> {{ item.seller.seller_profile.address }}
                     </p>
+                    {% endif %}
                     <p style="font-size:0.85rem;margin-bottom:0.25rem;">
-                        <strong>District:</strong> {{ item.seller.seller_profile.district }}
+                        <strong>District:</strong> {{ item.seller.seller_profile.district|default:"Tamil Nadu" }}
                     </p>
+                    {% if item.seller.seller_profile.phone or item.seller.phone %}
                     <p style="font-size:0.9rem;margin-bottom:0.15rem;">
-                        <i class="fas fa-phone" style="color:var(--mustard);"></i> <strong>{{ item.seller.seller_profile.phone }}</strong>
+                        <i class="fas fa-phone" style="color:var(--mustard);"></i> <strong>{{ item.seller.seller_profile.phone|default:item.seller.phone }}</strong>
                     </p>
-                    {% if item.seller.seller_profile.email %}
+                    {% endif %}
+                    {% if item.seller.seller_profile.email or item.seller.email %}
                     <p style="font-size:0.85rem;color:#666;">
-                        <i class="fas fa-envelope" style="color:#888;"></i> {{ item.seller.seller_profile.email }}
+                        <i class="fas fa-envelope" style="color:#888;"></i> {{ item.seller.seller_profile.email|default:item.seller.email }}
                     </p>
                     {% endif %}
                 </div>
@@ -96,10 +100,14 @@
                         <input type="checkbox" class="compare-check" value="{{ item.pk }}" onchange="updateCompare()" style="accent-color:var(--terracotta);transform:scale(1.2);">
                         Compare
                     </label>
-                    <a href="{% url 'toggle_bookmark' item.pk %}?next={{ request.path|urlencode }}%3F{{ request.GET.urlencode|urlencode }}" class="bookmark-btn {% if item.pk in bookmarked_ids %}bookmarked{% endif %}">
-                        <i class="fas fa-bookmark" style="{% if item.pk in bookmarked_ids %}color:var(--mustard);{% else %}color:#ccc;{% endif %}"></i>
-                        {% if item.pk in bookmarked_ids %}Saved{% else %}Save{% endif %}
-                    </a>
+                    <form action="{% url 'toggle_bookmark' item.pk %}" method="post" style="display:inline;margin:0;">
+                        {% csrf_token %}
+                        <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                        <button type="submit" class="bookmark-btn {% if item.pk in bookmarked_ids %}bookmarked{% endif %}" style="border:none;cursor:pointer;width:100%;">
+                            <i class="fas fa-bookmark" style="{% if item.pk in bookmarked_ids %}color:var(--mustard);{% else %}color:#ccc;{% endif %}"></i>
+                            {% if item.pk in bookmarked_ids %}Saved{% else %}Save{% endif %}
+                        </button>
+                    </form>
                     {% endif %}
                 </div>
             </div>

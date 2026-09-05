@@ -53,8 +53,8 @@ class SellerProfile(models.Model):
 
 class StockItem(models.Model):
     seller = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='stock_items', limit_choices_to={'role': 'seller'})
-    name = models.CharField(max_length=200)
-    category = models.CharField(max_length=100)
+    name = models.CharField(max_length=200, db_index=True)
+    category = models.CharField(max_length=100, db_index=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     unit = models.CharField(max_length=20, help_text='e.g., kg, piece, liter')
     quantity = models.PositiveIntegerField()
@@ -70,7 +70,10 @@ class StockItem(models.Model):
 
     @property
     def seller_profile(self):
-        return self.seller.seller_profile
+        try:
+            return self.seller.seller_profile
+        except (AttributeError, models.ObjectDoesNotExist):
+            return None
 
 class Bookmark(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='bookmarks')

@@ -42,31 +42,31 @@
                     <tr>
                         <td style="padding:1rem 1.25rem;font-weight:600;color:var(--brown);border-bottom:1px solid #f5f5f5;"><i class="fas fa-store" style="margin-right:0.5rem;"></i> Seller</td>
                         {% for item in items %}
-                        <td style="padding:1rem 1.25rem;text-align:center;border-bottom:1px solid #f5f5f5;font-weight:600;">{{ item.seller.seller_profile.business_name }}</td>
+                        <td style="padding:1rem 1.25rem;text-align:center;border-bottom:1px solid #f5f5f5;font-weight:600;">{{ item.seller.seller_profile.business_name|default:item.seller.username }}</td>
                         {% endfor %}
                     </tr>
                     <tr>
                         <td style="padding:1rem 1.25rem;font-weight:600;color:var(--brown);border-bottom:1px solid #f5f5f5;"><i class="fas fa-map-marker-alt" style="margin-right:0.5rem;"></i> Address</td>
                         {% for item in items %}
-                        <td style="padding:1rem 1.25rem;text-align:center;border-bottom:1px solid #f5f5f5;color:var(--brown);font-size:0.9rem;">{{ item.seller.seller_profile.address }}</td>
+                        <td style="padding:1rem 1.25rem;text-align:center;border-bottom:1px solid #f5f5f5;color:var(--brown);font-size:0.9rem;">{{ item.seller.seller_profile.address|default:"—" }}</td>
                         {% endfor %}
                     </tr>
                     <tr>
                         <td style="padding:1rem 1.25rem;font-weight:600;color:var(--brown);border-bottom:1px solid #f5f5f5;"><i class="fas fa-map" style="margin-right:0.5rem;"></i> District</td>
                         {% for item in items %}
-                        <td style="padding:1rem 1.25rem;text-align:center;border-bottom:1px solid #f5f5f5;">{{ item.seller.seller_profile.district }}</td>
+                        <td style="padding:1rem 1.25rem;text-align:center;border-bottom:1px solid #f5f5f5;">{{ item.seller.seller_profile.district|default:"Tamil Nadu" }}</td>
                         {% endfor %}
                     </tr>
                     <tr>
                         <td style="padding:1rem 1.25rem;font-weight:600;color:var(--brown);border-bottom:1px solid #f5f5f5;"><i class="fas fa-phone" style="margin-right:0.5rem;"></i> Phone</td>
                         {% for item in items %}
-                        <td style="padding:1rem 1.25rem;text-align:center;border-bottom:1px solid #f5f5f5;font-weight:600;font-size:0.95rem;">{{ item.seller.seller_profile.phone }}</td>
+                        <td style="padding:1rem 1.25rem;text-align:center;border-bottom:1px solid #f5f5f5;font-weight:600;font-size:0.95rem;">{{ item.seller.seller_profile.phone|default:item.seller.phone|default:"—" }}</td>
                         {% endfor %}
                     </tr>
                     <tr>
                         <td style="padding:1rem 1.25rem;font-weight:600;color:var(--brown);border-bottom:1px solid #f5f5f5;"><i class="fas fa-envelope" style="margin-right:0.5rem;"></i> Email</td>
                         {% for item in items %}
-                        <td style="padding:1rem 1.25rem;text-align:center;border-bottom:1px solid #f5f5f5;font-size:0.9rem;">{{ item.seller.seller_profile.email|default:"—" }}</td>
+                        <td style="padding:1rem 1.25rem;text-align:center;border-bottom:1px solid #f5f5f5;font-size:0.9rem;">{{ item.seller.seller_profile.email|default:item.seller.email|default:"—" }}</td>
                         {% endfor %}
                     </tr>
                     {% if items.0.description or items|length > 1 and items.1.description %}

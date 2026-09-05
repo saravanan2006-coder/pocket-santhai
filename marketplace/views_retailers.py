@@ -54,6 +54,8 @@ def search(request):
     }
     return render(request, 'retailers/search.html', context)
 
+from django.utils.http import url_has_allowed_host_and_scheme
+
 @login_required
 @user_passes_test(is_verified_user, login_url='home')
 def toggle_bookmark(request, item_id):
@@ -64,8 +66,11 @@ def toggle_bookmark(request, item_id):
         messages.info(request, f'Removed "{item.name}" from bookmarks.')
     else:
         messages.success(request, f'Bookmarked "{item.name}"!')
-    next_url = request.GET.get('next') or request.META.get('HTTP_REFERER') or 'search'
-    return redirect(next_url)
+    
+    candidate_url = request.POST.get('next') or request.GET.get('next') or request.META.get('HTTP_REFERER') or 'search'
+    if candidate_url and url_has_allowed_host_and_scheme(candidate_url, allowed_hosts={request.get_host()}):
+        return redirect(candidate_url)
+    return redirect('search')
 
 @login_required
 @user_passes_test(is_verified_user, login_url='home')
@@ -76,9 +81,13 @@ def bookmarks_view(request):
 @login_required
 @user_passes_test(is_verified_user, login_url='home')
 def compare_view(request):
-    item_ids = request.GET.getlist('items')
-    if not item_ids:
+    raw_ids = request.GET.getlist('items')
+    if not raw_ids:
         messages.warning(request, 'Please select at least 2 items to compare.')
+        return redirect('search')
+    item_ids = [int(i) for i in raw_ids if str(i).isdigit()]
+    if len(item_ids) < 2:
+        messages.warning(request, 'Please select at least 2 valid items to compare.')
         return redirect('search')
     items = StockItem.objects.filter(pk__in=item_ids).select_related('seller', 'seller__seller_profile')
     if len(items) < 2:

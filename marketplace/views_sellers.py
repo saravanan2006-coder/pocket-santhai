@@ -48,12 +48,16 @@ def edit_stock(request, pk):
         form = StockItemForm(instance=item)
     return render(request, 'sellers/edit_stock.html', {'form': form, 'item': item})
 
+from django.views.decorators.http import require_POST
+
 @login_required
 @user_passes_test(is_seller, login_url='home')
+@require_POST
 def delete_stock(request, pk):
     item = get_object_or_404(StockItem, pk=pk, seller=request.user)
+    name = item.name
     item.delete()
-    messages.success(request, 'Stock item deleted successfully!')
+    messages.success(request, f'Stock item "{name}" deleted successfully!')
     return redirect('seller_dashboard')
 
 @login_required
@@ -73,6 +77,8 @@ def seller_profile(request):
 import openpyxl
 from decimal import Decimal
 
+MAX_BULK_ROWS = 2000
+
 @login_required
 @user_passes_test(is_seller, login_url='home')
 def bulk_upload_stock(request):
@@ -91,6 +97,10 @@ def bulk_upload_stock(request):
                 
                 for row in sheet.iter_rows(min_row=2, values_only=True):
                     row_num += 1
+                    if row_num > MAX_BULK_ROWS:
+                        errors.append(f"Upload limit exceeded. Maximum {MAX_BULK_ROWS} rows supported at once.")
+                        break
+
                     if not any(row):
                         continue
                         
@@ -106,8 +116,11 @@ def bulk_upload_stock(request):
                         continue
                     
                     try:
-                        price_val = Decimal(str(price))
+                        price_val = Decimal(str(price).strip())
                         quantity_val = int(quantity)
+                        if price_val < 0 or quantity_val < 0:
+                            errors.append(f"Row {row_num}: Price and quantity must be positive.")
+                            continue
                     except (ValueError, TypeError, Exception):
                         errors.append(f"Row {row_num}: Invalid price or quantity format.")
                         continue
@@ -125,8 +138,12 @@ def bulk_upload_stock(request):
                     )
                 
                 if items_to_create:
-                    StockItem.objects.bulk_create(items_to_create)
-                    messages.success(request, f'Successfully added {len(items_to_create)} items!')
+                    try:
+                        StockItem.objects.bulk_create(items_to_create)
+                        messages.success(request, f'Successfully added {len(items_to_create)} items!')
+                    except Exception as db_err:
+                        messages.error(request, f"Failed to save items to database: {str(db_err)}")
+                        return redirect('bulk_upload_stock')
                 
                 if errors:
                     for error in errors[:5]:

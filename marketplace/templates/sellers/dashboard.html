@@ -38,9 +38,12 @@
                         <td>{{ item.quantity }}</td>
                         <td style="color:#999;font-size:0.85rem;">{{ item.updated_at|date:"M d, Y" }}</td>
                         <td>
-                            <div style="display:flex;gap:0.5rem;">
-                                <a href="{% url 'edit_stock' item.pk %}" class="btn-edit"><i class="fas fa-edit"></i></a>
-                                <a href="{% url 'delete_stock' item.pk %}" class="btn-delete" onclick="return confirm('Delete this item?')"><i class="fas fa-trash"></i></a>
+                            <div style="display:flex;gap:0.5rem;align-items:center;">
+                                <a href="{% url 'edit_stock' item.pk %}" class="btn-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                                <form action="{% url 'delete_stock' item.pk %}" method="post" style="display:inline;margin:0;" onsubmit="return confirm('Delete this item?');">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn-delete" title="Delete Item" style="border:none;cursor:pointer;"><i class="fas fa-trash"></i></button>
+                                </form>
                             </div>
                         </td>
                     </tr>

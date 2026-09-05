@@ -43,17 +43,21 @@
                 </div>
                 <div style="background:var(--bg-cream);padding:1rem;border-radius:12px;">
                     <div style="font-weight:600;color:var(--charcoal);margin-bottom:0.35rem;">
-                        <i class="fas fa-store" style="color:var(--mustard);"></i> {{ bookmark.item.seller.seller_profile.business_name }}
+                        <i class="fas fa-store" style="color:var(--mustard);"></i> {{ bookmark.item.seller.seller_profile.business_name|default:bookmark.item.seller.username }}
                     </div>
+                    {% if bookmark.item.seller.seller_profile.address %}
                     <p style="font-size:0.85rem;color:var(--brown);margin-bottom:0.25rem;">
                         <i class="fas fa-map-marker-alt" style="color:var(--terracotta);"></i> {{ bookmark.item.seller.seller_profile.address }}
                     </p>
+                    {% endif %}
                     <p style="font-size:0.85rem;margin-bottom:0.25rem;">
-                        <strong>District:</strong> {{ bookmark.item.seller.seller_profile.district }}
+                        <strong>District:</strong> {{ bookmark.item.seller.seller_profile.district|default:"Tamil Nadu" }}
                     </p>
+                    {% if bookmark.item.seller.seller_profile.phone or bookmark.item.seller.phone %}
                     <p style="font-size:0.9rem;margin:0;">
-                        <i class="fas fa-phone" style="color:var(--mustard);"></i> <strong>{{ bookmark.item.seller.seller_profile.phone }}</strong>
+                        <i class="fas fa-phone" style="color:var(--mustard);"></i> <strong>{{ bookmark.item.seller.seller_profile.phone|default:bookmark.item.seller.phone }}</strong>
                     </p>
+                    {% endif %}
                 </div>
                 <div style="text-align:center;display:flex;flex-direction:column;gap:0.5rem;">
                     {% if user.is_authenticated %}
@@ -61,9 +65,13 @@
                         <input type="checkbox" class="compare-check" value="{{ bookmark.item.pk }}" onchange="updateCompare()" style="accent-color:var(--terracotta);transform:scale(1.2);">
                         Compare
                     </label>
-                    <a href="{% url 'toggle_bookmark' bookmark.item.pk %}?next={% url 'bookmarks' %}" style="display:flex;align-items:center;justify-content:center;gap:0.35rem;padding:0.5rem 0.75rem;border-radius:8px;text-decoration:none;font-size:0.85rem;background:#fff5f5;color:var(--terracotta);transition:all 0.2s;">
-                        <i class="fas fa-trash"></i> Remove
-                    </a>
+                    <form action="{% url 'toggle_bookmark' bookmark.item.pk %}" method="post" style="display:inline;margin:0;">
+                        {% csrf_token %}
+                        <input type="hidden" name="next" value="{% url 'bookmarks' %}">
+                        <button type="submit" style="display:flex;align-items:center;justify-content:center;gap:0.35rem;padding:0.5rem 0.75rem;border-radius:8px;border:none;font-size:0.85rem;background:#fff5f5;color:var(--terracotta);cursor:pointer;width:100%;transition:all 0.2s;">
+                            <i class="fas fa-trash"></i> Remove
+                        </button>
+                    </form>
                     {% endif %}
                 </div>
             </div>
