@@ -43,15 +43,20 @@
             <span class="tamil-name">Pocketசந்தை</span><span class="domain">.com</span>
         </a>
 
-        <button class="navbar-toggle" id="navToggle" onclick="toggleNav()" aria-label="Toggle menu">
-            <i class="fas fa-bars"></i>
-        </button>
+        <div class="navbar-actions">
+            <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+                <i class="fas fa-moon" id="themeToggleIcon"></i>
+            </button>
+            <button class="navbar-toggle" id="navToggle" onclick="toggleNav()" aria-label="Toggle navigation menu" title="Toggle navigation menu">
+                <i class="fas fa-bars" id="navToggleIcon"></i>
+            </button>
+        </div>
 
         <div class="navbar-right" id="navbarRight">
             {% if user.is_authenticated %}
                 <a href="{% url 'home' %}" class="btn-login" style="background:transparent; color:var(--brown); box-shadow:none;"><i class="fas fa-home"></i> Home</a>
                 {% if user.role == 'seller' %}
-                    <a href="{% url 'seller_dashboard' %}" class="btn-login">My Stock</a>
+                    <a href="{% url 'seller_dashboard' %}" class="btn-login"><i class="fas fa-boxes"></i> My Stock</a>
                 {% endif %}
                 {% if user.role == 'retailer' %}
                     <a href="{% url 'search' %}" class="btn-login"><i class="fas fa-search"></i> Search</a>
@@ -84,9 +89,6 @@
                     <a href="{% url 'register' %}" class="btn-register">Register</a>
                 </div>
             {% endif %}
-            <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
-                <i class="fas fa-moon" id="themeToggleIcon"></i>
-            </button>
         </div>
     </nav>
 
@@ -116,8 +118,32 @@
         // ---- Mobile Nav Toggle ----
         function toggleNav() {
             var right = document.getElementById('navbarRight');
-            right.classList.toggle('show');
+            var icon = document.getElementById('navToggleIcon');
+            if (!right) return;
+            var isOpen = right.classList.toggle('show');
+            if (icon) {
+                if (isOpen) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            }
         }
+
+        document.addEventListener('click', function(e) {
+            var nav = document.querySelector('.navbar');
+            var right = document.getElementById('navbarRight');
+            var icon = document.getElementById('navToggleIcon');
+            if (right && right.classList.contains('show') && nav && !nav.contains(e.target)) {
+                right.classList.remove('show');
+                if (icon) {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            }
+        });
 
         // ---- Auto-dismiss Toasts ----
         document.addEventListener('DOMContentLoaded', function() {
