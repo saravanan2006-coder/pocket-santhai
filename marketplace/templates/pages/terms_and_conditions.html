@@ -1,0 +1,222 @@
+{% extends "base.html" %}
+
+{% block title %}Terms and Conditions - Pocketசந்தை{% endblock %}
+
+{% block content %}
+<style>
+.policy-card {
+    line-height: 1.75;
+    color: var(--text-primary);
+}
+.policy-card h1 {
+    font-size: 1.85rem;
+    color: var(--charcoal);
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+.policy-card h2 {
+    font-size: 1.35rem;
+    color: var(--charcoal);
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--border-color);
+    font-weight: 700;
+}
+.policy-card h3 {
+    font-size: 1.08rem;
+    color: var(--charcoal);
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+.policy-card p {
+    margin-bottom: 1rem;
+}
+.policy-card ul {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+.policy-card ul ul {
+    margin-top: 0.35rem;
+    margin-left: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+.policy-card li {
+    margin-bottom: 0.4rem;
+}
+.policy-card strong {
+    color: var(--charcoal);
+}
+.policy-meta {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+}
+.policy-notice {
+    background: rgba(217, 119, 6, 0.08);
+    border-left: 4px solid var(--mustard);
+    padding: 0.85rem 1rem;
+    border-radius: 4px;
+    margin: 1rem 0;
+}
+.policy-contact-box {
+    background: var(--bg-inner, rgba(0,0,0,0.03));
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm, 8px);
+    padding: 1.25rem;
+    margin: 1rem 0;
+}
+</style>
+
+<div class="page-header">
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+        <div>
+            <h2 style="margin-bottom:0.25rem; border:none; padding:0;"><i class="fas fa-file-contract" style="color:var(--mustard);"></i> Terms and Conditions</h2>
+            <p class="tamil" style="color:var(--brown); font-size:0.9rem; margin:0;">விதிமுறைகள் மற்றும் நிபந்தனைகள்</p>
+        </div>
+        <a href="{% url 'home' %}" class="btn-cancel"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    </div>
+</div>
+
+<div class="page-content" style="max-width:920px;">
+    <div class="page-card policy-card fade-in">
+        <h1>Terms and Conditions — Pocketசந்தை (PocketSanthai.com)</h1>
+        <div class="policy-meta">
+            <strong>Effective Date:</strong> 09 September 2026<br>
+            <strong>Last Updated:</strong> 09 September 2026
+        </div>
+
+        <p>These Terms and Conditions ("Terms") govern your access to and use of Pocketசந்தை (PocketSanthai.com) (the "Platform"), operated by Saravanan, having its registered address at Villupuram, Tamil Nadu, India ("PocketSanthai", "we", "us", "our"). By registering on, accessing, or using the Platform, you ("User") agree to be bound by these Terms.</p>
+
+        <hr style="border:none; border-top:1px solid var(--border-color); margin:1.75rem 0;">
+
+        <h2>1. Acceptance of Terms &amp; Eligibility</h2>
+        <ul>
+            <li>By creating an account, you confirm that you are competent to enter into a binding contract under the <strong>Indian Contract Act, 1872</strong>.</li>
+            <li>The Platform is intended for <strong>business owners, wholesale traders, retailers/shopkeepers, and their authorized commercial representatives</strong>. It is not intended for casual consumer use.</li>
+            <li>By registering, you represent that all information provided is accurate and that you have the authority to act on behalf of the business you represent (if applicable).</li>
+            <li>If you do not agree to these Terms, you must not access or use the Platform.</li>
+        </ul>
+
+        <hr style="border:none; border-top:1px solid var(--border-color); margin:1.75rem 0;">
+
+        <h2>2. Nature of Service: Intermediary Status &amp; Disclaimer of Liability</h2>
+        <div class="policy-notice">
+            <strong>This section is fundamental to your use of the Platform — please read it carefully.</strong>
+        </div>
+        <ul>
+            <li>PocketSanthai is a <strong>discovery and communication platform (lead-generation directory)</strong> that connects Wholesalers and Retailers across Tamil Nadu. It does <strong>not</strong> process in-app payments, hold funds in escrow, or handle logistics/delivery of goods.</li>
+            <li>Under <strong>Section 79 of the Information Technology Act, 2000</strong>, PocketSanthai acts solely as an <strong>"intermediary"</strong>, providing a platform for Users to list, discover, and communicate about goods. We do not initiate the transmission of listing content, select the receiver, or modify the information contained in any listing, and we observe due diligence as prescribed under the Act and the Intermediary Guidelines made thereunder.</li>
+            <li><strong>PocketSanthai is NOT a party</strong> to any commercial deal, negotiation, contract, sale, purchase, or agreement entered into between a Wholesaler and a Retailer. Any such transaction is entered into solely and directly between the Wholesaler and the Retailer, at their own risk.</li>
+            <li>All negotiation, ordering, payment, and settlement between Wholesalers and Retailers takes place <strong>directly between the parties</strong>, offline or through external methods of the parties' choosing. PocketSanthai has no visibility into, control over, or responsibility for such transactions.</li>
+            <li><strong>We do not guarantee, warrant, verify, or endorse:</strong>
+                <ul>
+                    <li>the accuracy of prices, stock quantities, or availability listed by any Wholesaler;</li>
+                    <li>the quality, freshness, safety, legality, or authenticity of any goods listed;</li>
+                    <li>the timely delivery, non-delivery, or condition of goods;</li>
+                    <li>the creditworthiness, identity, or legitimacy of any User; or</li>
+                    <li>the outcome of any negotiation or transaction conducted off-platform.</li>
+                </ul>
+            </li>
+            <li><strong>Users are strictly advised to conduct their own independent due diligence</strong> — including verifying business identity, inspecting goods, and confirming payment terms — before making any advance payment, placing an order, or entering into any commitment with another User.</li>
+            <li>Any dispute regarding quality, quantity, pricing, delivery, payment, or any other aspect of a transaction is <strong>strictly between the Wholesaler and the Retailer concerned</strong>, and PocketSanthai shall not be liable to mediate, adjudicate, or bear responsibility for the outcome.</li>
+        </ul>
+
+        <hr style="border:none; border-top:1px solid var(--border-color); margin:1.75rem 0;">
+
+        <h2>3. User Accounts &amp; Responsibilities</h2>
+        <ul>
+            <li>You agree to provide accurate, current, and complete information during registration and to keep it updated via your Profile page.</li>
+            <li>You are solely responsible for maintaining the confidentiality of your account password and for all activities conducted under your account.</li>
+            <li>You must notify us immediately at <a href="mailto:stechadmin15@gmail.com" class="link-primary">stechadmin15@gmail.com</a> of any unauthorized access to or use of your account.</li>
+            <li>You must not post, sell, or list any counterfeit, prohibited, hazardous, stolen, or otherwise illegal goods under applicable Indian law (including but not limited to the Legal Metrology Act, Food Safety and Standards Act, Drugs and Cosmetics Act, and any other applicable sector-specific regulation).</li>
+            <li><strong>Wholesalers specifically represent and warrant</strong> that:
+                <ul>
+                    <li>they have legitimate ownership or authorization to sell/list the goods they post;</li>
+                    <li>they hold valid and current business licenses, GST registration (where applicable), and any other statutory registrations required to lawfully carry on their trade; and</li>
+                    <li>all stock, pricing, and business information listed is accurate to the best of their knowledge.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <hr style="border:none; border-top:1px solid var(--border-color); margin:1.75rem 0;">
+
+        <h2>4. Content &amp; Listing Guidelines</h2>
+        <ul>
+            <li>Listings must not contain deceptive, misleading, or false pricing information.</li>
+            <li>Duplicate, spam, or malicious bulk-uploaded listings are prohibited.</li>
+            <li>We reserve the right, at our sole discretion and <strong>without prior notice</strong>, to moderate, edit, suspend, remove, or terminate any listing, content, or account that we reasonably believe violates these Terms, is unlawful, or is harmful to the Platform or its Users.</li>
+            <li>We may, but are under no obligation to, pre-screen, monitor, or review content posted by Users.</li>
+        </ul>
+
+        <hr style="border:none; border-top:1px solid var(--border-color); margin:1.75rem 0;">
+
+        <h2>5. Intellectual Property</h2>
+        <ul>
+            <li>The Pocketசந்தை name, logo, website design, source code, and all associated branding are the exclusive property of PocketSanthai and are protected under applicable Indian intellectual property law. Nothing in these Terms grants you any right to use our trademarks or branding without prior written consent.</li>
+            <li>Users retain full ownership of their own proprietary business names, trademarks, logos, and content ("User Content") uploaded to the Platform.</li>
+            <li>By posting User Content (including business names and stock listings), you grant PocketSanthai a <strong>non-exclusive, royalty-free, worldwide license</strong> to display, reproduce, and index such content solely for the purpose of operating and promoting the marketplace directory (including in search results and listings pages).</li>
+        </ul>
+
+        <hr style="border:none; border-top:1px solid var(--border-color); margin:1.75rem 0;">
+
+        <h2>6. Indemnification &amp; Limitation of Liability</h2>
+        <ul>
+            <li>You agree to <strong>indemnify, defend, and hold harmless</strong> PocketSanthai, its developers, officers, employees, and operators from and against any and all claims, disputes, losses, damages, liabilities, costs, or legal actions (including reasonable legal fees) arising out of or in connection with:
+                <ul>
+                    <li>any transaction, negotiation, or dealing between you and another User;</li>
+                    <li>non-delivery, defective delivery, or misrepresentation of goods;</li>
+                    <li>payment defaults or disputes between Users;</li>
+                    <li>your breach of these Terms or violation of applicable law; or</li>
+                    <li>your use or misuse of the Platform.</li>
+                </ul>
+            </li>
+            <li>To the maximum extent permitted under applicable Indian law, PocketSanthai's total aggregate liability arising out of or relating to your use of the Platform shall be limited to the <strong>lowest amount permitted by statute</strong>, and in no event shall PocketSanthai be liable for any indirect, incidental, special, or consequential damages, including loss of profit, business, or goodwill.</li>
+            <li>The Platform is provided on an <strong>"as is" and "as available"</strong> basis, without warranties of any kind, whether express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, and non-infringement.</li>
+        </ul>
+
+        <hr style="border:none; border-top:1px solid var(--border-color); margin:1.75rem 0;">
+
+        <h2>7. Suspension &amp; Termination</h2>
+        <ul>
+            <li>We may suspend or terminate your account, with or without notice, if you violate these Terms, engage in fraudulent or harmful conduct, or for any other reason at our reasonable discretion.</li>
+            <li>You may deactivate or delete your account at any time via your Profile settings or by contacting us.</li>
+            <li>Sections 2 (Intermediary Status), 6 (Indemnification &amp; Limitation of Liability), and 7 (Governing Law) shall survive termination of your account.</li>
+        </ul>
+
+        <hr style="border:none; border-top:1px solid var(--border-color); margin:1.75rem 0;">
+
+        <h2>8. Grievance Redressal</h2>
+        <p>For complaints regarding content on the Platform or violations of these Terms, contact our Grievance Officer:</p>
+        <div class="policy-contact-box">
+            <p style="margin-bottom:0.4rem;"><strong>Grievance Officer:</strong> Saravanan</p>
+            <p style="margin-bottom:0.4rem;"><strong>Email:</strong> <a href="mailto:stechadmin15@gmail.com" class="link-primary">stechadmin15@gmail.com</a></p>
+            <p style="margin-bottom:0.4rem;"><strong>Phone:</strong> <a href="tel:+916383986265" class="link-primary">+91-6383986265</a></p>
+            <p style="margin-bottom:0;"><strong>Address:</strong> Villupuram, Tamil Nadu, India</p>
+        </div>
+
+        <hr style="border:none; border-top:1px solid var(--border-color); margin:1.75rem 0;">
+
+        <h2>9. Governing Law &amp; Dispute Jurisdiction</h2>
+        <ul>
+            <li>These Terms shall be governed by and construed in accordance with the <strong>laws of India</strong>.</li>
+            <li>Subject to applicable law, any dispute arising out of or in connection with these Terms or your use of the Platform shall be subject to the <strong>exclusive jurisdiction of the courts at Chennai, Tamil Nadu, India</strong>.</li>
+        </ul>
+
+        <hr style="border:none; border-top:1px solid var(--border-color); margin:1.75rem 0;">
+
+        <h2>10. Changes to These Terms</h2>
+        <p>We may revise these Terms at any time to reflect changes in our practices, features, or applicable law. Continued use of the Platform after such changes are posted constitutes your acceptance of the revised Terms. Material changes will be notified via email or a prominent notice on the Platform.</p>
+
+        <hr style="border:none; border-top:1px solid var(--border-color); margin:1.75rem 0;">
+
+        <h2>11. Contact Us</h2>
+        <p>For any questions regarding these Terms, contact us at:</p>
+        <div class="policy-contact-box">
+            <p style="margin-bottom:0.4rem;"><strong>Email:</strong> <a href="mailto:stechadmin15@gmail.com" class="link-primary">stechadmin15@gmail.com</a></p>
+            <p style="margin-bottom:0;"><strong>Website:</strong> <a href="https://pocketsanthai.com" class="link-primary">https://pocketsanthai.com</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}

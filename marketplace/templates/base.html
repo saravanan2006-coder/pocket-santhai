@@ -102,6 +102,15 @@
 
     {% block content %}{% endblock %}
 
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="{% url 'terms_and_conditions' %}">Terms and Conditions</a>
+            <span class="footer-sep">•</span>
+            <a href="{% url 'privacy_policy' %}">Privacy Policy</a>
+        </div>
+        <p class="tamil">&copy; 2026 Pocketசந்தை.com. அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.</p>
+    </footer>
+
     <script>
         // ---- Dropdown Toggle ----
         function toggleDropdown() {

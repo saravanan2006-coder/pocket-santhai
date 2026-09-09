@@ -10,26 +10,108 @@
             <h3 style="margin-top:0.5rem;color:var(--charcoal);font-weight:700;">Create Account</h3>
             <p class="tamil" style="color:var(--brown);font-size:0.9rem;margin-top:0.25rem;">கணத்தை உருவாக்க</p>
         </div>
-        <form method="post">
+        <form method="post" id="registerForm" novalidate>
             {% csrf_token %}
             {% for field in form %}
-            <div class="form-group">
-                <label>{{ field.label }}</label>
-                {{ field }}
-                {% if field.help_text %}
-                <small style="display:block;margin-top:0.25rem;color:#999;font-size:0.8rem;">{{ field.help_text
-                    }}</small>
+                {% if field.name != 'terms_accepted' %}
+                <div class="form-group">
+                    <label>{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.help_text %}
+                    <small style="display:block;margin-top:0.25rem;color:#999;font-size:0.8rem;">{{ field.help_text }}</small>
+                    {% endif %}
+                    {% if field.errors %}
+                    <div style="color:var(--terracotta);font-size:0.8rem;margin-top:0.25rem;">{{ field.errors }}</div>
+                    {% endif %}
+                </div>
                 {% endif %}
-                {% if field.errors %}
-                <div style="color:var(--terracotta);font-size:0.8rem;margin-top:0.25rem;">{{ field.errors }}</div>
-                {% endif %}
-            </div>
             {% endfor %}
-            <button type="submit" class="btn-primary-full">Register</button>
+
+            <!-- WHOLESALER PUBLIC VISIBILITY NOTICE -->
+            <div id="wholesalerConsentNotice" style="display:none; background:rgba(217, 119, 6, 0.1); border-left:3px solid var(--mustard); padding:0.75rem 0.85rem; border-radius:6px; margin-bottom:1rem; font-size:0.85rem; color:var(--charcoal); line-height:1.4;">
+                <i class="fas fa-info-circle" style="color:var(--mustard); margin-right:0.35rem;"></i>
+                Your business name, address, and contact details will be publicly visible to Retailers on the Platform.
+            </div>
+
+            <!-- TERMS AND PRIVACY POLICY ACCEPTANCE -->
+            <div class="form-group" style="margin-bottom:1.25rem;">
+                <label style="display:flex; align-items:flex-start; gap:0.6rem; font-size:0.875rem; cursor:pointer; font-weight:normal; line-height:1.45; color:var(--charcoal); user-select:none;">
+                    <input type="checkbox" name="terms_accepted" id="id_terms_accepted" style="margin-top:0.2rem; cursor:pointer; accent-color:var(--terracotta); width:16px; height:16px; flex-shrink:0;" {% if form.terms_accepted.value %}checked{% endif %} required>
+                    <span>
+                        I have read and agree to the <a href="{% url 'terms_and_conditions' %}" target="_blank" rel="noopener noreferrer" class="link-primary" style="font-weight:600; text-decoration:underline;">Terms and Conditions</a> and <a href="{% url 'privacy_policy' %}" target="_blank" rel="noopener noreferrer" class="link-primary" style="font-weight:600; text-decoration:underline;">Privacy Policy</a>
+                    </span>
+                </label>
+                <div id="termsError" style="color:var(--terracotta); font-size:0.82rem; margin-top:0.4rem; display:{% if form.terms_accepted.errors %}block{% else %}none{% endif %}; font-weight:500;">
+                    {% if form.terms_accepted.errors %}
+                        {% for error in form.terms_accepted.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    {% else %}
+                        You must accept the Terms and Conditions and Privacy Policy to create an account.
+                    {% endif %}
+                </div>
+            </div>
+
+            <button type="submit" id="registerBtn" class="btn-primary-full" disabled>Register</button>
         </form>
         <p style="text-align:center;margin-top:1.25rem;font-size:0.9rem;color:var(--brown);">
             Already have an account? <a href="{% url 'login' %}" class="link-primary">Login</a>
         </p>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var termsCheckbox = document.getElementById('id_terms_accepted');
+    var registerBtn = document.getElementById('registerBtn');
+    var termsError = document.getElementById('termsError');
+    var wholesalerNotice = document.getElementById('wholesalerConsentNotice');
+    var roleRadios = document.querySelectorAll('input[name="role"]');
+    var form = document.getElementById('registerForm');
+
+    function updateWholesalerNotice() {
+        if (!wholesalerNotice) return;
+        var selectedRole = document.querySelector('input[name="role"]:checked');
+        if (selectedRole && selectedRole.value === 'seller') {
+            wholesalerNotice.style.display = 'block';
+        } else {
+            wholesalerNotice.style.display = 'none';
+        }
+    }
+
+    function updateSubmitButton() {
+        if (!registerBtn || !termsCheckbox) return;
+        registerBtn.disabled = !termsCheckbox.checked;
+        if (termsCheckbox.checked && termsError) {
+            termsError.style.display = 'none';
+        }
+    }
+
+    if (termsCheckbox) {
+        termsCheckbox.addEventListener('change', updateSubmitButton);
+    }
+
+    roleRadios.forEach(function(radio) {
+        radio.addEventListener('change', updateWholesalerNotice);
+    });
+
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            if (!termsCheckbox.checked) {
+                e.preventDefault();
+                if (termsError) {
+                    termsError.textContent = 'You must accept the Terms and Conditions and Privacy Policy to create an account.';
+                    termsError.style.display = 'block';
+                }
+                registerBtn.disabled = true;
+                termsCheckbox.focus();
+            }
+        });
+    }
+
+    // Initial check
+    updateWholesalerNotice();
+    updateSubmitButton();
+});
+</script>
 {% endblock %}

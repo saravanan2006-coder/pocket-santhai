@@ -75,13 +75,81 @@ class AuthViewTests(TestCase):
             'role': 'seller',
             'password1': 'StrongPass123!',
             'password2': 'StrongPass123!',
-            'phone': '9876543210'
+            'phone': '9876543210',
+            'terms_accepted': 'on'
         })
         self.assertEqual(response.status_code, 302)
         user = CustomUser.objects.get(username='newseller')
         self.assertFalse(user.email_verified)
+        self.assertIsNotNone(user.terms_accepted_at)
         self.assertTrue(SellerProfile.objects.filter(user=user).exists())
         self.assertTrue(EmailVerificationToken.objects.filter(user=user).exists())
+
+    def test_registration_requires_terms_acceptance(self):
+        response = self.client.post(reverse('register'), {
+            'username': 'notermsuser',
+            'email': 'noterms@validemail.com',
+            'role': 'retailer',
+            'password1': 'StrongPass123!',
+            'password2': 'StrongPass123!',
+            'phone': '9876543210',
+            # terms_accepted intentionally omitted
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse(CustomUser.objects.filter(username='notermsuser').exists())
+        self.assertFormError(
+            response.context['form'],
+            'terms_accepted',
+            'You must accept the Terms and Conditions and Privacy Policy to create an account.'
+        )
+        self.assertContains(response, 'You must accept the Terms and Conditions and Privacy Policy to create an account.')
+
+    def test_privacy_policy_view(self):
+        response = self.client.get(reverse('privacy_policy'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'pages/privacy_policy.html')
+        self.assertContains(response, 'Privacy Policy')
+        self.assertContains(response, 'Cookie and Local Storage Policy')
+        self.assertContains(response, 'Terms and Conditions')  # in footer
+
+        # Also test without trailing slash
+        response_no_slash = self.client.get('/privacy-policy')
+        self.assertEqual(response_no_slash.status_code, 200)
+
+    def test_terms_and_conditions_view(self):
+        response = self.client.get(reverse('terms_and_conditions'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'pages/terms_and_conditions.html')
+        self.assertContains(response, 'Terms and Conditions')
+        self.assertContains(response, 'Intermediary Status')
+        self.assertContains(response, 'Privacy Policy')  # in footer
+
+        # Also test without trailing slash
+        response_no_slash = self.client.get('/terms-and-conditions')
+        self.assertEqual(response_no_slash.status_code, 200)
+
+    def test_registration_page_elements(self):
+        response = self.client.get(reverse('register'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'id_terms_accepted')
+        self.assertContains(response, 'wholesalerConsentNotice')
+        self.assertContains(response, 'target="_blank"')
+        self.assertContains(response, 'Your business name, address, and contact details will be publicly visible to Retailers on the Platform.')
+
+    def test_footer_links_present_on_pages(self):
+        pages_to_check = [
+            reverse('home'),
+            reverse('login'),
+            reverse('register'),
+            reverse('privacy_policy'),
+            reverse('terms_and_conditions'),
+        ]
+        for url in pages_to_check:
+            res = self.client.get(url)
+            self.assertEqual(res.status_code, 200, f"Failed loading {url}")
+            self.assertContains(res, reverse('privacy_policy'), msg_prefix=f"Missing privacy policy link on {url}")
+            self.assertContains(res, reverse('terms_and_conditions'), msg_prefix=f"Missing terms link on {url}")
+
 
     def test_login_blocked_if_unverified(self):
         user = CustomUser.objects.create_user(

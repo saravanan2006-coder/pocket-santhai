@@ -22,6 +22,7 @@ class CustomUser(AbstractUser):
     phone = models.CharField(max_length=15, blank=True)
     email = models.EmailField(unique=True)
     email_verified = models.BooleanField(default=False)
+    terms_accepted_at = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
         return f"{self.username} ({self.get_role_display()})"

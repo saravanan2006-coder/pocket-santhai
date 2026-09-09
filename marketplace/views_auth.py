@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.conf import settings
+from django.utils import timezone
 from django_ratelimit.decorators import ratelimit
 from .forms import UserRegistrationForm
 from .models import EmailVerificationToken, CustomUser, SellerProfile, TN_DISTRICTS
@@ -56,6 +57,7 @@ def user_register(request):
         if form.is_valid():
             user = form.save(commit=False)
             user.email_verified = False
+            user.terms_accepted_at = timezone.now()
             user.save()
             
             if user.role == 'seller':
@@ -154,3 +156,9 @@ def resend_verification(request):
 
 def home(request):
     return render(request, 'marketplace/home.html')
+
+def privacy_policy(request):
+    return render(request, 'pages/privacy_policy.html')
+
+def terms_and_conditions(request):
+    return render(request, 'pages/terms_and_conditions.html')

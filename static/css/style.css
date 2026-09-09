@@ -991,6 +991,32 @@ h4 { font-size: clamp(1rem, 1.5vw, 1.2rem); }
 
 .footer .tamil { color: rgba(255,255,255,0.85); }
 
+.footer-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.65rem;
+  font-size: 0.88rem;
+}
+
+.footer-links a {
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.15s ease;
+}
+
+.footer-links a:hover {
+  color: var(--mustard);
+  text-decoration: underline;
+}
+
+.footer-sep {
+  opacity: 0.4;
+}
+
 /* ---- Forms ---- */
 .auth-card {
   background: var(--white);
@@ -1113,6 +1139,13 @@ input[type="radio"] {
   background: var(--brown);
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(168, 67, 49, 0.3);
+}
+
+.btn-primary-full:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
 }
 
 .link-primary {
@@ -1801,6 +1834,14 @@ input, select, textarea, .theme-toggle, .btn-cancel, .page-link,
   background: #0E0D0C;
   border-top: 1px solid var(--border-color);
   color: var(--text-muted);
+}
+
+[data-theme="dark"] .footer-links a {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .footer-links a:hover {
+  color: var(--mustard);
 }
 
 /* Template inline-style overrides for dark mode */

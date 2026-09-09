@@ -1,0 +1,255 @@
+{% extends "base.html" %}
+
+{% block title %}Privacy Policy - Pocketசந்தை{% endblock %}
+
+{% block content %}
+<style>
+.policy-card {
+    line-height: 1.75;
+    color: var(--text-primary);
+}
+.policy-card h1 {
+    font-size: 1.85rem;
+    color: var(--charcoal);
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+.policy-card h2 {
+    font-size: 1.35rem;
+    color: var(--charcoal);
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--border-color);
+    font-weight: 700;
+}
+.policy-card h3 {
+    font-size: 1.08rem;
+    color: var(--charcoal);
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+.policy-card p {
+    margin-bottom: 1rem;
+}
+.policy-card ul {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+.policy-card li {
+    margin-bottom: 0.4rem;
+}
+.policy-card strong {
+    color: var(--charcoal);
+}
+.policy-meta {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+}
+.policy-notice {
+    background: rgba(217, 119, 6, 0.08);
+    border-left: 4px solid var(--mustard);
+    padding: 0.85rem 1rem;
+    border-radius: 4px;
+    margin: 1rem 0;
+}
+.policy-contact-box {
+    background: var(--bg-inner, rgba(0,0,0,0.03));
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm, 8px);
+    padding: 1.25rem;
+    margin: 1rem 0;
+}
+</style>
+
+<div class="page-header">
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+        <div>
+            <h2 style="margin-bottom:0.25rem; border:none; padding:0;"><i class="fas fa-shield-alt" style="color:var(--mustard);"></i> Privacy Policy</h2>
+            <p class="tamil" style="color:var(--brown); font-size:0.9rem; margin:0;">தனியுரிமைக் கொள்கை</p>
+        </div>
+        <a href="{% url 'home' %}" class="btn-cancel"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    </div>
+</div>
+
+<div class="page-content" style="max-width:920px;">
+    <div class="page-card policy-card fade-in">
+        <h1>Privacy Policy — Pocketசந்தை (PocketSanthai.com)</h1>
+        <div class="policy-meta">
+            <strong>Effective Date:</strong> 09 September 2026<br>
+            <strong>Last Updated:</strong> 09 September 2026
+        </div>
+
+        <p>Pocketசந்தை ("PocketSanthai", "the Platform", "we", "us", "our") operates the website <a href="https://pocketsanthai.com" class="link-primary">https://pocketsanthai.com</a> (or its current domain) as a localized B2B wholesale marketplace directory connecting Wholesalers (Suppliers/Sellers) and Retailers (Buyers/Shopkeepers) across the 38 districts of Tamil Nadu, India.</p>
+
+        <p>This Privacy Policy is issued in accordance with the <strong>Digital Personal Data Protection Act, 2023 ("DPDP Act")</strong>, the <strong>Information Technology Act, 2000</strong>, and the <strong>Information Technology (Reasonable Security Practices and Procedures and Sensitive Personal Data or Information) Rules, 2011</strong>. By using the Platform, you ("User", "Data Principal") consent to the collection and processing of your data as described below.</p>
+
+        <hr style="border:none; border-top:1px solid var(--border-color); margin:1.75rem 0;">
+
+        <h2>1. Data We Collect</h2>
+
+        <h3>1.1 Account Details</h3>
+        <ul>
+            <li>Username</li>
+            <li>Email address</li>
+            <li>Encrypted password (we never store passwords in plain text)</li>
+            <li>User role (Wholesaler or Retailer)</li>
+            <li>Email verification status and records</li>
+        </ul>
+
+        <h3>1.2 Wholesaler Business Data (Publicly Displayed)</h3>
+        <p>When you register as a Wholesaler, the following information is intentionally displayed publicly on the Platform so that Retailers can discover and contact you:</p>
+        <ul>
+            <li>Business name</li>
+            <li>Physical shop/warehouse address and district</li>
+            <li>Phone/mobile number</li>
+            <li>Business email address</li>
+            <li>Stock item details: name, category, price (INR), unit, available quantity, and description</li>
+        </ul>
+        <div class="policy-notice">
+            By registering as a Wholesaler, you explicitly consent to the public display of this business contact information as the core function of the Platform.
+        </div>
+
+        <h3>1.3 Retailer Activity Data</h3>
+        <ul>
+            <li>Bookmarked/saved products</li>
+            <li>Comparison selections</li>
+            <li>Search queries and browsing activity on the Platform</li>
+        </ul>
+
+        <h3>1.4 Technical and Device Data</h3>
+        <ul>
+            <li>Browser type and version</li>
+            <li>IP address</li>
+            <li>Device/viewport information</li>
+            <li>Session cookies (used for authentication and CSRF protection)</li>
+            <li>LocalStorage data (e.g., dark/light theme preference — this is stored only on your device and is not transmitted to our servers)</li>
+        </ul>
+
+        <hr style="border:none; border-top:1px solid var(--border-color); margin:1.75rem 0;">
+
+        <h2>2. How We Use Your Data</h2>
+        <p>We process the data listed above (as "Data Fiduciary" under the DPDP Act) for the following specified purposes:</p>
+        <ul>
+            <li>To facilitate discovery and matchmaking between Retailers and Wholesalers across Tamil Nadu.</li>
+            <li>To publicly display Wholesaler business and contact details so prospective buyers can call, visit, or email them directly.</li>
+            <li>To send transactional and security communications, such as account verification emails, password reset links, and important service notices.</li>
+            <li>To detect, prevent, and act against spam, bot activity, fake accounts, and fraudulent or duplicate stock listings.</li>
+            <li>To maintain platform security, including session management and protection against Cross-Site Request Forgery (CSRF) attacks.</li>
+            <li>To comply with applicable law, regulation, legal process, or government request.</li>
+        </ul>
+        <p>We do <strong>not</strong> use your personal data for any purpose beyond what is listed above without seeking your fresh consent, as required under Section 6 of the DPDP Act.</p>
+
+        <hr style="border:none; border-top:1px solid var(--border-color); margin:1.75rem 0;">
+
+        <h2>3. Third-Party Services and Data Sharing</h2>
+        <ul>
+            <li><strong>We do not sell your personal data</strong> to advertisers, data brokers, or any third party for marketing purposes.</li>
+            <li>Your data is hosted on secure third-party cloud infrastructure, including but not limited to Render (application hosting), PostgreSQL (database), and Redis (caching), and may be processed by our email delivery service provider strictly for sending transactional emails.</li>
+            <li>These service providers act as our data processors and are contractually/technically restricted to processing data only for the purposes we specify.</li>
+            <li><strong>Wholesaler contact information is intentionally public by design</strong> — this is a core, disclosed feature of the Platform's matchmaking function and is not "sharing" in the incidental sense; it is the primary service you sign up for as a Wholesaler.</li>
+            <li>We may disclose data to law enforcement or judicial authorities where required under Indian law, including the IT Act, 2000, and rules made thereunder.</li>
+        </ul>
+
+        <hr style="border:none; border-top:1px solid var(--border-color); margin:1.75rem 0;">
+
+        <h2>4. Your Rights (Data Principal Rights under the DPDP Act, 2023)</h2>
+        <p>As a Data Principal, you have the right to:</p>
+        <ul>
+            <li><strong>Access</strong> a summary of the personal data we hold about you and the processing activities undertaken.</li>
+            <li><strong>Correct and Update</strong> your account and business data at any time via your Profile editing page.</li>
+            <li><strong>Erasure</strong> — request deletion of your account, profile, and associated stock listing data, unless retention is required by law (see Section 5).</li>
+            <li><strong>Grievance Redressal</strong> — raise a complaint regarding the processing of your data (see Section 6).</li>
+            <li><strong>Withdraw Consent</strong> at any time, with the same ease with which it was given. Note that withdrawing consent may mean we can no longer provide certain features (e.g., a Wholesaler withdrawing consent to public display of contact details will need to deactivate their listing).</li>
+            <li><strong>Nominate</strong> another individual to exercise these rights on your behalf in the event of death or incapacity, as provided under the DPDP Act.</li>
+        </ul>
+        <p>To exercise any of these rights, contact our Grievance Officer using the details in Section 6, or use the in-app account/profile deletion option where available.</p>
+
+        <hr style="border:none; border-top:1px solid var(--border-color); margin:1.75rem 0;">
+
+        <h2>5. Data Retention</h2>
+        <ul>
+            <li>We retain your account and business data for as long as your account remains active on the Platform.</li>
+            <li>Upon account deletion, we will erase your personal data within a reasonable period, except where retention is required to comply with a legal obligation, resolve disputes, or enforce our agreements.</li>
+            <li>Technical logs (e.g., IP address, security logs) may be retained for a limited period for fraud prevention and security purposes, consistent with applicable law.</li>
+        </ul>
+
+        <hr style="border:none; border-top:1px solid var(--border-color); margin:1.75rem 0;">
+
+        <h2>6. Cookie and Local Storage Policy</h2>
+        <div class="table-wrapper" style="margin: 1.5rem 0;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Purpose</th>
+                        <th>Duration</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Session Cookie</strong></td>
+                        <td>Keeps you logged in during your session</td>
+                        <td>Expires on logout/session end</td>
+                    </tr>
+                    <tr>
+                        <td><strong>CSRF Token Cookie</strong></td>
+                        <td>Protects against Cross-Site Request Forgery attacks</td>
+                        <td>Session-based</td>
+                    </tr>
+                    <tr>
+                        <td><strong>LocalStorage (theme)</strong></td>
+                        <td>Remembers your dark/light mode preference</td>
+                        <td>Persists until manually cleared by you</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p>We use only <strong>essential cookies</strong> required for the Platform to function securely. We do not use third-party advertising or tracking cookies. LocalStorage data (such as your theme preference) stays on your device and is never transmitted to our servers.</p>
+
+        <hr style="border:none; border-top:1px solid var(--border-color); margin:1.75rem 0;">
+
+        <h2>7. Data Security</h2>
+        <p>We implement reasonable security practices and procedures as mandated under Section 43A of the IT Act, 2000 and the SPDI Rules, 2011, including:</p>
+        <ul>
+            <li>Encryption of passwords</li>
+            <li>Secure (HTTPS/TLS) transmission of data</li>
+            <li>Access controls limiting who can view/administer user data</li>
+            <li>Regular monitoring for suspicious or fraudulent activity</li>
+        </ul>
+        <p>While we take reasonable steps to protect your data, no method of electronic storage or transmission is 100% secure, and we cannot guarantee absolute security.</p>
+
+        <hr style="border:none; border-top:1px solid var(--border-color); margin:1.75rem 0;">
+
+        <h2>8. Children's Privacy</h2>
+        <p>The Platform is intended for use by business owners, traders, and authorized commercial representatives who are competent to contract under the Indian Contract Act, 1872 (i.e., generally 18 years of age or older). We do not knowingly collect data from minors.</p>
+
+        <hr style="border:none; border-top:1px solid var(--border-color); margin:1.75rem 0;">
+
+        <h2>9. Grievance Officer & Contact Details</h2>
+        <p>In accordance with the Information Technology Act, 2000 and rules made thereunder, and the DPDP Act, 2023, the details of our Grievance Officer are as follows:</p>
+        <div class="policy-contact-box">
+            <p style="margin-bottom:0.4rem;"><strong>Grievance Officer:</strong> Saravanan</p>
+            <p style="margin-bottom:0.4rem;"><strong>Designation:</strong> Grievance Officer</p>
+            <p style="margin-bottom:0.4rem;"><strong>Email:</strong> <a href="mailto:stechadmin15@gmail.com" class="link-primary">stechadmin15@gmail.com</a></p>
+            <p style="margin-bottom:0.4rem;"><strong>Phone:</strong> <a href="tel:+916383986265" class="link-primary">+91-6383986265</a></p>
+            <p style="margin-bottom:0.4rem;"><strong>Address:</strong> Villupuram, Tamil Nadu, India</p>
+            <p style="margin-bottom:0;"><strong>Working Hours:</strong> Mon–Sat, 10:00 AM – 6:00 PM IST</p>
+        </div>
+        <p>We will acknowledge and address grievances in accordance with the timelines prescribed under applicable Indian law.</p>
+        <p>For general privacy queries, you may also write to: <a href="mailto:stechadmin15@gmail.com" class="link-primary">stechadmin15@gmail.com</a></p>
+
+        <hr style="border:none; border-top:1px solid var(--border-color); margin:1.75rem 0;">
+
+        <h2>10. Changes to This Policy</h2>
+        <p>We may revise this Privacy Policy periodically to reflect changes in our practices or legal requirements. Material changes will be notified via email or a prominent notice on the Platform, along with an updated "Last Updated" date above.</p>
+
+        <hr style="border:none; border-top:1px solid var(--border-color); margin:1.75rem 0;">
+
+        <h2>11. Governing Law</h2>
+        <p>This Privacy Policy shall be governed by and construed in accordance with the laws of India, including the DPDP Act, 2023 and the Information Technology Act, 2000.</p>
+    </div>
+</div>
+{% endblock %}

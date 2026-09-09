@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path
 from django.contrib.auth.views import LogoutView
 from django.http import JsonResponse
-from .views_auth import user_login, user_register, home, verify_email, resend_verification
+from .views_auth import user_login, user_register, home, verify_email, resend_verification, privacy_policy, terms_and_conditions
 from .views_sellers import seller_dashboard, add_stock, edit_stock, delete_stock, seller_profile, bulk_upload_stock
 from .views_retailers import search, toggle_bookmark, bookmarks_view, compare_view
 
@@ -16,6 +16,10 @@ urlpatterns = [
     path('login/', user_login, name='login'),
     path('logout/', LogoutView.as_view(next_page='login'), name='logout'),
     path('register/', user_register, name='register'),
+    path('privacy-policy/', privacy_policy, name='privacy_policy'),
+    path('privacy-policy', privacy_policy),
+    path('terms-and-conditions/', terms_and_conditions, name='terms_and_conditions'),
+    path('terms-and-conditions', terms_and_conditions),
     path('verify-email/<uuid:token>/', verify_email, name='verify_email'),
     path('resend-verification/', resend_verification, name='resend_verification'),
     path('search/', search, name='search'),

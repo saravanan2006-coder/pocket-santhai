@@ -28,6 +28,12 @@ class UserRegistrationForm(UserCreationForm):
         choices=CustomUser.ROLE_CHOICES,
         widget=forms.RadioSelect(attrs={'style': 'display:flex;gap:1rem;'}),
     )
+    terms_accepted = forms.BooleanField(
+        required=True,
+        error_messages={
+            'required': 'You must accept the Terms and Conditions and Privacy Policy to create an account.'
+        }
+    )
 
     class Meta:
         model = CustomUser
@@ -56,6 +62,12 @@ class UserRegistrationForm(UserCreationForm):
             raise ValidationError('An account with this email already exists.')
 
         return email
+
+    def clean_terms_accepted(self):
+        accepted = self.cleaned_data.get('terms_accepted')
+        if not accepted:
+            raise ValidationError('You must accept the Terms and Conditions and Privacy Policy to create an account.')
+        return accepted
 
 class StockItemForm(forms.ModelForm):
     class Meta:
