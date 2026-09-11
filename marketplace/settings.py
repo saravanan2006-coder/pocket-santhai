@@ -136,7 +136,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# ---- Session & Security ----
+# ---- Reverse Proxy & Security ----
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+USE_X_FORWARDED_HOST = True
 SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_SAMESITE = 'Lax'
 CSRF_COOKIE_HTTPONLY = True

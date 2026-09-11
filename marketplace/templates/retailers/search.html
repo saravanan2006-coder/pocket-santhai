@@ -29,7 +29,7 @@
                 <select name="category">
                     <option value="">All Categories</option>
                     {% for c in categories %}
-                    <option value="{{ c }}" {% if category == c %}selected{% endif %}>{{ c }}</option>
+                    <option value="{{ c }}" {% if category == c or category|lower == c|lower %}selected{% endif %}>{{ c|capfirst }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -108,6 +108,11 @@
                             {% if item.pk in bookmarked_ids %}Saved{% else %}Save{% endif %}
                         </button>
                     </form>
+                    {% else %}
+                    <a href="{% url 'login' %}?next={{ request.get_full_path }}" class="bookmark-btn" style="text-decoration:none;display:flex;align-items:center;justify-content:center;gap:0.35rem;border:none;cursor:pointer;width:100%;font-size:0.85rem;color:var(--brown);" title="Log in to bookmark">
+                        <i class="fas fa-bookmark" style="color:#ccc;"></i>
+                        Save
+                    </a>
                     {% endif %}
                 </div>
             </div>

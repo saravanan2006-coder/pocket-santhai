@@ -177,8 +177,49 @@ class AuthViewTests(TestCase):
         token = EmailVerificationToken.objects.create(user=user)
         response = self.client.get(reverse('verify_email', args=[token.token]))
         self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('login'))
         user.refresh_from_db()
         self.assertTrue(user.email_verified)
+
+    def test_verify_email_without_trailing_slash_and_case_insensitive(self):
+        user = CustomUser.objects.create_user(
+            username='user_case_test',
+            email='case@validemail.com',
+            password='Password123!',
+            role='retailer',
+            email_verified=False
+        )
+        token = EmailVerificationToken.objects.create(user=user)
+        # Test without trailing slash and with uppercase UUID
+        upper_token_str = str(token.token).upper()
+        response = self.client.get(f'/verify-email/{upper_token_str}')
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('login'))
+        user.refresh_from_db()
+        self.assertTrue(user.email_verified)
+
+    def test_verify_email_invalid_token_no_404(self):
+        # Even completely malformed strings should redirect with error message, not 404
+        response = self.client.get('/verify-email/malformed-token-string')
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse('login'))
+
+    @override_settings(ALLOWED_HOSTS=['pocket-santhai.onrender.com', 'localhost', '127.0.0.1'])
+    def test_dynamic_verification_domain_from_host(self):
+        from django.test import RequestFactory
+        from marketplace.views_auth import get_verification_url
+        factory = RequestFactory()
+        req = factory.get('/', HTTP_HOST='pocket-santhai.onrender.com')
+        user = CustomUser.objects.create_user(
+            username='dyn_host_user',
+            email='dyn@validemail.com',
+            password='Password123!',
+            role='retailer'
+        )
+        token = EmailVerificationToken.objects.create(user=user)
+        url = get_verification_url(req, token)
+        self.assertTrue(url.startswith('http://pocket-santhai.onrender.com/verify-email/'))
+
 
     def test_resend_verification_unauthenticated(self):
         user = CustomUser.objects.create_user(
@@ -347,3 +388,63 @@ class RetailerViewTests(TestCase):
         resp_good = self.client.get(reverse('compare') + f'?items={self.item1.pk}&items={self.item2.pk}')
         self.assertEqual(resp_good.status_code, 200)
         self.assertEqual(len(resp_good.context['items']), 2)
+
+    def test_bookmarks_navbar_visibility(self):
+        # Anonymous user sees Search link and Save button in search
+        res_anon = self.client.get(reverse('home'))
+        self.assertContains(res_anon, reverse('search'))
+
+        # Logged in seller sees Bookmarks link in navbar
+        self.client.force_login(self.seller)
+        res_seller = self.client.get(reverse('home'))
+        self.assertContains(res_seller, reverse('bookmarks'))
+        self.assertContains(res_seller, reverse('search'))
+
+    def test_superuser_can_access_bookmarks_even_if_unverified(self):
+        admin_user = CustomUser.objects.create_superuser(
+            username='admin_test',
+            email='admin_test@validemail.com',
+            password='Password123!',
+            email_verified=False
+        )
+        self.client.force_login(admin_user)
+        res = self.client.get(reverse('bookmarks'))
+        self.assertEqual(res.status_code, 200)
+        self.assertContains(res, 'My Bookmarks')
+
+    def test_search_categories_deduplicated(self):
+        # Create multiple items with identical or case-differing categories
+        StockItem.objects.create(
+            seller=self.seller,
+            name="Product 1",
+            category="grocery",
+            price=Decimal("10.00"),
+            quantity=10,
+            unit="kg"
+        )
+        StockItem.objects.create(
+            seller=self.seller,
+            name="Product 2",
+            category="Grocery",
+            price=Decimal("20.00"),
+            quantity=5,
+            unit="kg"
+        )
+        StockItem.objects.create(
+            seller=self.seller,
+            name="Product 3",
+            category="Vegetables",
+            price=Decimal("15.00"),
+            quantity=20,
+            unit="kg"
+        )
+        res = self.client.get(reverse('search'))
+        self.assertEqual(res.status_code, 200)
+        categories = res.context['categories']
+        # Categories should be deduplicated case-insensitively
+        cat_lowers = [c.lower() for c in categories]
+        self.assertEqual(len(cat_lowers), len(set(cat_lowers)))
+        self.assertIn("grocery", cat_lowers)
+        self.assertIn("vegetables", cat_lowers)
+
+

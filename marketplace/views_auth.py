@@ -1,3 +1,4 @@
+import uuid
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import AuthenticationForm
@@ -12,6 +13,29 @@ from .models import EmailVerificationToken, CustomUser, SellerProfile, TN_DISTRI
 
 def is_dev_mode():
     return settings.DEBUG
+
+def get_verification_domain_and_scheme(request):
+    configured_domain = getattr(settings, 'VERIFICATION_DOMAIN', '').strip()
+    if configured_domain and configured_domain != 'localhost:8000':
+        domain = configured_domain
+    elif request:
+        try:
+            domain = request.get_host()
+        except Exception:
+            domain = configured_domain or 'localhost:8000'
+    else:
+        domain = configured_domain or 'localhost:8000'
+
+    if request:
+        scheme = 'https' if (request.is_secure() or request.META.get('HTTP_X_FORWARDED_PROTO') == 'https') else request.scheme
+    else:
+        scheme = 'https' if not settings.DEBUG else 'http'
+
+    return domain, scheme
+
+def get_verification_url(request, token):
+    domain, scheme = get_verification_domain_and_scheme(request)
+    return f"{scheme}://{domain}/verify-email/{token.token}/"
 
 @ratelimit(key='ip', rate='5/m', block=True)
 def user_login(request):
@@ -29,7 +53,7 @@ def user_login(request):
                     if is_dev_mode():
                         token = EmailVerificationToken.objects.filter(user=user).last()
                         if token:
-                            url = f'{request.scheme}://{settings.VERIFICATION_DOMAIN}/verify-email/{token.token}/'
+                            url = get_verification_url(request, token)
                             msg += f'<a href="{url}" style="color:#856404;font-weight:600;">Click here to verify</a>'
                         else:
                             msg += 'Check your inbox (or sent_emails/ folder).'
@@ -73,7 +97,7 @@ def user_register(request):
             send_verification_email(request, user)
             token = EmailVerificationToken.objects.filter(user=user).last()
             if is_dev_mode() and token:
-                url = f'{request.scheme}://{settings.VERIFICATION_DOMAIN}/verify-email/{token.token}/'
+                url = get_verification_url(request, token)
                 messages.success(request, f'Account created! <a href="{url}" style="color:#155724;font-weight:600;">Click here to verify your email</a> (dev mode)')
             else:
                 messages.success(request, 'Account created! Please check your email to verify your account.')
@@ -84,9 +108,10 @@ def user_register(request):
 
 def send_verification_email(request, user):
     token = EmailVerificationToken.objects.create(user=user)
+    domain, scheme = get_verification_domain_and_scheme(request)
     try:
         from .tasks import send_verification_email_async
-        send_verification_email_async.delay(user.pk, token.pk, settings.VERIFICATION_DOMAIN, request.scheme)
+        send_verification_email_async.delay(user.pk, token.pk, domain, scheme)
     except Exception as e:
         import logging
         logger = logging.getLogger(__name__)
@@ -94,7 +119,7 @@ def send_verification_email(request, user):
         from django.template.loader import render_to_string
         from django.utils.html import strip_tags
         try:
-            verification_url = f'{request.scheme}://{settings.VERIFICATION_DOMAIN}/verify-email/{token.token}/'
+            verification_url = f'{scheme}://{domain}/verify-email/{token.token}/'
             context = {'user': user, 'verification_url': verification_url}
             html_message = render_to_string('emails/verification_email.html', context)
             plain_message = strip_tags(html_message)
@@ -110,12 +135,19 @@ def send_verification_email(request, user):
             logger.error(f"Synchronous email fallback failed: {mail_err}")
 
 def verify_email(request, token):
+    raw_token = str(token).strip().rstrip('/')
     try:
-        verification_token = EmailVerificationToken.objects.get(token=token)
+        token_uuid = uuid.UUID(raw_token)
+    except (ValueError, AttributeError, TypeError):
+        messages.error(request, 'Invalid or expired verification link.')
+        return redirect('login')
+
+    try:
+        verification_token = EmailVerificationToken.objects.select_related('user').get(token=token_uuid)
         if verification_token.is_expired:
             verification_token.delete()
             messages.error(request, 'This verification link has expired. Please request a new one.')
-            return redirect('home')
+            return redirect('login')
         user = verification_token.user
         user.email_verified = True
         user.save()
@@ -124,7 +156,7 @@ def verify_email(request, token):
         return redirect('login')
     except EmailVerificationToken.DoesNotExist:
         messages.error(request, 'Invalid or expired verification link.')
-    return redirect('home')
+        return redirect('login')
 
 @ratelimit(key='ip', rate='3/m', block=True)
 def resend_verification(request):
@@ -145,7 +177,7 @@ def resend_verification(request):
         send_verification_email(request, target_user)
         token = EmailVerificationToken.objects.filter(user=target_user).last()
         if is_dev_mode() and token:
-            url = f'{request.scheme}://{settings.VERIFICATION_DOMAIN}/verify-email/{token.token}/'
+            url = get_verification_url(request, token)
             messages.info(request, f'Verification email resent. <a href="{url}" style="color:#856404;font-weight:600;">Click here to verify</a> (dev mode)')
         else:
             messages.info(request, 'Verification email resent. Please check your inbox.')

@@ -55,13 +55,11 @@
         <div class="navbar-right" id="navbarRight">
             {% if user.is_authenticated %}
                 <a href="{% url 'home' %}" class="btn-login" style="background:transparent; color:var(--brown); box-shadow:none;"><i class="fas fa-home"></i> Home</a>
-                {% if user.role == 'seller' %}
+                {% if user.role == 'seller' or user.is_staff or user.is_superuser %}
                     <a href="{% url 'seller_dashboard' %}" class="btn-login"><i class="fas fa-boxes"></i> My Stock</a>
                 {% endif %}
-                {% if user.role == 'retailer' %}
-                    <a href="{% url 'search' %}" class="btn-login"><i class="fas fa-search"></i> Search</a>
-                    <a href="{% url 'bookmarks' %}" class="btn-login"><i class="fas fa-bookmark"></i> Bookmarks</a>
-                {% endif %}
+                <a href="{% url 'search' %}" class="btn-login"><i class="fas fa-search"></i> Search</a>
+                <a href="{% url 'bookmarks' %}" class="btn-login"><i class="fas fa-bookmark"></i> Bookmarks</a>
                 <div class="nav-dropdown">
                     <button class="nav-profile" id="profileBtn" onclick="toggleDropdown()">
                         <span class="avatar"><i class="fas fa-user"></i></span>
@@ -69,14 +67,13 @@
                         <i class="fas fa-chevron-down nav-chevron"></i>
                     </button>
                     <div class="dropdown-menu" id="profileDropdown">
-                        <span class="dropdown-role"><span class="badge-role">{{ user.get_role_display }}</span></span>
+                        <span class="dropdown-role"><span class="badge-role">{{ user.get_role_display|default:"Admin" }}</span></span>
                         <hr>
-                        {% if user.role == 'seller' %}
+                        {% if user.role == 'seller' or user.is_staff or user.is_superuser %}
                             <a href="{% url 'seller_dashboard' %}" class="dropdown-item"><i class="fas fa-boxes"></i> My Stock</a>
                             <a href="{% url 'seller_profile' %}" class="dropdown-item"><i class="fas fa-user-edit"></i> Edit Profile</a>
-                        {% else %}
-                            <a href="{% url 'bookmarks' %}" class="dropdown-item"><i class="fas fa-bookmark"></i> My Bookmarks</a>
                         {% endif %}
+                        <a href="{% url 'bookmarks' %}" class="dropdown-item"><i class="fas fa-bookmark"></i> My Bookmarks</a>
                         <form action="{% url 'logout' %}" method="post">
                             {% csrf_token %}
                             <button type="submit" class="dropdown-item dropdown-logout"><i class="fas fa-sign-out-alt"></i> Logout</button>
@@ -84,6 +81,7 @@
                     </div>
                 </div>
             {% else %}
+                <a href="{% url 'search' %}" class="btn-login" style="background:transparent; color:var(--brown); box-shadow:none;"><i class="fas fa-search"></i> Search</a>
                 <div class="nav-auth-links">
                     <a href="{% url 'login' %}" class="btn-login">Login</a>
                     <a href="{% url 'register' %}" class="btn-register">Register</a>

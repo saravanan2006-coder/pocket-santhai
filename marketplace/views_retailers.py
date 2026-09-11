@@ -8,7 +8,7 @@ from .models import StockItem, TN_DISTRICTS, Bookmark
 PAGE_SIZE = 20
 
 def is_verified_user(user):
-    return user.is_authenticated and user.email_verified
+    return user.is_authenticated and (user.email_verified or user.is_staff or user.is_superuser)
 
 def search(request):
     query = request.GET.get('q', '').strip()
@@ -36,7 +36,21 @@ def search(request):
             Bookmark.objects.filter(user=request.user).values_list('item_id', flat=True)
         )
 
-    categories = StockItem.objects.values_list('category', flat=True).distinct()
+    raw_categories = (
+        StockItem.objects.exclude(category__isnull=True)
+        .exclude(category__exact='')
+        .order_by('category')
+        .values_list('category', flat=True)
+        .distinct()
+    )
+    seen_categories = set()
+    categories = []
+    for c in raw_categories:
+        clean_c = c.strip()
+        key = clean_c.lower()
+        if clean_c and key not in seen_categories:
+            seen_categories.add(key)
+            categories.append(clean_c)
 
     paginator = Paginator(items, PAGE_SIZE) if items else None
     page_number = request.GET.get('page', 1)
