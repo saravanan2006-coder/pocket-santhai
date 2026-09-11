@@ -220,6 +220,39 @@ class AuthViewTests(TestCase):
         url = get_verification_url(req, token)
         self.assertTrue(url.startswith('http://pocket-santhai.onrender.com/verify-email/'))
 
+    @override_settings(VERIFICATION_DOMAIN='https://pocket-santhai.onrender.com/')
+    def test_verification_url_sanitizes_protocol_prefix_avoiding_double_https(self):
+        from django.test import RequestFactory
+        from marketplace.views_auth import get_verification_url
+        factory = RequestFactory()
+        req = factory.get('/')
+        user = CustomUser.objects.create_user(
+            username='double_https_user',
+            email='double@validemail.com',
+            password='Password123!',
+            role='retailer'
+        )
+        token = EmailVerificationToken.objects.create(user=user)
+        url = get_verification_url(req, token)
+        self.assertFalse(url.startswith('https://https://'))
+        self.assertTrue(url.startswith('https://pocket-santhai.onrender.com/verify-email/'))
+
+    def test_send_verification_email_async_sanitization(self):
+        from marketplace.tasks import send_verification_email_async
+        from django.core import mail
+        user = CustomUser.objects.create_user(
+            username='async_sanitize_user',
+            email='sanitize@validemail.com',
+            password='Password123!',
+            role='retailer'
+        )
+        token = EmailVerificationToken.objects.create(user=user)
+        send_verification_email_async(user.pk, token.pk, 'https://pocket-santhai.onrender.com/', 'https')
+        self.assertEqual(len(mail.outbox), 1)
+        sent_email = mail.outbox[0]
+        self.assertNotIn('https://https://', sent_email.body)
+        self.assertIn('https://pocket-santhai.onrender.com/verify-email/', sent_email.body)
+
 
     def test_resend_verification_unauthenticated(self):
         user = CustomUser.objects.create_user(

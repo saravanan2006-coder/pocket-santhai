@@ -26,12 +26,25 @@ def get_verification_domain_and_scheme(request):
     else:
         domain = configured_domain or 'localhost:8000'
 
-    if request:
+    clean_domain = str(domain).strip().rstrip('/')
+    custom_scheme = None
+    if clean_domain.startswith('https://'):
+        clean_domain = clean_domain[len('https://'):]
+        custom_scheme = 'https'
+    elif clean_domain.startswith('http://'):
+        clean_domain = clean_domain[len('http://'):]
+        custom_scheme = 'http'
+    clean_domain = clean_domain.strip('/')
+
+    if custom_scheme:
+        scheme = custom_scheme
+    elif request:
         scheme = 'https' if (request.is_secure() or request.META.get('HTTP_X_FORWARDED_PROTO') == 'https') else request.scheme
     else:
         scheme = 'https' if not settings.DEBUG else 'http'
 
-    return domain, scheme
+    clean_scheme = str(scheme).strip().rstrip(':/') if scheme else 'https'
+    return clean_domain, clean_scheme
 
 def get_verification_url(request, token):
     domain, scheme = get_verification_domain_and_scheme(request)

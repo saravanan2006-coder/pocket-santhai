@@ -120,7 +120,13 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
 DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'noreply@pocketsanthai.com')
 
 # ---- Verification Domain ----
-VERIFICATION_DOMAIN = os.environ.get('VERIFICATION_DOMAIN', 'localhost:8000')
+raw_verification_domain = os.environ.get('VERIFICATION_DOMAIN', 'localhost:8000').strip()
+if raw_verification_domain.startswith('https://'):
+    VERIFICATION_DOMAIN = raw_verification_domain[len('https://'):].rstrip('/')
+elif raw_verification_domain.startswith('http://'):
+    VERIFICATION_DOMAIN = raw_verification_domain[len('http://'):].rstrip('/')
+else:
+    VERIFICATION_DOMAIN = raw_verification_domain.rstrip('/')
 
 # ---- Password Validation ----
 AUTH_PASSWORD_VALIDATORS = [

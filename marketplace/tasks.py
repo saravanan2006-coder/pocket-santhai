@@ -10,7 +10,18 @@ def send_verification_email_async(user_id, token_id, domain, scheme):
     try:
         user = CustomUser.objects.get(pk=user_id)
         token = EmailVerificationToken.objects.get(pk=token_id)
-        verification_url = f'{scheme}://{domain}/verify-email/{token.token}/'
+        # Ensure domain does not include http:// or https:// or trailing slashes
+        clean_domain = str(domain).strip().rstrip('/')
+        clean_scheme = str(scheme).strip().rstrip(':/') if scheme else 'https'
+        if clean_domain.startswith('https://'):
+            clean_domain = clean_domain[len('https://'):]
+            clean_scheme = 'https'
+        elif clean_domain.startswith('http://'):
+            clean_domain = clean_domain[len('http://'):]
+            clean_scheme = 'http'
+        clean_domain = clean_domain.strip('/')
+
+        verification_url = f'{clean_scheme}://{clean_domain}/verify-email/{token.token}/'
         
         context = {
             'user': user,
