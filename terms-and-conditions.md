@@ -1,9 +1,9 @@
-# Terms and Conditions — WholeSync (WholeSync.com)
+# Terms and Conditions — WholeSync
 
 **Effective Date:** 09 September 2026
 **Last Updated:** 09 September 2026
 
-These Terms and Conditions ("Terms") govern your access to and use of WholeSync (WholeSync.com) (the "Platform"), operated by Saravanan, having its registered address at Villupuram, Tamil Nadu, India ("WholeSync", "we", "us", "our"). By registering on, accessing, or using the Platform, you ("User") agree to be bound by these Terms.
+These Terms and Conditions ("Terms") govern your access to and use of WholeSync (the "Platform"), operated by Saravanan, having its registered address at Villupuram, Tamil Nadu, India ("WholeSync", "we", "us", "our"). By registering on, accessing, or using the Platform, you ("User") agree to be bound by these Terms.
 
 ---
 

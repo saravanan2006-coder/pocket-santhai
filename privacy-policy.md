@@ -1,4 +1,4 @@
-# Privacy Policy — WholeSync (WholeSync.com)
+# Privacy Policy — WholeSync
 
 **Effective Date:** 09 September 2026
 **Last Updated:** 09 September 2026

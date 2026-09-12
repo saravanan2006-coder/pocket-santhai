@@ -15,7 +15,7 @@
   <img src="https://img.shields.io/badge/License-MIT-red?style=for-the-badge" alt="License">
 </p>
 
-<h1 align="center">WholeSync.com</h1>
+<h1 align="center">WholeSync</h1>
 
 <p align="center">
   <strong>Tamil Nadu's Premier B2B Wholesale Marketplace</strong><br>
@@ -100,7 +100,7 @@ Wholesalers upload their stock, manage their business profiles, and become disco
 | Element | Detail |
 |---------|--------|
 | **Modern Typography** | Plus Jakarta Sans |
-| **Brand** | WholeSync.com |
+| **Brand** | WholeSync |
 | **Color Palette** | Mustard (#D59A2B), Terracotta (#A84331), Earth Brown (#6D432A) |
 | **SVG Illustrations** | Custom vector merchants, delivery trucks, storefronts |
 | **Interactive Map** | Beautiful inline vector map of Tamil Nadu with pulsing district hubs |
@@ -232,7 +232,7 @@ CustomUser ───────────────────────
 ### Landing Page
 ```
 ┌─────────────────────────────────────────────────────────┐
-│  WholeSync.com                      [Login] [Register]  |
+│  WholeSync                          [Login] [Register]  |
 ├─────────────────────────────────────────────────────────┤
 │                                                         │
 │   [Illustration]       WholeSync        [Illustration]  │
@@ -295,5 +295,5 @@ MIT License — Free for personal and commercial use.
 
 <p align="center">
   <sub>Built with ❤️ for Tamil Nadu's wholesale community</sub><br>
-  <samp>© 2026 WholeSync.com. All rights reserved.</samp>
+  <samp>© 2026 WholeSync. All rights reserved.</samp>
 </p>
