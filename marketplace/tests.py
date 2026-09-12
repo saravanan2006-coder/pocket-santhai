@@ -204,12 +204,12 @@ class AuthViewTests(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse('login'))
 
-    @override_settings(ALLOWED_HOSTS=['pocket-santhai.onrender.com', 'localhost', '127.0.0.1'])
+    @override_settings(ALLOWED_HOSTS=['wholesync.onrender.com', 'localhost', '127.0.0.1'])
     def test_dynamic_verification_domain_from_host(self):
         from django.test import RequestFactory
         from marketplace.views_auth import get_verification_url
         factory = RequestFactory()
-        req = factory.get('/', HTTP_HOST='pocket-santhai.onrender.com')
+        req = factory.get('/', HTTP_HOST='wholesync.onrender.com')
         user = CustomUser.objects.create_user(
             username='dyn_host_user',
             email='dyn@validemail.com',
@@ -218,9 +218,9 @@ class AuthViewTests(TestCase):
         )
         token = EmailVerificationToken.objects.create(user=user)
         url = get_verification_url(req, token)
-        self.assertTrue(url.startswith('http://pocket-santhai.onrender.com/verify-email/'))
+        self.assertTrue(url.startswith('http://wholesync.onrender.com/verify-email/'))
 
-    @override_settings(VERIFICATION_DOMAIN='https://pocket-santhai.onrender.com/')
+    @override_settings(VERIFICATION_DOMAIN='https://wholesync.onrender.com/')
     def test_verification_url_sanitizes_protocol_prefix_avoiding_double_https(self):
         from django.test import RequestFactory
         from marketplace.views_auth import get_verification_url
@@ -235,7 +235,7 @@ class AuthViewTests(TestCase):
         token = EmailVerificationToken.objects.create(user=user)
         url = get_verification_url(req, token)
         self.assertFalse(url.startswith('https://https://'))
-        self.assertTrue(url.startswith('https://pocket-santhai.onrender.com/verify-email/'))
+        self.assertTrue(url.startswith('https://wholesync.onrender.com/verify-email/'))
 
     def test_send_verification_email_async_sanitization(self):
         from marketplace.tasks import send_verification_email_async
@@ -247,11 +247,11 @@ class AuthViewTests(TestCase):
             role='retailer'
         )
         token = EmailVerificationToken.objects.create(user=user)
-        send_verification_email_async(user.pk, token.pk, 'https://pocket-santhai.onrender.com/', 'https')
+        send_verification_email_async(user.pk, token.pk, 'https://wholesync.onrender.com/', 'https')
         self.assertEqual(len(mail.outbox), 1)
         sent_email = mail.outbox[0]
         self.assertNotIn('https://https://', sent_email.body)
-        self.assertIn('https://pocket-santhai.onrender.com/verify-email/', sent_email.body)
+        self.assertIn('https://wholesync.onrender.com/verify-email/', sent_email.body)
 
 
     def test_resend_verification_unauthenticated(self):

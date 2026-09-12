@@ -1,7 +1,7 @@
 <p align="center">
   <a href="#">
     <samp>
-      <img alt="Pocketசந்தை" width="256" height="auto" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='80'%3E%3Ctext x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='serif' font-size='48' fill='%23A84331' font-weight='bold'%3Eசந்தை%3C/text%3E%3C/svg%3E">
+      <img alt="WholeSync" width="256" height="auto" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='80'%3E%3Ctext x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='sans-serif' font-size='38' fill='%23A84331' font-weight='bold'%3EWholeSync%3C/text%3E%3C/svg%3E">
     </samp>
   </a>
 </p>
@@ -15,7 +15,7 @@
   <img src="https://img.shields.io/badge/License-MIT-red?style=for-the-badge" alt="License">
 </p>
 
-<h1 align="center">Pocketசந்தை.com</h1>
+<h1 align="center">WholeSync.com</h1>
 
 <p align="center">
   <strong>Tamil Nadu's Premier B2B Wholesale Marketplace</strong><br>
@@ -37,7 +37,7 @@
 
 ## 🧭 About
 
-**Pocketசந்தை (pocketSanthai)** — literally *"marketplace"* in Tamil — is a full-stack B2B web application built with Django that bridges the gap between **wholesale sellers** and **retailers** across all **38 districts of Tamil Nadu**.
+**WholeSync** is a full-stack B2B web application built with Django that bridges the gap between **wholesale sellers** and **retailers** across all **38 districts of Tamil Nadu**.
 
 Wholesalers upload their stock, manage their business profiles, and become discoverable. Retailers search products, compare prices across agencies, bookmark favorites, and contact suppliers directly.
 
@@ -91,10 +91,10 @@ Wholesalers upload their stock, manage their business profiles, and become disco
 ### 🎨 Design & Branding
 | Element | Detail |
 |---------|--------|
-| **Bilingual UI** | Tamil (Mukta Malar) + English (Plus Jakarta Sans) |
-| **Brand** | பேரங்காடி.com with "சந்தை" hero |
+| **Modern Typography** | Plus Jakarta Sans |
+| **Brand** | WholeSync.com |
 | **Color Palette** | Mustard (#D59A2B), Terracotta (#A84331), Earth Brown (#6D432A) |
-| **SVG Illustrations** | Custom cartoon merchants, delivery trucks, storefronts |
+| **SVG Illustrations** | Custom vector merchants, delivery trucks, storefronts |
 | **Interactive Map** | Beautiful inline vector map of Tamil Nadu with pulsing district hubs |
 | **Responsive** | Mobile-friendly with graceful degradation |
 
@@ -224,48 +224,47 @@ CustomUser ───────────────────────
 ### Landing Page
 ```
 ┌─────────────────────────────────────────────────────────┐
-│  pocketசந்தை.com                    [Login] [Register]  |
+│  WholeSync.com                      [Login] [Register]  |
 ├─────────────────────────────────────────────────────────┤
 │                                                         │
-│   [Illustration]   pocketசந்தை        [Illustration]     │
-│                    தமிழ்நாட்டின் மொத்த                      │
-│                     விற்பனை மையம்                        │
+│   [Illustration]       WholeSync        [Illustration]  │
+│                Tamil Nadu's Digital B2B                 │
+│                   Wholesale Directory                   │
 │                                                         │
 │          ┌─────────────────────────────────┐            │
-│          │ 🔍 Search Products / தேடல்... │ [தேடல்] │            │
+│          │ 🔍 Search Products...           │  [Search]  │            │
 │          └─────────────────────────────────┘            │
 │                                                         │
 ├─────────────────────┬───────────────────────────────────┤
 │   Wholesalers       │       Retailers                   │
-│   கொள்முதல்காரர்கள்  │  சில்லறை விற்பனையாளர்கள்         │
-│   [Desk Illustration] │  [Store Illustration]           │
-│   [மேலாண்மை சரக்கு]    │  [இப்போது தேடவும்]              │
+│   Suppliers/Sellers │       Shop Owners & Buyers        │
+│   [Desk Illustration] │     [Store Illustration]        │
+│   [Manage Inventory]│       [Search Directory]          │
 ├─────────────────────┼───────────────────────────────────┤
-│  ஸ்மார்ட் தேடல்     │  மாவட்ட வடிகட்டி  │ நேரடி தொடர்பு │
-│  Smart Search       │  District Filter  │ Direct Contact │
+│  Smart Search       │  District Filter  │ Direct Contact│
+│  Fast Query Engine  │  38 TN Districts  │ Phone & Email │
 └─────────────────────┴───────────────────────────────────┘
 ```
 
 ### Search Results
 ```
 ┌─────────────────────────────────────────────────────────┐
-│  🔍 தேடல் - Find Products Across Tamil Nadu Wholesalers │
+│  🔍 Wholesale Search - Find Products Across Tamil Nadu  │
 ├─────────────────────────────────────────────────────────┤
-│  [Search Item]  [District ▾]  [Category ▾]  [தேடல்]     │
+│  [Search Item]  [District ▾]  [Category ▾]  [Search]    │
 ├─────────────────────────────────────────────────────────┤
 │  ☑ Select items to compare: 0 selected  [Compare ▸]    │
 ├─────────────────────────────────────────────────────────┤
 │  ┌─ Rice ─────────────────────── ₹25/kg ──────────────┐ │
 │  │  Groceries  |  Stock: 500                          │ │
 │  │  📍 Anna Wholesale, Chennai | District: Chennai    │ │
-│  │  📞 9876543210 | ✉ anna@wholesale.com              │ │
+│  │  📞 9876543210 | ✉ anna@wholesync.com              │ │
 │  │                              [☑ Compare] [🔖 Save]  │ │
 │  └────────────────────────────────────────────────────┘ │
 └─────────────────────────────────────────────────────────┘
 ```
 
 ---
-
 
 ---
 
@@ -288,5 +287,5 @@ MIT License — Free for personal and commercial use.
 
 <p align="center">
   <sub>Built with ❤️ for Tamil Nadu's wholesale community</sub><br>
-  <samp>© 2026 சந்தை பேரங்காடி.com</samp>
+  <samp>© 2026 WholeSync.com. All rights reserved.</samp>
 </p>

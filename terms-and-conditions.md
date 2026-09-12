@@ -1,9 +1,9 @@
-# Terms and Conditions — Pocketசந்தை (PocketSanthai.com)
+# Terms and Conditions — WholeSync (WholeSync.com)
 
 **Effective Date:** 09 September 2026
 **Last Updated:** 09 September 2026
 
-These Terms and Conditions ("Terms") govern your access to and use of Pocketசந்தை (PocketSanthai.com) (the "Platform"), operated by Saravanan, having its registered address at Villupuram, Tamil Nadu, India ("PocketSanthai", "we", "us", "our"). By registering on, accessing, or using the Platform, you ("User") agree to be bound by these Terms.
+These Terms and Conditions ("Terms") govern your access to and use of WholeSync (WholeSync.com) (the "Platform"), operated by Saravanan, having its registered address at Villupuram, Tamil Nadu, India ("WholeSync", "we", "us", "our"). By registering on, accessing, or using the Platform, you ("User") agree to be bound by these Terms.
 
 ---
 
@@ -20,10 +20,10 @@ These Terms and Conditions ("Terms") govern your access to and use of Pocketச�
 
 **This section is fundamental to your use of the Platform — please read it carefully.**
 
-- PocketSanthai is a **discovery and communication platform (lead-generation directory)** that connects Wholesalers and Retailers across Tamil Nadu. It does **not** process in-app payments, hold funds in escrow, or handle logistics/delivery of goods.
-- Under **Section 79 of the Information Technology Act, 2000**, PocketSanthai acts solely as an **"intermediary"**, providing a platform for Users to list, discover, and communicate about goods. We do not initiate the transmission of listing content, select the receiver, or modify the information contained in any listing, and we observe due diligence as prescribed under the Act and the Intermediary Guidelines made thereunder.
-- **PocketSanthai is NOT a party** to any commercial deal, negotiation, contract, sale, purchase, or agreement entered into between a Wholesaler and a Retailer. Any such transaction is entered into solely and directly between the Wholesaler and the Retailer, at their own risk.
-- All negotiation, ordering, payment, and settlement between Wholesalers and Retailers takes place **directly between the parties**, offline or through external methods of the parties' choosing. PocketSanthai has no visibility into, control over, or responsibility for such transactions.
+- WholeSync is a **discovery and communication platform (lead-generation directory)** that connects Wholesalers and Retailers across Tamil Nadu. It does **not** process in-app payments, hold funds in escrow, or handle logistics/delivery of goods.
+- Under **Section 79 of the Information Technology Act, 2000**, WholeSync acts solely as an **"intermediary"**, providing a platform for Users to list, discover, and communicate about goods. We do not initiate the transmission of listing content, select the receiver, or modify the information contained in any listing, and we observe due diligence as prescribed under the Act and the Intermediary Guidelines made thereunder.
+- **WholeSync is NOT a party** to any commercial deal, negotiation, contract, sale, purchase, or agreement entered into between a Wholesaler and a Retailer. Any such transaction is entered into solely and directly between the Wholesaler and the Retailer, at their own risk.
+- All negotiation, ordering, payment, and settlement between Wholesalers and Retailers takes place **directly between the parties**, offline or through external methods of the parties' choosing. WholeSync has no visibility into, control over, or responsibility for such transactions.
 - **We do not guarantee, warrant, verify, or endorse:**
   - the accuracy of prices, stock quantities, or availability listed by any Wholesaler;
   - the quality, freshness, safety, legality, or authenticity of any goods listed;
@@ -31,7 +31,7 @@ These Terms and Conditions ("Terms") govern your access to and use of Pocketச�
   - the creditworthiness, identity, or legitimacy of any User; or
   - the outcome of any negotiation or transaction conducted off-platform.
 - **Users are strictly advised to conduct their own independent due diligence** — including verifying business identity, inspecting goods, and confirming payment terms — before making any advance payment, placing an order, or entering into any commitment with another User.
-- Any dispute regarding quality, quantity, pricing, delivery, payment, or any other aspect of a transaction is **strictly between the Wholesaler and the Retailer concerned**, and PocketSanthai shall not be liable to mediate, adjudicate, or bear responsibility for the outcome.
+- Any dispute regarding quality, quantity, pricing, delivery, payment, or any other aspect of a transaction is **strictly between the Wholesaler and the Retailer concerned**, and WholeSync shall not be liable to mediate, adjudicate, or bear responsibility for the outcome.
 
 ---
 
@@ -59,21 +59,21 @@ These Terms and Conditions ("Terms") govern your access to and use of Pocketச�
 
 ## 5. Intellectual Property
 
-- The Pocketசந்தை name, logo, website design, source code, and all associated branding are the exclusive property of PocketSanthai and are protected under applicable Indian intellectual property law. Nothing in these Terms grants you any right to use our trademarks or branding without prior written consent.
+- The WholeSync name, logo, website design, source code, and all associated branding are the exclusive property of WholeSync and are protected under applicable Indian intellectual property law. Nothing in these Terms grants you any right to use our trademarks or branding without prior written consent.
 - Users retain full ownership of their own proprietary business names, trademarks, logos, and content ("User Content") uploaded to the Platform.
-- By posting User Content (including business names and stock listings), you grant PocketSanthai a **non-exclusive, royalty-free, worldwide license** to display, reproduce, and index such content solely for the purpose of operating and promoting the marketplace directory (including in search results and listings pages).
+- By posting User Content (including business names and stock listings), you grant WholeSync a **non-exclusive, royalty-free, worldwide license** to display, reproduce, and index such content solely for the purpose of operating and promoting the marketplace directory (including in search results and listings pages).
 
 ---
 
 ## 6. Indemnification & Limitation of Liability
 
-- You agree to **indemnify, defend, and hold harmless** PocketSanthai, its developers, officers, employees, and operators from and against any and all claims, disputes, losses, damages, liabilities, costs, or legal actions (including reasonable legal fees) arising out of or in connection with:
+- You agree to **indemnify, defend, and hold harmless** WholeSync, its developers, officers, employees, and operators from and against any and all claims, disputes, losses, damages, liabilities, costs, or legal actions (including reasonable legal fees) arising out of or in connection with:
   - any transaction, negotiation, or dealing between you and another User;
   - non-delivery, defective delivery, or misrepresentation of goods;
   - payment defaults or disputes between Users;
   - your breach of these Terms or violation of applicable law; or
   - your use or misuse of the Platform.
-- To the maximum extent permitted under applicable Indian law, PocketSanthai's total aggregate liability arising out of or relating to your use of the Platform shall be limited to the **lowest amount permitted by statute**, and in no event shall PocketSanthai be liable for any indirect, incidental, special, or consequential damages, including loss of profit, business, or goodwill.
+- To the maximum extent permitted under applicable Indian law, WholeSync's total aggregate liability arising out of or relating to your use of the Platform shall be limited to the **lowest amount permitted by statute**, and in no event shall WholeSync be liable for any indirect, incidental, special, or consequential damages, including loss of profit, business, or goodwill.
 - The Platform is provided on an **"as is" and "as available"** basis, without warranties of any kind, whether express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, and non-infringement.
 
 ---
@@ -115,4 +115,4 @@ We may revise these Terms at any time to reflect changes in our practices, featu
 For any questions regarding these Terms, contact us at:
 
 **Email:** stechadmin15@gmail.com
-**Website:** https://pocketsanthai.com
+**Website:** https://wholesync.com

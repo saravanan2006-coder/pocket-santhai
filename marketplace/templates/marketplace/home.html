@@ -100,13 +100,13 @@
     </svg>
 
     <div class="hero-content">
-        <h1 class="hero-title tamil">Pocket சந்தை</h1>
-        <p class="hero-subtitle tamil">தமிழ்நாட்டின் மொத்த விற்பனை மையம்</p>
+        <h1 class="hero-title">WholeSync</h1>
+        <p class="hero-subtitle">Tamil Nadu's Digital B2B Wholesale Directory</p>
 
         <form action="{% url 'search' %}" method="get" class="hero-search">
             <span class="search-icon"><i class="fas fa-search"></i></span>
-            <input type="text" name="q" placeholder="Search Products / தேடல்...">
-            <button type="submit">தேடல்</button>
+            <input type="text" name="q" placeholder="Search wholesale products, spices, grains...">
+            <button type="submit">Search</button>
         </form>
     </div>
 </section>
@@ -153,13 +153,13 @@
             <rect x="59" y="48" width="6" height="14" rx="1" fill="#C45B4A"/>
         </svg>
         <h2>Wholesalers</h2>
-        <p class="tamil-title tamil">கொள்முதல்காரர்கள்</p>
+        <p class="tamil-title">Suppliers &amp; Distributors</p>
         {% if user.is_authenticated and user.role == 'seller' %}
-            <a href="{% url 'seller_dashboard' %}" class="btn-card btn-brown tamil">மேலாண்மை சரக்கு</a>
+            <a href="{% url 'seller_dashboard' %}" class="btn-card btn-brown">Manage Inventory</a>
         {% elif user.is_authenticated and user.role != 'seller' %}
-            <a href="{% url 'register' %}" class="btn-card btn-brown tamil">வணிகராக பதிவு செய்க</a>
+            <a href="{% url 'register' %}" class="btn-card btn-brown">Register as Wholesaler</a>
         {% else %}
-            <a href="{% url 'register' %}" class="btn-card btn-brown tamil">மேலாண்மை சரக்கு</a>
+            <a href="{% url 'register' %}" class="btn-card btn-brown">Manage Inventory</a>
         {% endif %}
     </div>
 
@@ -204,14 +204,14 @@
             <rect x="135" y="110" width="15" height="10" rx="2" fill="#A84331" stroke="#6D432A" stroke-width="1"/>
             <circle cx="158" cy="115" r="5" fill="#D4A76A" stroke="#6D432A" stroke-width="1"/>
             <rect x="100" y="15" width="80" height="22" rx="4" fill="white" stroke="#6D432A" stroke-width="1.5"/>
-            <text x="110" y="30" font-family="Mukta Malar, sans-serif" font-size="9" fill="#A84331" font-weight="700">பேரங்காடி</text>
+            <text x="110" y="30" font-family="Plus Jakarta Sans, sans-serif" font-size="9" fill="#A84331" font-weight="700">WholeSync</text>
         </svg>
         <h2>Retailers</h2>
-        <p class="tamil-title tamil">சில்லறை விற்பனையாளர்கள்</p>
+        <p class="tamil-title">Shop Owners &amp; Buyers</p>
         {% if user.is_authenticated %}
-            <a href="{% url 'search' %}" class="btn-card btn-terracotta tamil">இப்போது தேடவும்</a>
+            <a href="{% url 'search' %}" class="btn-card btn-terracotta">Search Directory</a>
         {% else %}
-            <a href="{% url 'register' %}" class="btn-card btn-terracotta tamil">இப்போது தேடவும்</a>
+            <a href="{% url 'register' %}" class="btn-card btn-terracotta">Search Directory</a>
         {% endif %}
     </div>
 </section>
@@ -232,18 +232,16 @@
             <line x1="115" y1="40" x2="130" y2="55" stroke="white" stroke-width="4" stroke-linecap="round"/>
             <path d="M98 24 Q105 20 112 26" stroke="rgba(255,255,255,0.5)" stroke-width="1.5" fill="none"/>
         </svg>
-        <h3 class="tamil">ஸ்மார்ட் தேடல்</h3>
-        <p>Smart Search - Find any product across multiple wholesalers instantly<br>
-        <span class="tamil">அனைத்து நிறுவனங்களிடமும் தேட</span></p>
+        <h3>Smart Search</h3>
+        <p>Find any product across multiple wholesalers instantly</p>
     </div>
 
     <a href="{% url 'search' %}" class="feature-tile brown fade-in-scroll" style="animation-delay:0.1s; text-decoration: none; color: inherit; display: block;" title="Explore Wholesalers across 38 Districts">
         <div class="feature-img-container" style="width: 105px; height: 105px; margin: 0 auto 1.25rem; background: rgba(255, 255, 255, 0.95); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2); padding: 8px;">
             <img src="{% static 'images/tndist.png' %}" alt="Tamil Nadu Districts Map" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));">
         </div>
-        <h3 class="tamil">மாவட்ட வடிகட்டி</h3>
-        <p>District Filter - Filter wholesalers by all 38 districts of Tamil Nadu<br>
-        <span class="tamil">38 மாவட்டங்களின்படி வடிகட்டி</span></p>
+        <h3>District Filter</h3>
+        <p>Filter wholesalers across all 38 districts of Tamil Nadu</p>
     </a>
 
     <div class="feature-tile terracotta fade-in-scroll" style="animation-delay:0.2s;">
@@ -262,9 +260,8 @@
             <line x1="25" y1="51" x2="38" y2="51" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-linecap="round"/>
             <line x1="25" y1="56" x2="35" y2="56" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linecap="round"/>
         </svg>
-        <h3 class="tamil">நேரடி தொடர்பு</h3>
-        <p>Direct Contact - Get direct phone numbers and addresses of suppliers<br>
-        <span class="tamil">முகவரிகள் மற்றும் எண்களைப் பெற</span></p>
+        <h3>Direct Contact</h3>
+        <p>Get verified direct phone numbers and addresses of suppliers</p>
     </div>
 </section>
 

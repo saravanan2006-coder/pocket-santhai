@@ -117,7 +117,7 @@ EMAIL_PORT = int(os.environ.get('EMAIL_PORT', '587'))
 EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'True').lower() in ('true', '1', 'yes')
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
-DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'noreply@pocketsanthai.com')
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'noreply@wholesync.com')
 
 # ---- Verification Domain ----
 raw_verification_domain = os.environ.get('VERIFICATION_DOMAIN', 'localhost:8000').strip()
@@ -158,7 +158,7 @@ CACHES = {
             'CACHE_BACKEND',
             'django.core.cache.backends.locmem.LocMemCache'
         ),
-        'LOCATION': os.environ.get('CACHE_LOCATION', 'pocket-santhai-cache'),
+        'LOCATION': os.environ.get('CACHE_LOCATION', 'wholesync-cache'),
     }
 }
 

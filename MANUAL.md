@@ -1,4 +1,4 @@
-# Pocketசந்தை (PocketSanthai) — Administrator & Developer Manual
+# WholeSync — Administrator & Developer Manual
 
 This manual provides instructions for administrators managing the platform and developers maintaining the codebase.
 
@@ -6,7 +6,7 @@ This manual provides instructions for administrators managing the platform and d
 
 ## 1. System Overview & Architecture
 
-Pocketசந்தை is a B2B wholesale marketplace built with Django 5.2 and Python 3.11.
+WholeSync is a B2B wholesale marketplace built with Django 5.2 and Python 3.11.
 
 - **Models**: `CustomUser`, `SellerProfile`, `StockItem`, `Bookmark`, `EmailVerificationToken`
 - **Authentication**: Role-based (`seller` / `retailer`) with email verification and rate-limiting (`django-ratelimit`)

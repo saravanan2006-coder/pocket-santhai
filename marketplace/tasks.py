@@ -32,7 +32,7 @@ def send_verification_email_async(user_id, token_id, domain, scheme):
         plain_message = strip_tags(html_message)
         
         send_mail(
-            subject='Verify your email - PocketSanthai',
+            subject='Verify your email - WholeSync',
             message=plain_message,
             from_email=settings.DEFAULT_FROM_EMAIL,
             recipient_list=[user.email],

@@ -137,7 +137,7 @@ def send_verification_email(request, user):
             html_message = render_to_string('emails/verification_email.html', context)
             plain_message = strip_tags(html_message)
             send_mail(
-                subject='Verify your email - PocketSanthai',
+                subject='Verify your email - WholeSync',
                 message=plain_message,
                 from_email=settings.DEFAULT_FROM_EMAIL,
                 recipient_list=[user.email],

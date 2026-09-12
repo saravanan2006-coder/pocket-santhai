@@ -1,11 +1,11 @@
 {% extends "base.html" %}
-{% block title %}Seller Dashboard - சந்தை{% endblock %}
+{% block title %}Seller Dashboard - WholeSync{% endblock %}
 {% block content %}
 <div class="page-header">
     <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
         <div>
             <h2 style="margin-bottom:0.25rem;"><i class="fas fa-boxes" style="color:var(--mustard);"></i> My Stock</h2>
-            <p class="tamil" style="color:var(--brown);font-size:0.9rem;margin:0;">சரக்கு மேலாண்மை</p>
+            <p style="color:var(--brown);font-size:0.9rem;margin:0;">Inventory &amp; Catalog Management</p>
         </div>
         <div style="display: flex; gap: 0.5rem;">
             <a href="{% url 'bulk_upload_stock' %}" class="btn-card btn-brown" style="text-decoration: none; padding: 0.5rem 1rem; border-radius: 6px; font-weight: 600;"><i class="fas fa-file-excel"></i> Bulk Upload</a>

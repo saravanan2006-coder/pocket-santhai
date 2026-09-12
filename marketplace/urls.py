@@ -7,7 +7,7 @@ from .views_sellers import seller_dashboard, add_stock, edit_stock, delete_stock
 from .views_retailers import search, toggle_bookmark, bookmarks_view, compare_view
 
 def health_check(request):
-    return JsonResponse({'status': 'ok', 'service': 'pocket-santhai'}, status=200)
+    return JsonResponse({'status': 'ok', 'service': 'wholesync'}, status=200)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

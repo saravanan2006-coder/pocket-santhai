@@ -1,9 +1,9 @@
-# Privacy Policy — Pocketசந்தை (PocketSanthai.com)
+# Privacy Policy — WholeSync (WholeSync.com)
 
 **Effective Date:** 09 September 2026
 **Last Updated:** 09 September 2026
 
-Pocketசந்தை ("PocketSanthai", "the Platform", "we", "us", "our") operates the website https://pocketsanthai.com (or its current domain) as a localized B2B wholesale marketplace directory connecting Wholesalers (Suppliers/Sellers) and Retailers (Buyers/Shopkeepers) across the 38 districts of Tamil Nadu, India.
+WholeSync ("WholeSync", "the Platform", "we", "us", "our") operates the website https://wholesync.com (or its current domain) as a localized B2B wholesale marketplace directory connecting Wholesalers (Suppliers/Sellers) and Retailers (Buyers/Shopkeepers) across the 38 districts of Tamil Nadu, India.
 
 This Privacy Policy is issued in accordance with the **Digital Personal Data Protection Act, 2023 ("DPDP Act")**, the **Information Technology Act, 2000**, and the **Information Technology (Reasonable Security Practices and Procedures and Sensitive Personal Data or Information) Rules, 2011**. By using the Platform, you ("User", "Data Principal") consent to the collection and processing of your data as described below.
 

@@ -1,9 +1,9 @@
 {% extends "base.html" %}
-{% block title %}Search - சந்தை{% endblock %}
+{% block title %}Search - WholeSync{% endblock %}
 {% block content %}
 
 <div class="search-header">
-    <h2 class="tamil" style="color:white;font-size:clamp(1.5rem,4vw,2rem);font-weight:800;margin-bottom:0.5rem;">தேடல்</h2>
+    <h2 style="color:white;font-size:clamp(1.5rem,4vw,2rem);font-weight:800;margin-bottom:0.5rem;">Wholesale Search</h2>
     <p style="color:rgba(255,255,255,0.85);font-size:0.95rem;">Find Products Across Tamil Nadu Wholesalers</p>
 </div>
 
@@ -16,7 +16,7 @@
                 <input type="text" name="q" placeholder="e.g., Rice, Sugar, Oil..." value="{{ query }}">
             </div>
             <div>
-                <label class="tamil" style="font-weight:500;font-size:0.85rem;color:var(--brown);margin-bottom:0.35rem;display:block;">மாவட்டம்</label>
+                <label style="font-weight:500;font-size:0.85rem;color:var(--brown);margin-bottom:0.35rem;display:block;">District</label>
                 <select name="district">
                     <option value="">All Districts</option>
                     {% for d in districts %}
@@ -34,7 +34,7 @@
                 </select>
             </div>
             <button type="submit" class="btn-submit" style="padding:0.7rem 1.5rem;white-space:nowrap;">
-                <i class="fas fa-search"></i> தேடல்
+                <i class="fas fa-search"></i> Search
             </button>
         </form>
     </div>

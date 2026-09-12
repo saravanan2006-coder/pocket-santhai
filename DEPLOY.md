@@ -1,12 +1,12 @@
-# Pocketசந்தை (PocketSanthai) — Deployment Guide
+# WholeSync — Deployment Guide
 
-This guide covers deploying Pocketசந்தை to production, with detailed instructions for **Render.com** and general containerized/VPS environments.
+This guide covers deploying WholeSync to production, with detailed instructions for **Render.com** and general containerized/VPS environments.
 
 ---
 
 ## 1. Quick Deploy on Render.com (Blueprint)
 
-Pocketசந்தை includes a declarative `render.yaml` configuration for Render Blueprints.
+WholeSync includes a declarative `render.yaml` configuration for Render Blueprints.
 
 ### Services Defined:
 1. **PostgreSQL Database (`wholesale-db`)**: Managed database with persistent storage.
@@ -17,7 +17,7 @@ Pocketசந்தை includes a declarative `render.yaml` configuration for Ren
 1. Push your repository to GitHub or GitLab.
 2. Log in to [Render Dashboard](https://dashboard.render.com/).
 3. Click **New +** → **Blueprint**.
-4. Select your PocketSanthai repository.
+4. Select your WholeSync repository.
 5. Render will detect `render.yaml` and configure the database, Redis instance, and web service automatically.
 6. Under **Environment Variables**, fill in any required non-synced keys (e.g. `ANYMAIL_SENDINBLUE_API_KEY`, `VERIFICATION_DOMAIN`).
 7. Click **Apply**. Render will run the build command:
@@ -37,8 +37,8 @@ Pocketசந்தை includes a declarative `render.yaml` configuration for Ren
 | :--- | :---: | :--- | :--- |
 | `DJANGO_SECRET_KEY` | **Yes** | Auto-generated in Render | Strong random secret key for cryptography |
 | `DJANGO_DEBUG` | **Yes** | `False` | Must be `False` in production |
-| `DJANGO_ALLOWED_HOSTS` | **Yes** | `localhost,127.0.0.1` | Comma-separated domains allowed (e.g. `pocketsanthai.com,*.onrender.com`) |
-| `CSRF_TRUSTED_ORIGINS` | **Yes** | (empty) | Comma-separated URLs with scheme (e.g. `https://pocketsanthai.com`) |
+| `DJANGO_ALLOWED_HOSTS` | **Yes** | `localhost,127.0.0.1` | Comma-separated domains allowed (e.g. `wholesync.com,*.onrender.com`) |
+| `CSRF_TRUSTED_ORIGINS` | **Yes** | (empty) | Comma-separated URLs with scheme (e.g. `https://wholesync.com`) |
 | `DATABASE_ENGINE` | No | `django.db.backends.postgresql` | Database engine |
 | `DATABASE_NAME` | **Yes** | `wholesale_db` | PostgreSQL database name |
 | `DATABASE_USER` | **Yes** | `wholesale_user` | PostgreSQL database username |
@@ -49,7 +49,7 @@ Pocketசந்தை includes a declarative `render.yaml` configuration for Ren
 | `REDIS_URL` | **Yes** | (from service) | Redis/Valkey connection string |
 | `EMAIL_BACKEND_API` | No | `True` | Set `True` to use Brevo API via Anymail |
 | `ANYMAIL_SENDINBLUE_API_KEY` | No | (empty) | Brevo/Sendinblue API Key (avoids SMTP block) |
-| `DEFAULT_FROM_EMAIL` | No | `noreply@pocketsanthai.com` | From email address for verification emails |
+| `DEFAULT_FROM_EMAIL` | No | `noreply@wholesync.com` | From email address for verification emails |
 | `VERIFICATION_DOMAIN` | No | `localhost:8000` | Production domain used in verification links |
 | `DJANGO_SUPERUSER_USERNAME` | No | `boss` | Initial superuser username |
 | `DJANGO_SUPERUSER_EMAIL` | No | `admin@example.com` | Initial superuser email |
@@ -60,7 +60,7 @@ Pocketசந்தை includes a declarative `render.yaml` configuration for Ren
 
 ## 3. Email Delivery Setup (Brevo / Anymail)
 
-Cloud providers like Render block outbound SMTP ports (`25`, `465`, `587`) by default. Pocketசந்தை uses `django-anymail` to deliver emails over HTTP REST API to Brevo (Sendinblue).
+Cloud providers like Render block outbound SMTP ports (`25`, `465`, `587`) by default. WholeSync uses `django-anymail` to deliver emails over HTTP REST API to Brevo (Sendinblue).
 
 1. Register at [Brevo (Sendinblue)](https://www.brevo.com/).
 2. Generate an API Key under **Account → SMTP & API → API Keys**.
