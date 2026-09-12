@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WholeSync — Project Presentation | B2B Wholesale Marketplace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-body: #0F0E0D;
+            --bg-slide: #1A1715;
+            --bg-card: #25221F;
+            --bg-card-subtle: #2F2A26;
+            --border: #3D3731;
+            --border-highlight: #D59A2B;
+            --text-main: #FAF8F5;
+            --text-muted: #A8A199;
+            --terracotta: #E05638;
+            --terracotta-dark: #A84331;
+            --mustard: #E5A93C;
+            --mustard-dark: #D59A2B;
+            --earth-brown: #9E6442;
+            --green: #4EAD5C;
+            --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --radius: 14px;
+            --radius-sm: 8px;
+            --shadow: 0 10px 30px rgba(0,0,0,0.5);
+            --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        [data-theme="light"] {
+            --bg-body: #EDE8E1;
+            --bg-slide: #FAF8F5;
+            --bg-card: #FFFFFF;
+            --bg-card-subtle: #F3EFE9;
+            --border: #E0D9D0;
+            --border-highlight: #A84331;
+            --text-main: #1E1B18;
+            --text-muted: #6B655E;
+            --terracotta: #A84331;
+            --mustard: #B87E14;
+            --green: #2E7D32;
+            --shadow: 0 8px 24px rgba(109, 67, 42, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            user-select: none;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Top Progress Bar */
+        .progress-container {
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.08);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--terracotta), var(--mustard));
+            transition: width 0.3s ease;
+        }
+
+        /* Top Nav Header */
+        .deck-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            position: relative;
+            z-index: 90;
+        }
+
+        .brand-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 0.35rem 0.85rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--terracotta);
+            box-shadow: var(--shadow);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        .icon-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .icon-btn:hover {
+            color: var(--mustard);
+            border-color: var(--mustard);
+            transform: translateY(-2px);
+        }
+
+        /* Main Slide Stage */
+        .stage-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2rem 5.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            width: calc(100% - 4rem);
+            max-width: 1200px;
+            height: calc(100% - 2rem);
+            max-height: 700px;
+            background: var(--bg-slide);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 2.5rem 3rem;
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.96) translateY(20px);
+            transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .slide.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: scale(1) translateY(0);
+            z-index: 10;
+        }
+
+        /* Typography & Slide Components */
+        .slide-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--mustard);
+            margin-bottom: 0.5rem;
+        }
+
+        .slide-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--text-main);
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+        }
+
+        .slide-subtitle {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            margin-bottom: 1.8rem;
+            line-height: 1.5;
+        }
+
+        /* Grid Layouts */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+            flex: 1;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            flex: 1;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            flex: 1;
+        }
+
+        /* Cards */
+        .info-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 1.25rem 1.4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .info-card:hover {
+            border-color: var(--mustard);
+            transform: translateY(-3px);
+        }
+
+        .info-card.highlight {
+            border-color: var(--terracotta);
+            background: linear-gradient(145deg, var(--bg-card), rgba(224, 86, 56, 0.08));
+        }
+
+        .card-icon {
+            font-size: 1.75rem;
+            color: var(--mustard);
+            margin-bottom: 0.85rem;
+        }
+
+        .card-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+        }
+
+        .card-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .pill-badge {
+            display: inline-block;
+            padding: 0.25rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            width: fit-content;
+        }
+
+        .pill-danger { background: rgba(224, 86, 56, 0.15); color: var(--terracotta); }
+        .pill-warning { background: rgba(229, 169, 60, 0.15); color: var(--mustard); }
+        .pill-success { background: rgba(78, 173, 92, 0.15); color: var(--green); }
+
+        /* Banner Quote */
+        .quote-banner {
+            margin-top: 1.25rem;
+            background: var(--bg-card-subtle);
+            border-left: 4px solid var(--mustard);
+            padding: 1rem 1.5rem;
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        /* Tech Badges */
+        .tech-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: var(--bg-card-subtle);
+            border: 1px solid var(--border);
+            padding: 0.4rem 0.8rem;
+            border-radius: var(--radius-sm);
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--text-main);
+        }
+
+        /* Architecture Flow */
+        .flow-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .flow-step {
+            flex: 1;
+            background: var(--bg-card);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 1rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .flow-step.active-step {
+            border-color: var(--terracotta);
+            box-shadow: 0 0 15px rgba(224, 86, 56, 0.2);
+        }
+
+        .flow-arrow {
+            color: var(--mustard);
+            font-size: 1.25rem;
+        }
+
+        /* Comparison Table */
+        .comp-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            font-size: 0.9rem;
+        }
+
+        .comp-table th, .comp-table td {
+            padding: 0.85rem 1.1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .comp-table th {
+            background: var(--bg-card-subtle);
+            color: var(--text-main);
+            font-weight: 700;
+        }
+
+        .comp-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comp-table td.brand-col {
+            background: rgba(224, 86, 56, 0.08);
+            font-weight: 700;
+            color: var(--terracotta);
+        }
+
+        /* Bottom Controls Dock */
+        .controls-dock {
+            position: fixed;
+            bottom: 1.25rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            border-radius: 50px;
+            padding: 0.5rem 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-main);
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 50px;
+            transition: var(--transition);
+        }
+
+        .nav-btn:hover {
+            background: var(--bg-card-subtle);
+            color: var(--mustard);
+        }
+
+        .slide-counter {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            padding: 0 0.5rem;
+            border-left: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+        }
+
+        /* Slide Jump Select */
+        .slide-select {
+            background: var(--bg-card-subtle);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 0.35rem 0.6rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.8rem;
+            font-family: inherit;
+            outline: none;
+            cursor: pointer;
+        }
+
+        /* Speaker Notes Drawer */
+        .notes-drawer {
+            position: fixed;
+            bottom: 5rem;
+            right: 2rem;
+            width: 380px;
+            max-height: 260px;
+            background: var(--bg-card);
+            border: 1.5px solid var(--mustard);
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow);
+            padding: 1.25rem;
+            display: none;
+            flex-direction: column;
+            z-index: 95;
+            overflow-y: auto;
+            backdrop-filter: blur(15px);
+        }
+
+        .notes-drawer.open {
+            display: flex;
+        }
+
+        .notes-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--mustard);
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .notes-content {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: var(--text-main);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            body {
+                overflow-y: auto;
+                height: auto;
+            }
+            .stage-container {
+                padding: 1rem;
+                height: auto;
+                overflow: visible;
+            }
+            .slide {
+                position: relative;
+                width: 100%;
+                height: auto;
+                max-height: none;
+                padding: 1.5rem;
+                display: none;
+            }
+            .slide.active {
+                display: flex;
+            }
+            .grid-3, .grid-4 {
+                grid-template-columns: 1fr;
+            }
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            .flow-container {
+                flex-direction: column;
+            }
+            .flow-arrow {
+                transform: rotate(90deg);
+            }
+            .notes-drawer {
+                width: calc(100% - 2rem);
+                left: 1rem;
+                right: 1rem;
+            }
+        }
+
+        /* Print formatting */
+        @media print {
+            body {
+                overflow: visible;
+                height: auto;
+                background: #FFFFFF !important;
+                color: #000000 !important;
+            }
+            .deck-header, .controls-dock, .progress-container, .notes-drawer {
+                display: none !important;
+            }
+            .stage-container {
+                display: block;
+                padding: 0;
+            }
+            .slide {
+                position: relative !important;
+                display: block !important;
+                opacity: 1 !important;
+                transform: none !important;
+                page-break-after: always;
+                border: none !important;
+                box-shadow: none !important;
+                background: #FFFFFF !important;
+                color: #000000 !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                height: 98vh !important;
+                margin: 0 !important;
+                padding: 2cm !important;
+            }
+            .info-card, .comp-table {
+                border-color: #CCCCCC !important;
+                background: #FDFDFD !important;
+                color: #000000 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Progress Indicator -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="deck-header">
+        <div class="brand-pill">
+            <i class="fas fa-cubes"></i> WholeSync • Final Year Project
+        </div>
+        <div class="header-actions">
+            <button class="icon-btn" id="notesBtn" title="Toggle Speaker Notes (N)"><i class="fas fa-comment-dots"></i></button>
+            <button class="icon-btn" id="themeBtn" title="Toggle Light/Dark (D)"><i class="fas fa-moon"></i></button>
+            <button class="icon-btn" id="fsBtn" title="Toggle Fullscreen (F)"><i class="fas fa-expand"></i></button>
+            <button class="icon-btn" id="printBtn" title="Print to PDF (P)"><i class="fas fa-print"></i></button>
+        </div>
+    </header>
+
+    <!-- Slide Stage -->
+    <main class="stage-container">
+
+        <!-- ========================================================== -->
+        <!-- SLIDE 1: Title Slide                                       -->
+        <!-- ========================================================== -->
+        <section class="slide active" data-index="0" data-notes="Good morning respected evaluators. I am presenting WholeSync, a localized B2B wholesale marketplace designed for Tamil Nadu's 38 districts. It eliminates the heavy physical travel and algorithmic paywalls that plague traditional commerce.">
+            <div style="margin: auto 0;">
+                <span class="slide-tag"><i class="fas fa-star"></i> Final Year Engineering Viva Presentation</span>
+                <h1 class="slide-title" style="font-size: 3.8rem; letter-spacing: -1px;">
+                    <span style="color:var(--terracotta);">WholeSync</span>
+                </h1>
+                <p style="font-size: 1.5rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem;">
+                    A Localized B2B Wholesale Marketplace Across Tamil Nadu's 38 Districts
+                </p>
+                <p class="slide-subtitle" style="font-size: 1.15rem; color: var(--mustard); font-style: italic;">
+                    "Because why travel 400km to Sowcarpet when you have Python &amp; PostgreSQL?"
+                </p>
+
+                <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 2rem;">
+                    <span class="tech-pill"><i class="fas fa-map-marker-alt" style="color:var(--terracotta)"></i> 38 TN Districts</span>
+                    <span class="tech-pill"><i class="fas fa-phone-alt" style="color:var(--green)"></i> Direct Phone Calling</span>
+                    <span class="tech-pill"><i class="fas fa-file-excel" style="color:var(--mustard)"></i> Bulk Excel Ingestion</span>
+                    <span class="tech-pill"><i class="fas fa-shield-alt" style="color:var(--terracotta)"></i> Zero Middleman Fees</span>
+                    <span class="tech-pill"><i class="fas fa-bolt" style="color:var(--mustard)"></i> Celery Background Workers</span>
+                </div>
+
+                <div class="info-card highlight" style="flex-direction: row; align-items: center; justify-content: space-between;">
+                    <div>
+                        <strong style="color:var(--text-main); font-size: 1.1rem;">Presenter: Saravanan</strong>
+                        <p style="color:var(--text-muted); font-size: 0.9rem;">Department of Computer Science &amp; Engineering • Project Defense</p>
+                    </div>
+                    <div style="text-align: right;">
+                        <span class="pill-badge pill-success">Production Ready</span>
+                        <p style="color:var(--mustard); font-size: 0.85rem; font-family: var(--font-mono);">Render Cloud Live</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================== -->
+        <!-- SLIDE 2: The Problem                                       -->
+        <!-- ========================================================== -->
+        <section class="slide" data-index="1" data-notes="Explain the dilemma facing a shopkeeper in Villupuram: Physical bus travel costs days of shop revenue. IndiaMart charges 25k for phone numbers and sends spam. Udaan takes 10% commission. WholeSync removes these artificial barriers.">
+            <span class="slide-tag"><i class="fas fa-exclamation-triangle"></i> The Problem Statement</span>
+            <h2 class="slide-title">POV: Sourcing Wholesale in Tamil Nadu Today</h2>
+            <p class="slide-subtitle">You run a small provision store in Villupuram and need 50 bags of rice and spices. What are your choices?</p>
+
+            <div class="grid-3">
+                <div class="info-card">
+                    <span class="pill-badge pill-danger">Option 1: Traditional</span>
+                    <div class="card-icon"><i class="fas fa-bus"></i></div>
+                    <h3 class="card-title">Catch 4:30 AM Bus</h3>
+                    <p class="card-desc">Travel 400km to Chennai Sowcarpet or Madurai. Fight bus crowds, carry bags of physical cash, lose 2 whole days of shop revenue.</p>
+                    <p style="margin-top:auto; padding-top:0.75rem; font-weight:700; color:var(--terracotta); font-size:0.85rem;">Result: Exhausted, cash at risk, shop closed.</p>
+                </div>
+
+                <div class="info-card">
+                    <span class="pill-badge pill-warning">Option 2: IndiaMart</span>
+                    <div class="card-icon"><i class="fas fa-lock"></i></div>
+                    <h3 class="card-title">Lead-Gen Paywalls</h3>
+                    <p class="card-desc">"Please pay ₹25,000 for Gold Membership to view supplier phone number!" Get bombarded with 20 spam calls from brokers in Delhi.</p>
+                    <p style="margin-top:auto; padding-top:0.75rem; font-weight:700; color:var(--mustard); font-size:0.85rem;">Result: ₹25k gone, zero local Tamil context.</p>
+                </div>
+
+                <div class="info-card">
+                    <span class="pill-badge pill-danger">Option 3: Udaan</span>
+                    <div class="card-icon"><i class="fas fa-hand-holding-usd"></i></div>
+                    <h3 class="card-title">Middleman Cuts</h3>
+                    <p class="card-desc">Takes 8% to 15% commission per order. Controls inventory pricing. Sellers wait 20+ days for payment settlements.</p>
+                    <p style="margin-top:auto; padding-top:0.75rem; font-weight:700; color:var(--terracotta); font-size:0.85rem;">Result: Higher prices, slow centralized delivery.</p>
+                </div>
+            </div>
+
+            <div class="quote-banner">
+                💡 <strong>The Ground Reality:</strong> Wholesale commerce in Tamil Nadu runs on personal relationships, bulk negotiation, and direct phone calls. Hiding supplier numbers behind paywalls is artificial friction!
+            </div>
+        </section>
+
+        <!-- ========================================================== -->
+        <!-- SLIDE 3: The Solution                                      -->
+        <!-- ========================================================== -->
+        <section class="slide" data-index="2" data-notes="Highlight our philosophy: WholeSync steps completely out of the transaction path. We are a transparent digital directory connecting buyers and sellers directly.">
+            <span class="slide-tag"><i class="fas fa-lightbulb"></i> The Innovation</span>
+            <h2 class="slide-title">Meet WholeSync: Direct B2B Commerce Digitized</h2>
+            <p class="slide-subtitle">IndiaMart's Directory + Google's Speed — Paywalls — Middleman Commissions — Spam.</p>
+
+            <div class="grid-3">
+                <div class="info-card highlight">
+                    <div class="card-icon"><i class="fas fa-phone-volume"></i></div>
+                    <h3 class="card-title">100% Direct Phone Access</h3>
+                    <p class="card-desc">No in-app chat tokens, no paywalls. Retailers tap one button to dial verified wholesale distributors directly for immediate bulk price negotiation.</p>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-icon"><i class="fas fa-map-marked-alt"></i></div>
+                    <h3 class="card-title">38 Districts Geo-Directory</h3>
+                    <p class="card-desc">Hyper-local supplier discovery. Filter by specific districts (e.g., Salem, Coimbatore, Erode, Tiruchirappalli) to find nearby suppliers and minimize transit costs.</p>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-icon"><i class="fas fa-file-excel"></i></div>
+                    <h3 class="card-title">Instant Excel Bulk Ingestion</h3>
+                    <p class="card-desc">Wholesalers do not type products one-by-one. They drag and drop their existing godown spreadsheet (.xlsx). 500 products cataloged in 2 seconds.</p>
+                </div>
+            </div>
+
+            <div class="info-card" style="margin-top: 1.25rem; background: var(--bg-card-subtle); border-color: var(--terracotta);">
+                <div style="display:flex; justify-content: space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+                    <div>
+                        <strong style="color:var(--terracotta); font-size: 1.1rem;">The WholeSync Formula:</strong>
+                        <p style="color:var(--text-main); font-size: 0.95rem; font-family:var(--font-mono); margin-top:0.25rem;">
+                            WholeSync = (Localized Directory + Direct Calling) - (Middleman Fees + Paywalls + Spam)
+                        </p>
+                    </div>
+                    <span class="pill-badge pill-success" style="font-size:0.85rem; padding:0.4rem 0.8rem;">100% Open Access</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================== -->
+        <!-- SLIDE 4: User Personas                                     -->
+        <!-- ========================================================== -->
+        <section class="slide" data-index="3" data-notes="Walk evaluators through both sides of the marketplace: Muthu Annachi in Madurai who hates typing forms, and Karthik in Tirunelveli who travels hours just to compare spice prices.">
+            <span class="slide-tag"><i class="fas fa-users"></i> Target Audiences</span>
+            <h2 class="slide-title">Built for Real Tamil Nadu Merchants</h2>
+            <p class="slide-subtitle">Engineered to respect the daily habits and operational realities of Indian wholesale traders.</p>
+
+            <div class="grid-2">
+                <!-- Wholesaler -->
+                <div class="info-card">
+                    <span class="pill-badge pill-warning">Wholesaler / Supplier</span>
+                    <h3 class="card-title" style="font-size:1.4rem; color:var(--mustard);">Muthu Annachi (Madurai)</h3>
+                    <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:1rem;"><i class="fas fa-warehouse"></i> 500+ Bags of Spices, Dal &amp; Grain Inventory</p>
+                    
+                    <ul style="list-style:none; line-height:1.6; font-size:0.9rem; color:var(--text-main);">
+                        <li style="margin-bottom:0.5rem;"><i class="fas fa-times-circle" style="color:var(--terracotta);"></i> <strong>Pain:</strong> Has zero time to type 500 items on a mobile screen one by one.</li>
+                        <li style="margin-bottom:0.5rem;"><i class="fas fa-times-circle" style="color:var(--terracotta);"></i> <strong>The Old Way:</strong> Waits for buyers to visit his godown physically.</li>
+                        <li style="margin-bottom:0.5rem;"><i class="fas fa-check-circle" style="color:var(--green);"></i> <strong>WholeSync Fix:</strong> Drags and drops his existing Excel stock sheet (.xlsx). In 2.1 seconds, his full catalog is indexed across Tamil Nadu!</li>
+                    </ul>
+                </div>
+
+                <!-- Retailer -->
+                <div class="info-card">
+                    <span class="pill-badge pill-success">Retailer / Shopkeeper</span>
+                    <h3 class="card-title" style="font-size:1.4rem; color:var(--green);">Karthik (Tirunelveli)</h3>
+                    <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:1rem;"><i class="fas fa-store"></i> Small Grocery Provision Store (Serves 200 Families)</p>
+                    
+                    <ul style="list-style:none; line-height:1.6; font-size:0.9rem; color:var(--text-main);">
+                        <li style="margin-bottom:0.5rem;"><i class="fas fa-times-circle" style="color:var(--terracotta);"></i> <strong>Pain:</strong> Local sub-distributors charge 15% markups; doesn't know primary sources.</li>
+                        <li style="margin-bottom:0.5rem;"><i class="fas fa-times-circle" style="color:var(--terracotta);"></i> <strong>The Old Way:</strong> Travels 160km to Madurai mandi once a month, losing sales days.</li>
+                        <li style="margin-bottom:0.5rem;"><i class="fas fa-check-circle" style="color:var(--green);"></i> <strong>WholeSync Fix:</strong> Opens WholeSync on mobile, filters by "Madurai" or "Tirunelveli", compares prices, and taps "Call Wholesaler" instantly.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="quote-banner">
+                🎯 <strong>Key Design Principle:</strong> Zero app friction. Wholesalers use Excel (what they already know), and Retailers use phone calls (what they already trust).
+            </div>
+        </section>
+
+        <!-- ========================================================== -->
+        <!-- SLIDE 5: Core Features                                     -->
+        <!-- ========================================================== -->
+        <section class="slide" data-index="4" data-notes="Detail the 6 major engineering modules: 38-district engine, Excel bulk parsing, RBAC permissions, Celery async verification, bookmarking, and the lightweight zero-bloat UI.">
+            <span class="slide-tag"><i class="fas fa-cogs"></i> System Modules</span>
+            <h2 class="slide-title">Core Engineering Features</h2>
+            <p class="slide-subtitle">Purpose-built architectural capabilities designed for high performance and practical use.</p>
+
+            <div class="grid-3">
+                <div class="info-card">
+                    <div class="card-icon"><i class="fas fa-compass"></i></div>
+                    <h4 class="card-title">38-District Geo-Engine</h4>
+                    <p class="card-desc">Real-time search filtering across all 38 revenue districts of Tamil Nadu. Instant client-side debouncing and active supplier badge indexing.</p>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-icon"><i class="fas fa-file-invoice"></i></div>
+                    <h4 class="card-title">Excel Ingestion Parser</h4>
+                    <p class="card-desc">Automated OpenPyXL/.xlsx parser with row-by-row schema validation, datatype casting, and atomic batch database transactions.</p>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-icon"><i class="fas fa-user-shield"></i></div>
+                    <h4 class="card-title">Dual Role RBAC System</h4>
+                    <p class="card-desc">Strict Role-Based Access Control dividing Wholesalers (inventory managers) from Retailers (catalog discovery &amp; bookmarks).</p>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-icon"><i class="fas fa-envelope-open-text"></i></div>
+                    <h4 class="card-title">Async Email Verification</h4>
+                    <p class="card-desc">Transactional verification emails dispatched via Celery background workers and Brevo API. Automatic synchronous fallback resilience.</p>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-icon"><i class="fas fa-bookmark"></i></div>
+                    <h4 class="card-title">Price Compare &amp; Bookmarks</h4>
+                    <p class="card-desc">Retailers bookmark recurring inventory staples for instant price tracking and side-by-side comparison before placing phone orders.</p>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-icon"><i class="fas fa-feather-alt"></i></div>
+                    <h4 class="card-title">Zero-Bloat Vanilla UI</h4>
+                    <p class="card-desc">Semantic HTML5, CSS Grid, and pure vanilla JS. No 2MB React or Angular bundles. 100% responsive and blazing fast on 3G mobile networks.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================== -->
+        <!-- SLIDE 6: Tech Stack                                        -->
+        <!-- ========================================================== -->
+        <section class="slide" data-index="5" data-notes="When faculties ask 'Why Django and not MERN?', explain: Django gives built-in ORM security against SQL injection, CSRF protection, and administrative tooling out-of-the-box, without 85,000 npm dependencies.">
+            <span class="slide-tag"><i class="fas fa-layer-group"></i> Architecture Stack</span>
+            <h2 class="slide-title">Production-Grade Technology Stack</h2>
+            <p class="slide-subtitle">Industry-standard open-source technologies selected for stability, security, and cloud scalability.</p>
+
+            <div class="grid-3">
+                <div class="info-card highlight">
+                    <span class="pill-badge pill-danger">Backend Core</span>
+                    <h4 class="card-title">Python 3.11 &amp; Django 5.x</h4>
+                    <p class="card-desc">Robust MVC web framework with built-in parameterization, session authentication, CSRF middleware, and high-performance ORM.</p>
+                </div>
+
+                <div class="info-card">
+                    <span class="pill-badge pill-warning">Database</span>
+                    <h4 class="card-title">PostgreSQL 18</h4>
+                    <p class="card-desc">Enterprise relational database engine with ACID transactions, relational integrity, and B-Tree indexes on district and category columns.</p>
+                </div>
+
+                <div class="info-card">
+                    <span class="pill-badge pill-success">Async Queue</span>
+                    <h4 class="card-title">Celery &amp; Valkey 8 (Redis)</h4>
+                    <p class="card-desc">Distributed task queue and message broker offloading long-running jobs (emails, bulk parsing) from the main request thread.</p>
+                </div>
+
+                <div class="info-card">
+                    <span class="pill-badge pill-warning">Application Server</span>
+                    <h4 class="card-title">Gunicorn WSGI</h4>
+                    <p class="card-desc">Production UNIX HTTP server running concurrent pre-fork worker processes for low-latency concurrent request handling.</p>
+                </div>
+
+                <div class="info-card">
+                    <span class="pill-badge pill-danger">Transactional API</span>
+                    <h4 class="card-title">Brevo (Sendinblue) API</h4>
+                    <p class="card-desc">High-deliverability cloud transactional email delivery connected through <code>django-anymail</code>.</p>
+                </div>
+
+                <div class="info-card">
+                    <span class="pill-badge pill-success">Deployment</span>
+                    <h4 class="card-title">Render Cloud &amp; WhiteNoise</h4>
+                    <p class="card-desc">Continuous deployment via Git, automatic SSL certificates, and WhiteNoise static asset caching with gzip/Brotli compression.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================== -->
+        <!-- SLIDE 7: System Architecture Flow                          -->
+        <!-- ========================================================== -->
+        <section class="slide" data-index="6" data-notes="Walk the evaluators through this 3-tier diagram. Show how HTTP requests are separated from asynchronous background jobs so users never experience page freezes during email delivery.">
+            <span class="slide-tag"><i class="fas fa-network-wired"></i> Under The Hood</span>
+            <h2 class="slide-title">System Architecture &amp; Data Pipeline</h2>
+            <p class="slide-subtitle">Multi-tier execution lifecycle: Synchronous HTTP request routing coupled with asynchronous worker queuing.</p>
+
+            <div class="flow-container">
+                <div class="flow-step">
+                    <div style="color:var(--terracotta); font-size:1.8rem; margin-bottom:0.5rem;"><i class="fas fa-mobile-alt"></i></div>
+                    <strong style="color:var(--text-main);">1. Client Device</strong>
+                    <p style="color:var(--text-muted); font-size:0.8rem; margin-top:0.3rem;">Mobile Browser / Desktop<br>HTTPS Request</p>
+                </div>
+                <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+                <div class="flow-step">
+                    <div style="color:var(--mustard); font-size:1.8rem; margin-bottom:0.5rem;"><i class="fas fa-server"></i></div>
+                    <strong style="color:var(--text-main);">2. Gunicorn WSGI</strong>
+                    <p style="color:var(--text-muted); font-size:0.8rem; margin-top:0.3rem;">Render Cloud Host<br>Concurrent Workers</p>
+                </div>
+                <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+                <div class="flow-step active-step">
+                    <div style="color:var(--terracotta); font-size:1.8rem; margin-bottom:0.5rem;"><i class="fab fa-python"></i></div>
+                    <strong style="color:var(--text-main);">3. Django 5.x App</strong>
+                    <p style="color:var(--text-muted); font-size:0.8rem; margin-top:0.3rem;">Auth &amp; RBAC Check<br>ORM Query Execution</p>
+                </div>
+                <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+                <div class="flow-step">
+                    <div style="color:var(--green); font-size:1.8rem; margin-bottom:0.5rem;"><i class="fas fa-database"></i></div>
+                    <strong style="color:var(--text-main);">4. PostgreSQL 18</strong>
+                    <p style="color:var(--text-muted); font-size:0.8rem; margin-top:0.3rem;">ACID Storage<br>District Indexed</p>
+                </div>
+            </div>
+
+            <div class="info-card highlight" style="margin-top: 1.5rem;">
+                <h4 style="color:var(--mustard); margin-bottom:0.4rem;"><i class="fas fa-bolt"></i> The Asynchronous Background Pipeline:</h4>
+                <p style="color:var(--text-main); font-size:0.9rem; line-height:1.5;">
+                    When a user registers or triggers a bulk task: <code>Django ➔ Enqueues job in Valkey (Redis) in 3ms ➔ Celery Worker processes job in background ➔ Brevo API delivers email ➔ User gets instant HTTP 200 OK!</code>
+                </p>
+                <p style="color:var(--text-muted); font-size:0.85rem; margin-top:0.4rem;">
+                    <em>"Why? Because making a user wait 4 seconds for an external SMTP handshake is an engineering crime."</em>
+                </p>
+            </div>
+        </section>
+
+        <!-- ========================================================== -->
+        <!-- SLIDE 8: Security & OWASP Defense                          -->
+        <!-- ========================================================== -->
+        <section class="slide" data-index="7" data-notes="Explain how WholeSync defends against the OWASP Top 10 web vulnerabilities. We enforce RBAC decorators, parameterized ORM queries, rate-limiting, and cryptographic HMAC tokens.">
+            <span class="slide-tag"><i class="fas fa-shield-virus"></i> Robustness &amp; Hardening</span>
+            <h2 class="slide-title">Security: We Don't Compromise</h2>
+            <p class="slide-subtitle">Hardened against OWASP Top 10 vulnerabilities directly at the framework and database layers.</p>
+
+            <div class="grid-2">
+                <div class="info-card">
+                    <span class="pill-badge pill-danger">OWASP A01: Broken Access Control</span>
+                    <h4 class="card-title">Dual-Role RBAC Enforcement</h4>
+                    <p class="card-desc">Wholesaler operations (Excel ingestion, catalog edits, item removals) are strictly gated with <code>@wholesaler_required</code> view decorators. Retailers cannot alter supplier records.</p>
+                </div>
+
+                <div class="info-card">
+                    <span class="pill-badge pill-warning">OWASP A03: Injection</span>
+                    <h4 class="card-title">100% Parameterized ORM Queries</h4>
+                    <p class="card-desc">Zero raw SQL query string concatenation. All database operations use compiled Django ORM querysets with parameter binding, mathematically neutralizing SQL injection.</p>
+                </div>
+
+                <div class="info-card">
+                    <span class="pill-badge pill-success">OWASP A07: Auth Failures</span>
+                    <h4 class="card-title">PBKDF2-SHA256 &amp; IP Rate Limiting</h4>
+                    <p class="card-desc">Passwords are salted and hashed using PBKDF2 with 720,000 iterations. Auth endpoints are protected by <code>django-ratelimit</code> to halt dictionary brute-force attacks.</p>
+                </div>
+
+                <div class="info-card">
+                    <span class="pill-badge pill-warning">OWASP A02: Cryptographic Failures</span>
+                    <h4 class="card-title">HMAC Verification Tokens</h4>
+                    <p class="card-desc">Account activation uses SHA-256 HMAC cryptographic tokens tied to a 24-hour expiration window. Forged, reused, or expired tokens are immediately discarded.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================== -->
+        <!-- SLIDE 9: Automated Testing                                 -->
+        <!-- ========================================================== -->
+        <section class="slide" data-index="8" data-notes="This is the faculty flex slide. Mentioning that we have 26 automated unit and integration tests passing proves that the software is reliable, tested, and ready for production.">
+            <span class="slide-tag"><i class="fas fa-check-double"></i> Quality Assurance</span>
+            <h2 class="slide-title">Testing: 26 / 26 Automated Tests Passing</h2>
+            <p class="slide-subtitle">Because "It worked on my localhost" is not an acceptable engineering defense.</p>
+
+            <div style="display:flex; gap:1.5rem; flex:1; align-items:center;">
+                <div class="info-card highlight" style="min-width:260px; text-align:center; justify-content:center; padding:2rem 1rem;">
+                    <div style="font-size:3.5rem; font-weight:800; color:var(--green); line-height:1;">26 / 26</div>
+                    <strong style="color:var(--text-main); margin-top:0.5rem; font-size:1.1rem;">Tests Passing (100%)</strong>
+                    <p style="color:var(--text-muted); font-size:0.85rem; margin-top:0.5rem;">Unit &amp; Integration Coverage<br>Execution Time: ~12.3s</p>
+                    <span class="pill-badge pill-success" style="margin: 0.8rem auto 0;">Zero Failures</span>
+                </div>
+
+                <div style="flex:1; display:flex; flex-direction:column; gap:0.75rem;">
+                    <div class="info-card" style="padding:0.85rem 1.1rem;">
+                        <strong style="color:var(--terracotta); font-size:0.95rem;">✓ Auth &amp; Token Expiration Suite:</strong>
+                        <p style="color:var(--text-muted); font-size:0.85rem;">Validates unverified login blocking, token generation, 24h expiration, and password strength checks.</p>
+                    </div>
+                    <div class="info-card" style="padding:0.85rem 1.1rem;">
+                        <strong style="color:var(--mustard); font-size:0.95rem;">✓ RBAC Isolation &amp; Permission Suite:</strong>
+                        <p style="color:var(--text-muted); font-size:0.85rem;">Confirms wholesalers cannot see retailer bookmarks, and retailers cannot tamper with catalogs.</p>
+                    </div>
+                    <div class="info-card" style="padding:0.85rem 1.1rem;">
+                        <strong style="color:var(--green); font-size:0.95rem;">✓ Excel Bulk Upload &amp; Error Rollback:</strong>
+                        <p style="color:var(--text-muted); font-size:0.85rem;">Tests missing column headers, invalid prices, empty rows, and atomic rollback on corrupt data.</p>
+                    </div>
+                    <div class="info-card" style="padding:0.85rem 1.1rem;">
+                        <strong style="color:var(--mustard); font-size:0.95rem;">✓ Celery Worker Resilience Suite:</strong>
+                        <p style="color:var(--text-muted); font-size:0.85rem;">Verifies automatic synchronous email dispatch fallback when background worker is disconnected.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================== -->
+        <!-- SLIDE 10: Comparison                                       -->
+        <!-- ========================================================== -->
+        <section class="slide" data-index="9" data-notes="Point out the competitive differentiation. IndiaMart is an expensive lead-generation directory. Udaan is a centralized distributor taking high commissions. WholeSync is a free localized marketplace for Tamil Nadu.">
+            <span class="slide-tag"><i class="fas fa-balance-scale"></i> Market Advantage</span>
+            <h2 class="slide-title">WholeSync vs. National E-Commerce Giants</h2>
+            <p class="slide-subtitle">Why Tamil Nadu's wholesale ecosystem needs a specialized, zero-middleman platform.</p>
+
+            <table class="comp-table">
+                <thead>
+                    <tr>
+                        <th>Metric / Feature</th>
+                        <th>IndiaMart</th>
+                        <th>Udaan</th>
+                        <th style="color:var(--terracotta); background:rgba(224, 86, 56, 0.15);">WholeSync (Ours)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Commission on Orders</strong></td>
+                        <td>High Subscriptions (₹25k+/yr)</td>
+                        <td>8% to 15% per transaction</td>
+                        <td class="brand-col">0% (Completely Free)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Supplier Phone Access</strong></td>
+                        <td>Paywalled behind lead credits</td>
+                        <td>Hidden (Locked inside app)</td>
+                        <td class="brand-col">Instant 1-Click Dialing</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Geographic Scope</strong></td>
+                        <td>Pan-India (Massive noise)</td>
+                        <td>Pan-India (Generic)</td>
+                        <td class="brand-col">Strict 38 TN Districts</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Catalog Upload Method</strong></td>
+                        <td>Manual item-by-item forms</td>
+                        <td>Complex enterprise EDI</td>
+                        <td class="brand-col">Instant Excel (.xlsx) Ingestion</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Middleman Friction</strong></td>
+                        <td>Spam broker calls from other states</td>
+                        <td>Controls logistics &amp; payment hold</td>
+                        <td class="brand-col">Zero Interference (P2P Trust)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="quote-banner" style="margin-top:1rem;">
+                📌 <strong>Strategic Position:</strong> We do not compete on national warehousing. We compete on zero friction, hyper-local discovery, and immediate offline negotiation.
+            </div>
+        </section>
+
+        <!-- ========================================================== -->
+        <!-- SLIDE 11: Future Roadmap                                   -->
+        <!-- ========================================================== -->
+        <section class="slide" data-index="10" data-notes="Show the evaluators that WholeSync has a practical future roadmap beyond this college viva: Tamil voice search for rural shopkeepers, WhatsApp Business integration, and AI price trend forecasting.">
+            <span class="slide-tag"><i class="fas fa-rocket"></i> Future Scope</span>
+            <h2 class="slide-title">Scaling WholeSync: What Comes Next?</h2>
+            <p class="slide-subtitle">Strategic evolution from an academic project into a viable commercial technology product.</p>
+
+            <div class="grid-2">
+                <div class="info-card">
+                    <span class="pill-badge pill-danger">Phase 1 • Regional AI</span>
+                    <h4 class="card-title">Tamil Voice Search</h4>
+                    <p class="card-desc">Integrate Whisper AI / Web Speech API for rural shopkeepers to search commodities via conversational voice in Tamil (e.g. <em>"விருதுநகர் மல்லி மொத்த விலை"</em>).</p>
+                </div>
+
+                <div class="info-card">
+                    <span class="pill-badge pill-warning">Phase 2 • Instant Messaging</span>
+                    <h4 class="card-title">WhatsApp Business Cloud API</h4>
+                    <p class="card-desc">Automated stock arrival alerts, bulk quotation requests, and weekly price-sheet broadcasts delivered directly to retailers' WhatsApp.</p>
+                </div>
+
+                <div class="info-card">
+                    <span class="pill-badge pill-success">Phase 3 • Predictive ML</span>
+                    <h4 class="card-title">AI Mandi Price Forecaster</h4>
+                    <p class="card-desc">Machine learning models forecasting seasonal price swings for pulses, grains, and spices across regional Tamil Nadu mandis.</p>
+                </div>
+
+                <div class="info-card">
+                    <span class="pill-badge pill-warning">Phase 4 • Open Protocols</span>
+                    <h4 class="card-title">ONDC Network Integration</h4>
+                    <p class="card-desc">Connecting WholeSync suppliers into the national Open Network for Digital Commerce (ONDC) for nationwide interoperability.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================== -->
+        <!-- SLIDE 12: Viva Defense Q&A                                 -->
+        <!-- ========================================================== -->
+        <section class="slide" data-index="11" data-notes="Review these three answers before entering the examination room: 1) Why Django over MERN, 2) How Celery fallback handles server disconnects, 3) How Excel validation prevents corrupt uploads.">
+            <span class="slide-tag"><i class="fas fa-graduation-cap"></i> Viva Defense</span>
+            <h2 class="slide-title">Faculty Q&amp;A: Ready-Made Technical Answers</h2>
+            <p class="slide-subtitle">How we defend our architectural choices against common examiner trap questions.</p>
+
+            <div style="display:flex; flex-direction:column; gap:0.9rem; flex:1;">
+                <div class="info-card" style="padding:1rem 1.25rem;">
+                    <strong style="color:var(--mustard); font-size:1rem;">Q1: "Why didn't you build this with the MERN stack (React / Node.js)?"</strong>
+                    <p style="color:var(--text-main); font-size:0.88rem; margin-top:0.3rem;">
+                        <strong>Answer:</strong> Django provides built-in ORM security against SQL injection, CSRF protection, secure session management, and administrative dashboards out-of-the-box. In Node.js/React, developers rely on dozens of third-party npm packages, creating supply-chain security vulnerabilities and 500MB runtime footprints unsuited for low-cost cloud deployment.
+                    </p>
+                </div>
+
+                <div class="info-card" style="padding:1rem 1.25rem;">
+                    <strong style="color:var(--green); font-size:1rem;">Q2: "What happens if your Redis or Celery worker crashes in production?"</strong>
+                    <p style="color:var(--text-main); font-size:0.88rem; margin-top:0.3rem;">
+                        <strong>Answer:</strong> WholeSync implements automatic <strong>graceful degradation</strong>! When the Celery dispatcher detects a socket connection failure, it catches the error and immediately dispatches the verification email synchronously. Zero emails are ever dropped.
+                    </p>
+                </div>
+
+                <div class="info-card" style="padding:1rem 1.25rem;">
+                    <strong style="color:var(--terracotta); font-size:1rem;">Q3: "How do you prevent malicious wholesalers from uploading corrupt Excel files?"</strong>
+                    <p style="color:var(--text-main); font-size:0.88rem; margin-top:0.3rem;">
+                        <strong>Answer:</strong> The upload endpoint validates the file MIME type, extracts required header schemas, validates cell datatypes line-by-line, and executes the database insert inside an atomic transaction (<code>transaction.atomic()</code>). If any row fails, the entire batch rolls back cleanly.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================== -->
+        <!-- SLIDE 13: Conclusion & Demo                                -->
+        <!-- ========================================================== -->
+        <section class="slide" data-index="12" data-notes="Thank the evaluators warmly, demonstrate the live deployed website on Render, show the 38-district filtering in action, and confidently invite their questions!">
+            <div style="margin: auto 0; text-align:center;">
+                <span class="slide-tag" style="justify-content:center;"><i class="fas fa-check-circle"></i> Project Summary</span>
+                <h2 class="slide-title" style="font-size:3.5rem; margin-bottom:0.5rem;">
+                    <span style="color:var(--terracotta);">WholeSync</span>
+                </h2>
+                <p style="font-size:1.4rem; font-weight:700; color:var(--text-main); margin-bottom:0.5rem;">
+                    Digitizing Local Wholesale Without Destroying Local Relationships.
+                </p>
+                <p style="font-size:1.1rem; color:var(--mustard); margin-bottom:2rem;">
+                    38 Districts • Zero Commission • Direct Phone Calls • Production Ready
+                </p>
+
+                <div class="info-card highlight" style="max-width:700px; margin: 0 auto 1.5rem; padding:1.5rem;">
+                    <h3 style="color:var(--text-main); margin-bottom:0.5rem;">Thank You! We are Ready for Live Demo &amp; Questions.</h3>
+                    <p style="color:var(--text-muted); font-size:0.95rem;">
+                        Feel free to test the real-time district search, Excel bulk upload, and user verification on our live server.
+                    </p>
+                    <p style="color:var(--mustard); font-size:0.9rem; margin-top:0.75rem; font-style:italic;">
+                        "(Please be gentle with concurrency tests, our server is on the Render free tier! 🚀)"
+                    </p>
+                </div>
+
+                <div style="display:inline-flex; gap:1rem; flex-wrap:wrap; justify-content:center;">
+                    <span class="tech-pill"><i class="fab fa-github"></i> github.com/saravanan2006-coder/pocket-santhai</span>
+                    <span class="tech-pill"><i class="fas fa-globe"></i> WholeSync Live on Render</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Speaker Notes Drawer -->
+    <aside class="notes-drawer" id="notesDrawer">
+        <div class="notes-title">
+            <span><i class="fas fa-comment-dots"></i> Speaker Notes</span>
+            <button id="closeNotesBtn" style="background:none; border:none; color:var(--text-muted); cursor:pointer;"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="notes-content" id="notesContent">
+            Loading speaker notes...
+        </div>
+    </aside>
+
+    <!-- Bottom Controls Dock -->
+    <footer class="controls-dock">
+        <button class="nav-btn" id="prevBtn" title="Previous Slide (←)"><i class="fas fa-arrow-left"></i> Prev</button>
+        
+        <div class="slide-counter">
+            <span id="currentSlideNum">1</span> / <span id="totalSlidesNum">13</span>
+        </div>
+
+        <select class="slide-select" id="slideSelect" aria-label="Jump to slide">
+            <option value="0">1. Title Slide</option>
+            <option value="1">2. Problem Statement</option>
+            <option value="2">3. The Solution</option>
+            <option value="3">4. User Personas</option>
+            <option value="4">5. Core Features</option>
+            <option value="5">6. Technology Stack</option>
+            <option value="6">7. System Architecture</option>
+            <option value="7">8. Security Engineering</option>
+            <option value="8">9. Automated Testing (26/26)</option>
+            <option value="9">10. Competitive Analysis</option>
+            <option value="10">11. Future Scope</option>
+            <option value="11">12. Viva Defense Q&A</option>
+            <option value="12">13. Conclusion & Demo</option>
+        </select>
+
+        <button class="nav-btn" id="nextBtn" title="Next Slide (→)">Next <i class="fas fa-arrow-right"></i></button>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.slide');
+            const totalSlides = slides.length;
+            let currentIndex = 0;
+
+            const progressBar = document.getElementById('progressBar');
+            const currentSlideNum = document.getElementById('currentSlideNum');
+            const totalSlidesNum = document.getElementById('totalSlidesNum');
+            const slideSelect = document.getElementById('slideSelect');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const notesBtn = document.getElementById('notesBtn');
+            const notesDrawer = document.getElementById('notesDrawer');
+            const notesContent = document.getElementById('notesContent');
+            const closeNotesBtn = document.getElementById('closeNotesBtn');
+            const themeBtn = document.getElementById('themeBtn');
+            const fsBtn = document.getElementById('fsBtn');
+            const printBtn = document.getElementById('printBtn');
+
+            totalSlidesNum.textContent = totalSlides;
+
+            function updateSlide(index) {
+                if (index < 0) index = 0;
+                if (index >= totalSlides) index = totalSlides - 1;
+                currentIndex = index;
+
+                slides.forEach((s, i) => {
+                    s.classList.toggle('active', i === currentIndex);
+                });
+
+                // Update counter and select
+                currentSlideNum.textContent = currentIndex + 1;
+                slideSelect.value = currentIndex;
+
+                // Update progress
+                const progress = ((currentIndex + 1) / totalSlides) * 100;
+                progressBar.style.width = progress + '%';
+
+                // Update speaker notes
+                const currentSlide = slides[currentIndex];
+                const notes = currentSlide.getAttribute('data-notes') || 'No notes for this slide.';
+                notesContent.textContent = notes;
+            }
+
+            function nextSlide() {
+                if (currentIndex < totalSlides - 1) updateSlide(currentIndex + 1);
+            }
+
+            function prevSlide() {
+                if (currentIndex > 0) updateSlide(currentIndex - 1);
+            }
+
+            prevBtn.addEventListener('click', prevSlide);
+            nextBtn.addEventListener('click', nextSlide);
+
+            slideSelect.addEventListener('change', function() {
+                updateSlide(parseInt(this.value, 10));
+            });
+
+            // Speaker notes toggle
+            function toggleNotes() {
+                notesDrawer.classList.toggle('open');
+            }
+            notesBtn.addEventListener('click', toggleNotes);
+            closeNotesBtn.addEventListener('click', toggleNotes);
+
+            // Theme toggle
+            themeBtn.addEventListener('click', function() {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                if (currentTheme === 'light') {
+                    document.documentElement.removeAttribute('data-theme');
+                    themeBtn.innerHTML = '<i class="fas fa-moon"></i>';
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                    themeBtn.innerHTML = '<i class="fas fa-sun"></i>';
+                }
+            });
+
+            // Fullscreen toggle
+            fsBtn.addEventListener('click', function() {
+                if (!document.fullscreenElement) {
+                    document.documentElement.requestFullscreen().catch(err => {});
+                    fsBtn.innerHTML = '<i class="fas fa-compress"></i>';
+                } else {
+                    document.exitFullscreen().catch(err => {});
+                    fsBtn.innerHTML = '<i class="fas fa-expand"></i>';
+                }
+            });
+
+            // Print button
+            printBtn.addEventListener('click', function() {
+                window.print();
+            });
+
+            // Keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+                    nextSlide();
+                } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                    prevSlide();
+                } else if (e.key === 'Home') {
+                    updateSlide(0);
+                } else if (e.key === 'End') {
+                    updateSlide(totalSlides - 1);
+                } else if (e.key.toLowerCase() === 'n') {
+                    toggleNotes();
+                } else if (e.key.toLowerCase() === 'f') {
+                    fsBtn.click();
+                } else if (e.key.toLowerCase() === 'd') {
+                    themeBtn.click();
+                } else if (e.key.toLowerCase() === 'p') {
+                    window.print();
+                }
+            });
+
+            // Touch Swipe for Mobile
+            let touchStartX = 0;
+            let touchEndX = 0;
+            document.addEventListener('touchstart', function(e) {
+                touchStartX = e.changedTouches[0].screenX;
+            }, false);
+            document.addEventListener('touchend', function(e) {
+                touchEndX = e.changedTouches[0].screenX;
+                if (touchStartX - touchEndX > 50) {
+                    nextSlide();
+                } else if (touchEndX - touchStartX > 50) {
+                    prevSlide();
+                }
+            }, false);
+
+            // Initialize first slide
+            updateSlide(0);
+        });
+    </script>
+</body>
+</html>
