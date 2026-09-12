@@ -279,8 +279,9 @@
     <div class="districts-filter-bar fade-in-scroll">
         <div class="districts-search-row">
             <div class="districts-search-input-wrap">
-                <i class="fas fa-search"></i>
-                <input type="text" id="districtSearchInput" class="districts-search-input" placeholder="Search by district or supplier name (e.g. Chennai, Coimbatore, Madurai, Salem)...">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="districtSearchInput" class="districts-search-input" placeholder="Search by district or supplier name (e.g. Chennai, Coimbatore, Madurai, Salem)..." autocomplete="off">
+                <button type="button" id="districtSearchClear" class="district-search-clear" aria-label="Clear search" title="Clear search"><i class="fas fa-times-circle"></i></button>
             </div>
             <div class="districts-quick-chips">
                 <button type="button" class="district-chip-btn active" data-filter="all">All Districts</button>
@@ -625,12 +626,16 @@
 
         // ---- District Search & Quick Filter ----
         var searchInput = document.getElementById('districtSearchInput');
+        var searchClear = document.getElementById('districtSearchClear');
         var quickChips = document.querySelectorAll('.district-chip-btn');
         var wholesalerCards = document.querySelectorAll('.wholesaler-card');
         var districtTiles = document.querySelectorAll('.district-tile');
 
         function filterDistricts() {
             var query = searchInput ? searchInput.value.toLowerCase().trim() : '';
+            if (searchClear) {
+                searchClear.style.display = query ? 'inline-flex' : 'none';
+            }
             var activeChip = document.querySelector('.district-chip-btn.active');
             var chipFilter = activeChip ? activeChip.getAttribute('data-filter') : 'all';
 
@@ -662,6 +667,17 @@
 
         if (searchInput) {
             searchInput.addEventListener('input', filterDistricts);
+        }
+
+        if (searchClear) {
+            searchClear.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (searchInput) {
+                    searchInput.value = '';
+                    searchInput.focus();
+                }
+                filterDistricts();
+            });
         }
 
         quickChips.forEach(function(chip) {
