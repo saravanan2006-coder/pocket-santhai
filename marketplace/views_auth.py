@@ -7,9 +7,10 @@ from django.contrib import messages
 from django.core.mail import send_mail
 from django.conf import settings
 from django.utils import timezone
+from django.db.models import Count
 from django_ratelimit.decorators import ratelimit
 from .forms import UserRegistrationForm
-from .models import EmailVerificationToken, CustomUser, SellerProfile, TN_DISTRICTS
+from .models import EmailVerificationToken, CustomUser, SellerProfile, StockItem, TN_DISTRICTS
 
 def is_dev_mode():
     return settings.DEBUG
@@ -200,7 +201,45 @@ def resend_verification(request):
     return redirect('login' if not request.user.is_authenticated else 'home')
 
 def home(request):
-    return render(request, 'marketplace/home.html')
+    wholesalers = (
+        SellerProfile.objects.select_related('user')
+        .annotate(items_count=Count('user__stock_items'))
+        .filter(business_name__gt='')
+        .order_by('district', 'business_name')
+    )
+
+    wholesalers_by_district = {}
+    for w in wholesalers:
+        d = w.district or 'Other'
+        if d not in wholesalers_by_district:
+            wholesalers_by_district[d] = []
+        wholesalers_by_district[d].append(w)
+
+    district_data = []
+    for d in TN_DISTRICTS:
+        w_list = wholesalers_by_district.get(d, [])
+        total_items = sum(w.items_count for w in w_list)
+        district_data.append({
+            'name': d,
+            'wholesalers_count': len(w_list),
+            'items_count': total_items,
+            'wholesalers': w_list,
+        })
+
+    total_districts = len(TN_DISTRICTS)
+    total_wholesalers = wholesalers.count()
+    total_products = StockItem.objects.count()
+
+    context = {
+        'districts': TN_DISTRICTS,
+        'district_data': district_data,
+        'wholesalers': wholesalers,
+        'wholesalers_by_district': wholesalers_by_district,
+        'total_districts': total_districts,
+        'total_wholesalers': total_wholesalers,
+        'total_products': total_products,
+    }
+    return render(request, 'marketplace/home.html', context)
 
 def privacy_policy(request):
     return render(request, 'pages/privacy_policy.html')

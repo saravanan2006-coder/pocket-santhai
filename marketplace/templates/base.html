@@ -55,6 +55,9 @@
         <div class="navbar-right" id="navbarRight">
             {% if user.is_authenticated %}
                 <a href="{% url 'home' %}" class="btn-login" style="background:transparent; color:var(--brown); box-shadow:none;"><i class="fas fa-home"></i> Home</a>
+                <a href="{% url 'home' %}#districts" class="btn-login" style="background:transparent; color:var(--brown); box-shadow:none;"><i class="fas fa-map-marked-alt"></i> Wholesalers</a>
+                <a href="{% url 'home' %}#about" class="btn-login" style="background:transparent; color:var(--brown); box-shadow:none;"><i class="fas fa-info-circle"></i> About</a>
+                <a href="{% url 'home' %}#faq" class="btn-login" style="background:transparent; color:var(--brown); box-shadow:none;"><i class="fas fa-question-circle"></i> FAQ</a>
                 {% if user.role == 'seller' or user.is_staff or user.is_superuser %}
                     <a href="{% url 'seller_dashboard' %}" class="btn-login"><i class="fas fa-boxes"></i> My Stock</a>
                 {% endif %}
@@ -81,6 +84,9 @@
                     </div>
                 </div>
             {% else %}
+                <a href="{% url 'home' %}#districts" class="btn-login" style="background:transparent; color:var(--brown); box-shadow:none;"><i class="fas fa-map-marked-alt"></i> Wholesalers</a>
+                <a href="{% url 'home' %}#about" class="btn-login" style="background:transparent; color:var(--brown); box-shadow:none;"><i class="fas fa-info-circle"></i> About</a>
+                <a href="{% url 'home' %}#faq" class="btn-login" style="background:transparent; color:var(--brown); box-shadow:none;"><i class="fas fa-question-circle"></i> FAQ</a>
                 <a href="{% url 'search' %}" class="btn-login" style="background:transparent; color:var(--brown); box-shadow:none;"><i class="fas fa-search"></i> Search</a>
                 <div class="nav-auth-links">
                     <a href="{% url 'login' %}" class="btn-login">Login</a>
@@ -101,12 +107,20 @@
     {% block content %}{% endblock %}
 
     <footer class="footer">
-        <div class="footer-links">
+        <div class="footer-links" style="margin-bottom: 0.75rem;">
+            <a href="{% url 'home' %}#districts">Wholesalers by District</a>
+            <span class="footer-sep">•</span>
+            <a href="{% url 'home' %}#about">About WholeSync</a>
+            <span class="footer-sep">•</span>
+            <a href="{% url 'home' %}#faq">FAQ</a>
+            <span class="footer-sep">•</span>
+            <a href="{% url 'search' %}">Search Products</a>
+            <span class="footer-sep">•</span>
             <a href="{% url 'terms_and_conditions' %}">Terms and Conditions</a>
             <span class="footer-sep">•</span>
             <a href="{% url 'privacy_policy' %}">Privacy Policy</a>
         </div>
-        <p>&copy; 2026 WholeSync.com. All rights reserved.</p>
+        <p>&copy; 2026 WholeSync.com. All rights reserved. Tamil Nadu's B2B Wholesale Marketplace.</p>
     </footer>
 
     <script>

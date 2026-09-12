@@ -88,6 +88,14 @@ Wholesalers upload their stock, manage their business profiles, and become disco
 | **Smart Counter** | Live count of selected items |
 | **From Bookmarks** | Compare directly from saved items page |
 
+### 🌐 Landing Page & Regional Directory
+| Feature | Description |
+|---------|-------------|
+| **Wholesalers by District** | Live regional directory with real-time district search and filter chips |
+| **All 38 Districts Grid** | One-click directory tiles routing to hyper-local supplier catalogs |
+| **About WholeSync** | Detailed narrative, mission, and 4-pillar value metrics banner |
+| **Interactive FAQ** | Category-filtered accordion answering buyer, seller, and security questions |
+
 ### 🎨 Design & Branding
 | Element | Detail |
 |---------|--------|

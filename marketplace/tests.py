@@ -150,6 +150,19 @@ class AuthViewTests(TestCase):
             self.assertContains(res, reverse('privacy_policy'), msg_prefix=f"Missing privacy policy link on {url}")
             self.assertContains(res, reverse('terms_and_conditions'), msg_prefix=f"Missing terms link on {url}")
 
+    def test_home_view_sections(self):
+        response = self.client.get(reverse('home'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'marketplace/home.html')
+        # Check that Wholesalers by District, About, and FAQ sections are present
+        self.assertContains(response, 'Wholesalers by District')
+        self.assertContains(response, 'About WholeSync')
+        self.assertContains(response, 'Frequently Asked Questions')
+        self.assertIn('districts', response.context)
+        self.assertIn('district_data', response.context)
+        self.assertIn('wholesalers', response.context)
+        self.assertEqual(len(response.context['districts']), 38)
+
 
     def test_login_blocked_if_unverified(self):
         user = CustomUser.objects.create_user(

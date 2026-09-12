@@ -265,4 +265,413 @@
     </div>
 </section>
 
+<!-- ============================================ -->
+<!-- 1. WHOLESALERS BY DISTRICT SECTION           -->
+<!-- ============================================ -->
+<section class="section-container" id="districts">
+    <div class="section-header-block fade-in-scroll">
+        <span class="section-badge"><i class="fas fa-map-marked-alt"></i> Regional Directory</span>
+        <h2 class="section-title">Wholesalers by District</h2>
+        <p class="section-subtitle">Discover active wholesale distributors across Tamil Nadu's 38 administrative districts. Filter suppliers or browse any district's wholesale directory with one click.</p>
+    </div>
+
+    <!-- Filter & Search Toolbar -->
+    <div class="districts-filter-bar fade-in-scroll">
+        <div class="districts-search-row">
+            <div class="districts-search-input-wrap">
+                <i class="fas fa-search"></i>
+                <input type="text" id="districtSearchInput" class="districts-search-input" placeholder="Search by district or supplier name (e.g. Chennai, Coimbatore, Madurai, Salem)...">
+            </div>
+            <div class="districts-quick-chips">
+                <button type="button" class="district-chip-btn active" data-filter="all">All Districts</button>
+                <button type="button" class="district-chip-btn" data-filter="Chennai">Chennai</button>
+                <button type="button" class="district-chip-btn" data-filter="Coimbatore">Coimbatore</button>
+                <button type="button" class="district-chip-btn" data-filter="Madurai">Madurai</button>
+                <button type="button" class="district-chip-btn" data-filter="Salem">Salem</button>
+                <button type="button" class="district-chip-btn" data-filter="Erode">Erode</button>
+                <button type="button" class="district-chip-btn" data-filter="Tiruchirappalli">Trichy</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Active Wholesalers Cards -->
+    {% if wholesalers %}
+    <div class="wholesalers-grid" id="wholesalersGrid">
+        {% for w in wholesalers %}
+        <div class="wholesaler-card fade-in-scroll" data-district="{{ w.district|lower }}" data-name="{{ w.business_name|lower }}">
+            <div>
+                <div class="wholesaler-card-header">
+                    <div>
+                        <h3 class="wholesaler-name">{{ w.business_name }}</h3>
+                        <span class="wholesaler-location"><i class="fas fa-map-marker-alt"></i> {{ w.district }}</span>
+                    </div>
+                    <span class="badge-verified"><i class="fas fa-check-circle"></i> Verified Wholesaler</span>
+                </div>
+                <p class="wholesaler-address">{{ w.address|default:"Tamil Nadu, India" }}</p>
+                <div class="wholesaler-meta-row">
+                    <span class="wholesaler-stock-count"><i class="fas fa-boxes" style="color:var(--mustard);"></i> {{ w.items_count }} Products Listed</span>
+                    <span style="color:var(--text-muted);"><i class="fas fa-user-tie"></i> Wholesaler</span>
+                </div>
+            </div>
+            <div class="wholesaler-card-actions">
+                {% if w.phone %}
+                <a href="tel:{{ w.phone }}" class="btn-wholesaler-call" title="Call Wholesaler"><i class="fas fa-phone-alt"></i> Call {{ w.phone }}</a>
+                {% endif %}
+                <a href="{% url 'search' %}?district={{ w.district }}" class="btn-wholesaler-catalog" title="Explore Products">Catalog <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--radius);padding:2.5rem;text-align:center;margin-bottom:2.5rem;">
+        <i class="fas fa-store-slash" style="font-size:2.5rem;color:var(--mustard);margin-bottom:1rem;display:inline-block;"></i>
+        <h4 style="color:var(--charcoal);margin-bottom:0.5rem;">No wholesalers registered yet</h4>
+        <p style="color:var(--text-muted);margin-bottom:1.5rem;">Be the first wholesale distributor to list your inventory in your district.</p>
+        <a href="{% url 'register' %}" class="btn-card btn-brown" style="text-decoration:none;display:inline-block;padding:0.75rem 1.5rem;border-radius:var(--radius-sm);font-weight:600;">Register as Wholesaler</a>
+    </div>
+    {% endif %}
+
+    <!-- 38 Districts Directory Grid -->
+    <div class="districts-grid-title fade-in-scroll">
+        <span><i class="fas fa-city" style="color:var(--terracotta);"></i> Browse by Tamil Nadu District</span>
+        <span style="font-size:0.85rem;color:var(--text-muted);font-weight:500;">Click any district to explore suppliers</span>
+    </div>
+    <div class="districts-grid fade-in-scroll" id="allDistrictsGrid">
+        {% for d in district_data %}
+        <a href="{% url 'search' %}?district={{ d.name }}" class="district-tile {% if d.wholesalers_count > 0 %}has-sellers{% endif %}" data-district-name="{{ d.name|lower }}">
+            <span><i class="fas fa-map-pin" style="color:var(--terracotta);margin-right:0.4rem;"></i> {{ d.name }}</span>
+            <span class="district-tile-badge">
+                {% if d.wholesalers_count > 0 %}
+                    {{ d.wholesalers_count }} seller{{ d.wholesalers_count|pluralize }}
+                {% else %}
+                    View
+                {% endif %}
+            </span>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- ============================================ -->
+<!-- 2. ABOUT SECTION                             -->
+<!-- ============================================ -->
+<section class="section-container" id="about">
+    <div class="section-header-block fade-in-scroll">
+        <span class="section-badge"><i class="fas fa-info-circle"></i> About WholeSync</span>
+        <h2 class="section-title">Empowering Tamil Nadu's B2B Wholesale Commerce</h2>
+        <p class="section-subtitle">We bridge the geographic gap between bulk wholesalers and retail merchants across every taluk and district with complete price transparency.</p>
+    </div>
+
+    <div class="about-split fade-in-scroll">
+        <div class="about-story-card">
+            <div>
+                <h3>Bridging Traditional Trade with Digital Ease</h3>
+                <p>Traditional procurement in Tamil Nadu has long forced rural and semi-urban shop owners to travel hours to crowded wholesale hubs like George Town in Chennai, South Gate in Madurai, or Erode Market just to check availability and negotiate pricing.</p>
+                <div class="about-story-highlight">
+                    "WholeSync removes the middlemen and paywalls. We serve as a pure, transparent directory with unfiltered telephone contacts."
+                </div>
+                <p>Wholesalers gain instant digital visibility across neighboring districts, while retailers can search commodities, compare rates side-by-side, and dial verified suppliers directly without transactional escrow or platform fees.</p>
+            </div>
+            <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1.5rem;">
+                <a href="{% url 'search' %}" class="btn-card btn-terracotta" style="text-decoration:none;padding:0.7rem 1.4rem;border-radius:var(--radius-sm);font-weight:600;display:inline-flex;align-items:center;gap:0.4rem;">
+                    <i class="fas fa-search"></i> Search Directory
+                </a>
+                <a href="{% url 'register' %}" class="btn-card btn-brown" style="text-decoration:none;padding:0.7rem 1.4rem;border-radius:var(--radius-sm);font-weight:600;display:inline-flex;align-items:center;gap:0.4rem;">
+                    <i class="fas fa-user-plus"></i> Join as Merchant
+                </a>
+            </div>
+        </div>
+
+        <div class="about-pillars-stack">
+            <div class="about-pillar-card">
+                <div class="about-pillar-icon terracotta">
+                    <i class="fas fa-map-marked-alt"></i>
+                </div>
+                <div class="about-pillar-content">
+                    <h4>Hyper-Local District Filtering</h4>
+                    <p>Unlike nationwide aggregators, every product on WholeSync is mapped directly to one of Tamil Nadu's 38 administrative districts for efficient regional logistics.</p>
+                </div>
+            </div>
+
+            <div class="about-pillar-card">
+                <div class="about-pillar-icon mustard">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <div class="about-pillar-content">
+                    <h4>Zero Commission &amp; Direct Negotiations</h4>
+                    <p>We do not hold transactions in escrow or take platform percentage cuts. Retailers and wholesalers negotiate volume discounts directly via telephone or in person.</p>
+                </div>
+            </div>
+
+            <div class="about-pillar-card">
+                <div class="about-pillar-icon brown">
+                    <i class="fas fa-file-excel"></i>
+                </div>
+                <div class="about-pillar-content">
+                    <h4>Instant Excel Bulk Cataloging</h4>
+                    <p>Wholesalers do not need to type items manually. Upload full spreadsheets with hundreds of rows in under 10 seconds via our automated openpyxl engine.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Banner -->
+    <div class="stats-banner fade-in-scroll">
+        <div class="stat-item">
+            <h3>{{ total_districts|default:"38" }}</h3>
+            <p>Districts Covered</p>
+        </div>
+        <div class="stat-item">
+            <h3>0%</h3>
+            <p>Middleman Commission</p>
+        </div>
+        <div class="stat-item">
+            <h3>100%</h3>
+            <p>Direct Contact Access</p>
+        </div>
+        <div class="stat-item">
+            <h3>&lt; 10s</h3>
+            <p>Excel Bulk Upload Speed</p>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================ -->
+<!-- 3. FAQ SECTION                               -->
+<!-- ============================================ -->
+<section class="section-container" id="faq">
+    <div class="section-header-block fade-in-scroll">
+        <span class="section-badge"><i class="fas fa-question-circle"></i> Got Questions?</span>
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-subtitle">Everything you need to know about navigating, buying, and selling bulk products on WholeSync.</p>
+    </div>
+
+    <!-- FAQ Category Filters -->
+    <div class="faq-filter-nav fade-in-scroll">
+        <button type="button" class="faq-filter-btn active" data-faq-filter="all">All Questions</button>
+        <button type="button" class="faq-filter-btn" data-faq-filter="retailer">For Retailers</button>
+        <button type="button" class="faq-filter-btn" data-faq-filter="wholesaler">For Wholesalers</button>
+        <button type="button" class="faq-filter-btn" data-faq-filter="security">Security &amp; Account</button>
+    </div>
+
+    <div class="faq-accordion fade-in-scroll" id="faqAccordion">
+        <!-- Q1 -->
+        <div class="faq-card" data-faq-category="retailer">
+            <button type="button" class="faq-header-btn" onclick="toggleFaq(this)">
+                <span><span class="faq-category-tag">Retailers</span>What is WholeSync and how does it work?</span>
+                <i class="fas fa-chevron-down faq-icon-chevron"></i>
+            </button>
+            <div class="faq-body-content">
+                <div class="faq-body-inner">
+                    WholeSync is a specialized B2B wholesale marketplace directory for Tamil Nadu. Wholesalers list their bulk inventory (such as rice, spices, groceries, hardware, and textiles), and retail shop owners search and filter by district and category to find suppliers and obtain direct contact numbers.
+                </div>
+            </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="faq-card" data-faq-category="retailer">
+            <button type="button" class="faq-header-btn" onclick="toggleFaq(this)">
+                <span><span class="faq-category-tag">Retailers</span>Does WholeSync charge any transaction fees or commission?</span>
+                <i class="fas fa-chevron-down faq-icon-chevron"></i>
+            </button>
+            <div class="faq-body-content">
+                <div class="faq-body-inner">
+                    No. WholeSync is completely free of transaction commissions. We do not act as an escrow intermediary or take cuts from supplier deals. Buyers connect directly with sellers via phone call or WhatsApp to negotiate prices and settle delivery independently.
+                </div>
+            </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="faq-card" data-faq-category="wholesaler">
+            <button type="button" class="faq-header-btn" onclick="toggleFaq(this)">
+                <span><span class="faq-category-tag">Wholesalers</span>How do Wholesalers list and manage their product inventory?</span>
+                <i class="fas fa-chevron-down faq-icon-chevron"></i>
+            </button>
+            <div class="faq-body-content">
+                <div class="faq-body-inner">
+                    Registered and verified wholesalers have access to a dedicated Seller Dashboard where they can add products individually, edit existing prices and quantities, delete out-of-stock items, or use the Bulk Upload tool to import an entire inventory sheet at once.
+                </div>
+            </div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="faq-card" data-faq-category="wholesaler">
+            <button type="button" class="faq-header-btn" onclick="toggleFaq(this)">
+                <span><span class="faq-category-tag">Wholesalers</span>How does the Excel Bulk Upload feature work?</span>
+                <i class="fas fa-chevron-down faq-icon-chevron"></i>
+            </button>
+            <div class="faq-body-content">
+                <div class="faq-body-inner">
+                    Wholesalers upload a standard <code>.xlsx</code> file containing columns for Item Name, Category, Price, Unit (e.g. kg, piece), Quantity, and Description. WholeSync parses the file directly in memory using the <code>openpyxl</code> library and batch-inserts the records into the database within seconds.
+                </div>
+            </div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="faq-card" data-faq-category="retailer">
+            <button type="button" class="faq-header-btn" onclick="toggleFaq(this)">
+                <span><span class="faq-category-tag">Retailers</span>Can I filter wholesalers and products by my specific district?</span>
+                <i class="fas fa-chevron-down faq-icon-chevron"></i>
+            </button>
+            <div class="faq-body-content">
+                <div class="faq-body-inner">
+                    Yes! You can filter products across all 38 districts of Tamil Nadu from the Search page or click directly on any district card in the "Wholesalers by District" section on the homepage to see suppliers located near you.
+                </div>
+            </div>
+        </div>
+
+        <!-- Q6 -->
+        <div class="faq-card" data-faq-category="retailer">
+            <button type="button" class="faq-header-btn" onclick="toggleFaq(this)">
+                <span><span class="faq-category-tag">Retailers</span>How does the Product Comparison tool work?</span>
+                <i class="fas fa-chevron-down faq-icon-chevron"></i>
+            </button>
+            <div class="faq-body-content">
+                <div class="faq-body-inner">
+                    Logged-in retailers can select checkboxes on two or more search results or bookmarked products and click 'Compare'. WholeSync renders a side-by-side evaluation table showing unit prices, quantities, supplier names, contact phone numbers, and district locations.
+                </div>
+            </div>
+        </div>
+
+        <!-- Q7 -->
+        <div class="faq-card" data-faq-category="security">
+            <button type="button" class="faq-header-btn" onclick="toggleFaq(this)">
+                <span><span class="faq-category-tag">Security</span>Why is Email Verification required before logging in?</span>
+                <i class="fas fa-chevron-down faq-icon-chevron"></i>
+            </button>
+            <div class="faq-body-content">
+                <div class="faq-body-inner">
+                    To maintain the integrity of our B2B directory and protect buyers from fraudulent postings, spam, and bot accounts, every user must verify their email address via a secure 24-hour token link sent during registration before logging in.
+                </div>
+            </div>
+        </div>
+
+        <!-- Q8 -->
+        <div class="faq-card" data-faq-category="security">
+            <button type="button" class="faq-header-btn" onclick="toggleFaq(this)">
+                <span><span class="faq-category-tag">Security</span>How does WholeSync protect against brute-force login attempts?</span>
+                <i class="fas fa-chevron-down faq-icon-chevron"></i>
+            </button>
+            <div class="faq-body-content">
+                <div class="faq-body-inner">
+                    Authentication and registration endpoints are protected with strict request rate-limiting (via <code>django-ratelimit</code> and Redis caching). Furthermore, all user passwords are encrypted using industry-standard PBKDF2 hashing.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ CTA Banner -->
+    <div class="faq-cta-banner fade-in-scroll">
+        <h4>Ready to expand your B2B wholesale network?</h4>
+        <p>Join wholesale suppliers and retail shopkeepers across all 38 districts of Tamil Nadu today.</p>
+        <div class="faq-cta-buttons">
+            <a href="{% url 'register' %}" class="btn-card btn-brown" style="text-decoration:none;padding:0.75rem 1.75rem;border-radius:var(--radius-sm);font-weight:600;">Create Free Account</a>
+            <a href="{% url 'search' %}" class="btn-card btn-terracotta" style="text-decoration:none;padding:0.75rem 1.75rem;border-radius:var(--radius-sm);font-weight:600;">Search Wholesale Products</a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // ---- FAQ Accordion Toggle ----
+    function toggleFaq(btn) {
+        var card = btn.closest('.faq-card');
+        var content = card.querySelector('.faq-body-content');
+        var isOpen = card.classList.contains('open');
+
+        // Close other open cards
+        document.querySelectorAll('.faq-card.open').forEach(function(openCard) {
+            if (openCard !== card) {
+                openCard.classList.remove('open');
+                openCard.querySelector('.faq-body-content').style.maxHeight = null;
+            }
+        });
+
+        if (isOpen) {
+            card.classList.remove('open');
+            content.style.maxHeight = null;
+        } else {
+            card.classList.add('open');
+            content.style.maxHeight = content.scrollHeight + 'px';
+        }
+    }
+
+    // ---- FAQ Category Filter ----
+    document.addEventListener('DOMContentLoaded', function() {
+        var faqFilterBtns = document.querySelectorAll('[data-faq-filter]');
+        var faqCards = document.querySelectorAll('.faq-card');
+
+        faqFilterBtns.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var filter = this.getAttribute('data-faq-filter');
+                faqFilterBtns.forEach(function(b) { b.classList.remove('active'); });
+                this.classList.add('active');
+
+                faqCards.forEach(function(card) {
+                    var cat = card.getAttribute('data-faq-category');
+                    if (filter === 'all' || cat === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                        card.classList.remove('open');
+                        var body = card.querySelector('.faq-body-content');
+                        if (body) body.style.maxHeight = null;
+                    }
+                });
+            });
+        });
+
+        // ---- District Search & Quick Filter ----
+        var searchInput = document.getElementById('districtSearchInput');
+        var quickChips = document.querySelectorAll('.district-chip-btn');
+        var wholesalerCards = document.querySelectorAll('.wholesaler-card');
+        var districtTiles = document.querySelectorAll('.district-tile');
+
+        function filterDistricts() {
+            var query = searchInput ? searchInput.value.toLowerCase().trim() : '';
+            var activeChip = document.querySelector('.district-chip-btn.active');
+            var chipFilter = activeChip ? activeChip.getAttribute('data-filter') : 'all';
+
+            // Filter wholesaler cards
+            wholesalerCards.forEach(function(card) {
+                var dName = card.getAttribute('data-district') || '';
+                var bName = card.getAttribute('data-name') || '';
+
+                var matchesChip = (chipFilter === 'all' || dName.indexOf(chipFilter.toLowerCase()) !== -1);
+                var matchesQuery = (!query || dName.indexOf(query) !== -1 || bName.indexOf(query) !== -1);
+
+                if (matchesChip && matchesQuery) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Filter district grid tiles
+            districtTiles.forEach(function(tile) {
+                var tileName = tile.getAttribute('data-district-name') || '';
+                if (!query || tileName.indexOf(query) !== -1) {
+                    tile.style.display = '';
+                } else {
+                    tile.style.display = 'none';
+                }
+            });
+        }
+
+        if (searchInput) {
+            searchInput.addEventListener('input', filterDistricts);
+        }
+
+        quickChips.forEach(function(chip) {
+            chip.addEventListener('click', function() {
+                quickChips.forEach(function(c) { c.classList.remove('active'); });
+                this.classList.add('active');
+                if (searchInput) searchInput.value = '';
+                filterDistricts();
+            });
+        });
+    });
+</script>
 {% endblock %}
