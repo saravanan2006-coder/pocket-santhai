@@ -3,7 +3,7 @@ from django.db.models import Q
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
 from django.core.paginator import Paginator
-from .models import StockItem, TN_DISTRICTS, Bookmark
+from .models import StockItem, TN_DISTRICTS, Bookmark, CustomUser
 
 PAGE_SIZE = 20
 
@@ -108,3 +108,21 @@ def compare_view(request):
         messages.warning(request, 'Select at least 2 items to compare.')
         return redirect('search')
     return render(request, 'retailers/compare.html', {'items': items})
+
+@login_required
+@user_passes_test(is_verified_user, login_url='home')
+def seller_location(request, user_id):
+    seller = get_object_or_404(CustomUser, pk=user_id, role='seller')
+    profile = getattr(seller, 'seller_profile', None)
+    if not profile or not profile.has_map_location:
+        messages.warning(request, f'{seller.username} has not shared their shop location yet.')
+        return redirect('search')
+
+    context = {
+        'seller': seller,
+        'profile': profile,
+        'map_lat': profile.latitude,
+        'map_lon': profile.longitude,
+        'openstreetmap_url': f'https://www.openstreetmap.org/?mlat={profile.latitude}&mlon={profile.longitude}#map=15/{profile.latitude}/{profile.longitude}',
+    }
+    return render(request, 'retailers/shop_location.html', context)

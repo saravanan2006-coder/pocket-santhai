@@ -1,0 +1,48 @@
+WholeSync Local Run Guide
+
+ONE-TIME SETUP (run only when creating the project environment initially):
+
+1. Open PowerShell in the project folder:
+   cd "d:\whole-sync\pocket-santhai"
+
+2. Create a virtual environment:
+   python -m venv .venv
+
+3. Activate the virtual environment:
+   .\.venv\Scripts\Activate.ps1
+
+4. Install project dependencies:
+   python -m pip install --upgrade pip
+   python -m pip install -r requirements.txt
+
+5. Apply database migrations:
+   python manage.py migrate
+
+6. Optional: create admin user:
+   python manage.py createsuperuser
+
+NORMAL DAILY RUN (run this every time you start working on the project):
+
+1. Open PowerShell in the project folder:
+   cd "d:\whole-sync\pocket-santhai"
+
+2. Activate the existing virtual environment:
+   .\.venv\Scripts\Activate.ps1
+
+3. Start the development server:
+   python manage.py runserver 0.0.0.0:8000
+
+4. Open in browser:
+   http://localhost:8000
+
+If the environment is already set up, you usually do NOT need to recreate the venv or reinstall packages again.
+
+If a package is missing:
+   python -m pip install -r requirements.txt
+
+If port 8000 is busy:
+   python manage.py runserver 0.0.0.0:8080
+
+Troubleshooting:
+- If Python cannot find dotenv, make sure the virtual environment is activated and dependencies are installed.
+- If the database is not set up, run: python manage.py migrate

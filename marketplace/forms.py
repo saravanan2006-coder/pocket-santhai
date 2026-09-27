@@ -83,9 +83,22 @@ class StockItemForm(forms.ModelForm):
         }
 
 class SellerProfileForm(forms.ModelForm):
+    latitude = forms.DecimalField(
+        required=False,
+        min_value=-90,
+        max_value=90,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'readonly': True, 'id': 'latitude'}),
+    )
+    longitude = forms.DecimalField(
+        required=False,
+        min_value=-180,
+        max_value=180,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'readonly': True, 'id': 'longitude'}),
+    )
+
     class Meta:
         model = SellerProfile
-        fields = ['business_name', 'address', 'district', 'phone', 'email']
+        fields = ['business_name', 'address', 'district', 'phone', 'email', 'latitude', 'longitude']
         widgets = {
             'business_name': forms.TextInput(attrs={'class': 'form-control'}),
             'address': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),

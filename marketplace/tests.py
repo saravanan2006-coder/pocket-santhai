@@ -64,6 +64,56 @@ class ModelAndPropertyTests(TestCase):
         self.assertTrue(token.is_expired)
 
 @override_settings(RATELIMIT_ENABLE=False)
+class ShopLocationFeatureTests(TestCase):
+    def setUp(self):
+        self.seller_user = CustomUser.objects.create_user(
+            username='map_seller',
+            email='map_seller@domain.com',
+            password='Password123!',
+            role='seller',
+            email_verified=True
+        )
+        self.profile = SellerProfile.objects.create(
+            user=self.seller_user,
+            business_name='Map Market Traders',
+            address='12 Bazaar Road, Chennai',
+            district='Chennai',
+            phone='9876543210',
+            email='map_seller@domain.com',
+            latitude=13.0827,
+            longitude=80.2707,
+        )
+        self.item = StockItem.objects.create(
+            seller=self.seller_user,
+            name='Rice',
+            category='Groceries',
+            price=Decimal('40.00'),
+            unit='kg',
+            quantity=100,
+        )
+        self.retailer = CustomUser.objects.create_user(
+            username='retailer_map',
+            email='retailer_map@domain.com',
+            password='Password123!',
+            role='retailer',
+            email_verified=True,
+        )
+
+    def test_search_results_include_location_button_for_seller_coordinates(self):
+        self.client.force_login(self.retailer)
+        response = self.client.get(reverse('search'), {'q': 'Rice'})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'View Shop Location')
+
+    def test_seller_location_page_renders_with_map_coordinates(self):
+        self.client.force_login(self.retailer)
+        response = self.client.get(reverse('seller_location', args=[self.seller_user.pk]))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Map Market Traders')
+        self.assertContains(response, '13.0827')
+        self.assertContains(response, '80.2707')
+
+@override_settings(RATELIMIT_ENABLE=False)
 class AuthViewTests(TestCase):
     def setUp(self):
         self.client = Client()

@@ -93,6 +93,13 @@
                         <i class="fas fa-envelope" style="color:#888;"></i> {{ item.seller.seller_profile.email|default:item.seller.email }}
                     </p>
                     {% endif %}
+                    {% if item.seller.seller_profile and item.seller.seller_profile.has_map_location %}
+                    <p style="margin-top:0.5rem;">
+                        <a href="{% url 'seller_location' item.seller.pk %}" class="btn-card btn-brown" style="text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;padding:0.55rem 0.9rem;font-size:0.8rem;">
+                            <i class="fas fa-location-dot"></i> View Shop Location
+                        </a>
+                    </p>
+                    {% endif %}
                 </div>
                 <div style="text-align:center;display:flex;flex-direction:column;gap:0.5rem;">
                     {% if user.is_authenticated %}

@@ -14,7 +14,14 @@
                 {% if field.name != 'terms_accepted' %}
                 <div class="form-group">
                     <label>{{ field.label }}</label>
+                    {% if field.field.widget.input_type == 'password' %}
+                    <div style="position:relative;">
+                        {{ field }}
+                        <button type="button" class="password-toggle" data-target="{{ field.id_for_label }}" aria-label="Show password" style="position:absolute; right:0.75rem; top:50%; transform:translateY(-50%); border:none; background:transparent; color:var(--brown); cursor:pointer; font-size:0.9rem;">Show</button>
+                    </div>
+                    {% else %}
                     {{ field }}
+                    {% endif %}
                     {% if field.help_text %}
                     <small style="display:block;margin-top:0.25rem;color:#999;font-size:0.8rem;">{{ field.help_text }}</small>
                     {% endif %}
@@ -106,6 +113,17 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+    document.querySelectorAll('.password-toggle').forEach(function (button) {
+        button.addEventListener('click', function () {
+            const target = document.getElementById(button.dataset.target);
+            if (!target) return;
+            const isPassword = target.type === 'password';
+            target.type = isPassword ? 'text' : 'password';
+            button.textContent = isPassword ? 'Hide' : 'Show';
+            button.setAttribute('aria-label', isPassword ? 'Hide password' : 'Show password');
+        });
+    });
 
     // Initial check
     updateWholesalerNotice();

@@ -48,6 +48,12 @@ class SellerProfile(models.Model):
     district = models.CharField(max_length=50, choices=[(d, d) for d in TN_DISTRICTS])
     phone = models.CharField(max_length=15)
     email = models.EmailField(blank=True)
+    latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
+    longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
+
+    @property
+    def has_map_location(self):
+        return self.latitude is not None and self.longitude is not None
 
     def __str__(self):
         return self.business_name

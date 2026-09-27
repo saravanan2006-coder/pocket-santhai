@@ -4,7 +4,7 @@ from django.contrib.auth.views import LogoutView
 from django.http import JsonResponse
 from .views_auth import user_login, user_register, home, verify_email, resend_verification, privacy_policy, terms_and_conditions
 from .views_sellers import seller_dashboard, add_stock, edit_stock, delete_stock, seller_profile, bulk_upload_stock
-from .views_retailers import search, toggle_bookmark, bookmarks_view, compare_view
+from .views_retailers import search, toggle_bookmark, bookmarks_view, compare_view, seller_location
 
 def health_check(request):
     return JsonResponse({'status': 'ok', 'service': 'wholesync'}, status=200)
@@ -27,6 +27,7 @@ urlpatterns = [
     path('bookmark/<int:item_id>/', toggle_bookmark, name='toggle_bookmark'),
     path('bookmarks/', bookmarks_view, name='bookmarks'),
     path('compare/', compare_view, name='compare'),
+    path('seller/location/<int:user_id>/', seller_location, name='seller_location'),
     path('seller/dashboard/', seller_dashboard, name='seller_dashboard'),
     path('seller/add-stock/', add_stock, name='add_stock'),
     path('seller/bulk-upload/', bulk_upload_stock, name='bulk_upload_stock'),
