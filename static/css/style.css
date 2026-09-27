@@ -398,8 +398,9 @@ h4 { font-size: clamp(1rem, 1.5vw, 1.2rem); }
   order: 1;
 }
 
+.navbar-brand .brand-name,
 .navbar-brand .tamil-name {
-  font-family: 'Mukta Malar', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 1.5rem;
   font-weight: 800;
   color: var(--terracotta);
@@ -1401,6 +1402,7 @@ tr:hover {
     order: 1;
   }
 
+  .navbar-brand .brand-name,
   .navbar-brand .tamil-name {
     font-size: 1.35rem;
   }
