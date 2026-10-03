@@ -1,0 +1,105 @@
+name: CI
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    env:
+      # The production guards in settings.py only fire when DEBUG is off, so CI
+      # exercises the same code path a deploy does.
+      DJANGO_DEBUG: "False"
+      DJANGO_SECRET_KEY: ci-secret-key-not-used-for-signing-real-data
+      DJANGO_ALLOWED_HOSTS: ci.example.com
+      CSRF_TRUSTED_ORIGINS: https://ci.example.com
+      VERIFICATION_DOMAIN: ci.example.com
+      DATABASE_ENGINE: django.db.backends.sqlite3
+      DATABASE_NAME: ci.sqlite3
+      RATELIMIT_ENABLE: "False"
+      EMAIL_BACKEND: django.core.mail.backends.locmem.EmailBackend
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: .python-version
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Django system check
+        run: python manage.py check
+
+      - name: Check for missing migrations
+        run: python manage.py makemigrations --check --dry-run
+
+      - name: Run tests
+        run: python manage.py test --verbosity 2
+
+  collectstatic:
+    # Manifest storage raises on any missing {% static %} reference, so a clean
+    # collect is what proves the asset pipeline is not broken.
+    runs-on: ubuntu-latest
+
+    env:
+      DJANGO_DEBUG: "False"
+      DJANGO_SECRET_KEY: ci-secret-key-not-used-for-signing-real-data
+      DJANGO_ALLOWED_HOSTS: ci.example.com
+      CSRF_TRUSTED_ORIGINS: https://ci.example.com
+      VERIFICATION_DOMAIN: ci.example.com
+      DATABASE_ENGINE: django.db.backends.sqlite3
+      DATABASE_NAME: ci.sqlite3
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: .python-version
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Collect static files
+        run: python manage.py collectstatic --noinput --clear
+
+  deploy-config:
+    # render.yaml is not exercised by the app, so validate it separately.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate render.yaml parses
+        run: |
+          python -m pip install --upgrade pip pyyaml
+          python -c "
+          import yaml, sys
+          cfg = yaml.safe_load(open('render.yaml'))
+          web = next(s for s in cfg['services'] if s['type'] == 'web')
+          assert web.get('healthCheckPath'), 'healthCheckPath missing'
+          assert web.get('preDeployCommand'), 'preDeployCommand missing'
+          keys = {v['key'] for v in web['envVars']}
+          for required in ('DJANGO_SECRET_KEY', 'VERIFICATION_DOMAIN',
+                           'EMAIL_BACKEND_API', 'ANYMAIL_SENDINBLUE_API_KEY'):
+              assert required in keys, f'{required} missing from render.yaml'
+          print('render.yaml OK')
+          "
