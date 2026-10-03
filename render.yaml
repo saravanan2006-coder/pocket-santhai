@@ -11,16 +11,28 @@ services:
     env: python
     region: oregon
     plan: free
-    buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput
+    buildCommand: pip install --upgrade pip && pip install -r requirements.txt && python manage.py collectstatic --noinput
+    # Migrations run before the new release serves traffic, not on every boot.
+    preDeployCommand: python manage.py migrate --noinput
     startCommand: bash start.sh
+    healthCheckPath: /health/
+    autoDeploy: false
     envVars:
+      # Matches runtime.txt and .python-version. Render otherwise uses its own
+      # default interpreter, which drifts away from what CI tests.
+      - key: PYTHON_VERSION
+        value: "3.11.11"
       - key: DJANGO_SECRET_KEY
         generateValue: true
       - key: DJANGO_DEBUG
         value: "False"
+      # Leave `sync: false` so Render prompts for the real domain. A wildcard is
+      # rejected at startup by settings.IS_PRODUCTION guards.
       - key: DJANGO_ALLOWED_HOSTS
         sync: false
       - key: CSRF_TRUSTED_ORIGINS
+        sync: false
+      - key: VERIFICATION_DOMAIN
         sync: false
       - key: DATABASE_ENGINE
         value: django.db.backends.postgresql
@@ -49,6 +61,25 @@ services:
           type: redis
           name: pocket-santhai-redis
           property: connectionString
+      # Render blocks outbound SMTP on 25/465/587, so deliver over the Brevo
+      # REST API instead. Both values must be set or the app refuses to boot.
+      - key: EMAIL_BACKEND_API
+        value: "True"
+      - key: ANYMAIL_SENDINBLUE_API_KEY
+        sync: false
+      - key: DEFAULT_FROM_EMAIL
+        sync: false
+      # Superuser seeding is opt-in. Set DJANGO_SUPERUSER_PASSWORD to a strong
+      # value to have start.sh create the account, or leave it unset (or empty)
+      # and create the admin with `manage.py createsuperuser` over the shell.
+      - key: DJANGO_SUPERUSER_USERNAME
+        sync: false
+      - key: DJANGO_SUPERUSER_EMAIL
+        sync: false
+      - key: DJANGO_SUPERUSER_PASSWORD
+        sync: false
+      - key: SENTRY_DSN
+        sync: false
 
   - type: redis
     name: pocket-santhai-redis
